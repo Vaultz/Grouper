@@ -3,8 +3,8 @@
 # Table name: users
 #
 #  id                     :integer          not null, primary key
-#  prenom                 :string           not null
-#  nom                    :string           not null
+#  firstname              :string           not null
+#  lastname               :string           not null
 #  email                  :string           default(""), not null
 #  phone_number           :string
 #  status                 :integer          default(0), not null
@@ -23,6 +23,10 @@
 #
 
 class User < ApplicationRecord
+
+  has_many :works
+  has_many :projects, through: :works
+  
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,

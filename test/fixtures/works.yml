@@ -1,0 +1,23 @@
+# == Schema Information
+#
+# Table name: works
+#
+#  id             :integer          not null, primary key
+#  user_id        :integer
+#  project_id     :integer
+#  project_leader :integer
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  id_user: 1
+  id_project: 1
+  project_leader: 1
+
+two:
+  id_user: 1
+  id_project: 1
+  project_leader: 1
