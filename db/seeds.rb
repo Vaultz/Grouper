@@ -11,5 +11,5 @@ def encrypt_password(password)
     return password_hash
 end
 5.times do |i|
-User.create(prenom: "Utili#{i}", nom: "sateur#{i}", email: "Utili#{i}.sateur#{i}@gmail.com",phone_number: "#{i}#{i+1}#{i+2}#{i+3}", year: Time.new.year)
+User.create(firstname: "Utili#{i}", lastname: "sateur#{i}", email: "Utili#{i}.sateur#{i}@gmail.com",phone_number: "#{i}#{i+1}#{i+2}#{i+3}", year: Time.new.year)
 end
