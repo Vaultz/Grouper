@@ -1,5 +1,6 @@
 class WorkshopsController < ApplicationController
   before_action :set_workshop, only: [:show, :edit, :update, :destroy]
+  before_filter :authenticate_user! # Need to be connect to access these pages
 
   # GET /workshops
   # GET /workshops.json
@@ -29,7 +30,7 @@ class WorkshopsController < ApplicationController
 
     respond_to do |format|
       if @workshop.save
-        format.html { redirect_to @workshop, notice: 'Workshop was successfully created.' }
+        format.html { redirect_to "/workshops/preview", notice: 'Workshop was successfully created.' }
         format.json { render :show, status: :created, location: @workshop }
       else
         format.html { render :new }
@@ -39,7 +40,7 @@ class WorkshopsController < ApplicationController
   end
 
   def preview
-    
+
   end
 
   # PATCH/PUT /workshops/1
