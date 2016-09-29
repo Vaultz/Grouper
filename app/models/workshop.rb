@@ -20,6 +20,6 @@ class Workshop < ApplicationRecord
   has_many :projects
   belongs_to :user
 
-  validates :name, presence: true
+  validates :name, :teacher, :begins, :ends, :teamgeneration, :teamnumber , presence: true
 
 end
