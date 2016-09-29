@@ -5,11 +5,14 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-def encrypt_password(password)
-    password_salt = BCrypt::Engine.generate_salt
-    password_hash = BCrypt::Engine.hash_secret(password,password_salt)
-    return password_hash
-end
 5.times do |i|
-User.create(prenom: "Utili#{i}", nom: "sateur#{i}", email: "Utili#{i}.sateur#{i}@gmail.com",phone_number: "#{i}#{i+1}#{i+2}#{i+3}", year: Time.new.year)
+  User.create(firstname: "Utili#{i}",
+    lastname: "sateur#{i}",
+    email: "Utili#{i}.sateur#{i}@gmail.com",
+    phone_number: "#{i}#{i+1}#{i+2}#{i+3}",
+    status:0,
+    encrypted_password: 'password',
+    year: Time.new.year)
+  Workshop.create(name:"Workshop#{i}", description: "Workshop n°#{i}_ On y fait des trucs", user_id: i, teacher:"Enseignant##{i}", begins: "2016-#{i}-29 12:24:50", ends: "2016-#{i+2}-29 12:24:50", teamgeneration: 0, teamnumber: i+1)
+  Project.create(name: "Project##{i}", description:"Projet n°#{i}", workshop_id: i)
 end
