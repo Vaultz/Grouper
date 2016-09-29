@@ -10,11 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160928121348) do
+ActiveRecord::Schema.define(version: 20160929080804) do
+
+  create_table "projects", force: :cascade do |t|
+    t.string   "name"
+    t.text     "description"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.integer  "workshop_id"
+  end
 
   create_table "users", force: :cascade do |t|
-    t.string   "prenom",                              null: false
-    t.string   "nom",                                 null: false
+    t.string   "firstname",                           null: false
+    t.string   "lastname",                            null: false
     t.string   "email",                  default: "", null: false
     t.string   "phone_number"
     t.integer  "status",                 default: 0,  null: false
@@ -34,10 +42,18 @@ ActiveRecord::Schema.define(version: 20160928121348) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  create_table "works", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "project_id"
+    t.integer  "project_leader"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
   create_table "workshops", force: :cascade do |t|
     t.string   "name"
     t.text     "description"
-    t.integer  "createdby"
+    t.integer  "user_id"
     t.string   "teacher"
     t.date     "begins"
     t.date     "ends"
