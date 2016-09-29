@@ -38,6 +38,11 @@
     </tbody>
   </table>
 
+  <% @project.each do |project| %>
+    <% if @id_last == project.workshop_id %> <!-- Display project associated to this workshop by id (last workshop only) -->
+      <%= project.name %>
+    <% end %>
+  <% end %>
 
   <table>
     <thead>

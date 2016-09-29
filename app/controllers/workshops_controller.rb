@@ -5,8 +5,13 @@ class WorkshopsController < ApplicationController
   # GET /workshops
   # GET /workshops.json
   def index
-    @workshops = Workshop.all
-    @workshop_last = Workshop.last
+    @workshops = Workshop.all # Useful to display every workshops
+    @workshop_last = Workshop.last # Useful to display the last workshop
+
+    if Workshop.count != 0 # If there is no workshop, don't create these variables
+      @id_last = @workshop_last.id
+      @project = Project.all
+    end
 
   end
 
@@ -28,7 +33,7 @@ class WorkshopsController < ApplicationController
   # POST /workshops.json
   def create
     @workshop = Workshop.new(workshop_params)
-    @workshop.user_id = current_user.id
+    @workshop.user_id = current_user.id # Give the current user id at the new workshop
 
     respond_to do |format|
       if @workshop.save
