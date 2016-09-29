@@ -6,7 +6,7 @@ class WorkshopsController < ApplicationController
   # GET /workshops.json
   def index
     @workshops = Workshop.all
-    @workshop_last = Workshop.all
+    @workshop_last = Workshop.last
 
   end
 
