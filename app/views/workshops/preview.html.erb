@@ -1,2 +1,47 @@
 <h1>Workshops#preview</h1>
 <p>Find me in app/views/workshops/preview.html.erb</p>
+
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @workshop.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @workshop.description %>
+</p>
+
+<p>
+  <strong>Createdby:</strong>
+  <%= @workshop.user_id %>
+</p>
+
+<p>
+  <strong>Teacher:</strong>
+  <%= @workshop.teacher %>
+</p>
+
+<p>
+  <strong>Begins:</strong>
+  <%= @workshop.begins %>
+</p>
+
+<p>
+  <strong>Ends:</strong>
+  <%= @workshop.ends %>
+</p>
+
+<p>
+  <strong>Teamgeneration:</strong>
+  <%= @workshop.teamgeneration %>
+</p>
+
+<p>
+  <strong>Teamnumber:</strong>
+  <%= @workshop.teamnumber %>
+</p>
+
+<%= link_to 'Edit', edit_workshop_path(@workshop) %> |
+<%= link_to 'Back', workshops_path %>

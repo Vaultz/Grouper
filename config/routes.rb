@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  get 'workshops/preview'
+  post 'workshops/preview'
 
   resources :workshops
   get 'home/index'

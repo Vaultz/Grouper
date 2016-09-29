@@ -27,17 +27,21 @@ class WorkshopsController < ApplicationController
 
   # GET /workshops/1/edit
   def edit
+    if session[:workshop_data]
+      respond_to do |format|
+          format.html { render :edit }
+      end
+    end
   end
 
-  # POST /workshops
-  # POST /workshops.json
+
   def create
     @workshop = Workshop.new(workshop_params)
     @workshop.user_id = current_user.id # Give the current user id at the new workshop
 
     respond_to do |format|
       if @workshop.save
-        format.html { redirect_to "/workshops/preview", notice: 'Workshop was successfully created.' }
+        format.html { render :new, notice: 'Workshop was successfully created.' }
         format.json { render :show, status: :created, location: @workshop }
       else
         format.html { render :new }
@@ -45,9 +49,22 @@ class WorkshopsController < ApplicationController
       end
     end
   end
-
+  # POST /workshops
+  # POST /workshops.json
   def preview
+    @workshop = Workshop.new(workshop_params)
+    @workshop.user_id = current_user.id # Give the current user id at the new workshop
 
+    respond_to do |format|
+      unless @workshop.validate
+        session[:workshop_data] = @workshop
+        format.html { render :show, notice: 'Workshop was successfully created.' }
+        format.json { render :show, status: :created, location: @workshop }
+      else
+        format.html { render :preview, notice: 'Projects and groups were successfully generated, validate the workshop' }
+        format.json { render json: @workshop.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   # PATCH/PUT /workshops/1
