@@ -19,7 +19,7 @@ class WorkshopsController < ApplicationController
   # GET /workshops/1.json
   def show
   end
-
+  
   # GET /workshops/new
   def new
     @workshop = Workshop.new
@@ -49,9 +49,11 @@ class WorkshopsController < ApplicationController
       end
     end
   end
+
+
   # POST /workshops
   # POST /workshops.json
-  def preview
+=begin  def preview
     @workshop = Workshop.new(workshop_params)
     @workshop.user_id = current_user.id # Give the current user id at the new workshop
 
@@ -66,7 +68,7 @@ class WorkshopsController < ApplicationController
       end
     end
   end
-
+=end
   # PATCH/PUT /workshops/1
   # PATCH/PUT /workshops/1.json
   def update
