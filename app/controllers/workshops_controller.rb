@@ -38,6 +38,10 @@ class WorkshopsController < ApplicationController
     end
   end
 
+  def preview
+    
+  end
+
   # PATCH/PUT /workshops/1
   # PATCH/PUT /workshops/1.json
   def update

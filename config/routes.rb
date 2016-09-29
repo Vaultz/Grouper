@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'workshops/preview'
+
   resources :workshops
   get 'home/index'
 
