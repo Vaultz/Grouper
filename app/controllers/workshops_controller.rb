@@ -1,7 +1,8 @@
 class WorkshopsController < ApplicationController
   before_action :set_workshop, only: [:show, :edit, :update, :destroy]
   before_filter :authenticate_user! # Need to be connect to access at these pages
-
+include Wicked::Wizard
+steps :create, :validate
   # GET /workshops
   # GET /workshops.json
   def index
@@ -19,7 +20,7 @@ class WorkshopsController < ApplicationController
   # GET /workshops/1.json
   def show
   end
-  
+
   # GET /workshops/new
   def new
     @workshop = Workshop.new
