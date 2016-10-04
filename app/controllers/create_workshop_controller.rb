@@ -10,7 +10,7 @@ class CreateWorkshopController < ApplicationController
     when :create
       # @workshop will be use to make the corresponding form in the view
       @workshop = Workshop.new
-      .
+      
       #initialize the session variable that will be use to store the datas before saving to the database
       session[:workshop] = nil
     when :validate
