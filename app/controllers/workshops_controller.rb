@@ -1,8 +1,6 @@
 class WorkshopsController < ApplicationController
   before_action :set_workshop, only: [:show, :edit, :update, :destroy]
   before_filter :authenticate_user! # Need to be connect to access at these pages
-include Wicked::Wizard
-steps :create, :validate
   # GET /workshops
   # GET /workshops.json
   def index
@@ -52,24 +50,7 @@ steps :create, :validate
   end
 
 
-  # POST /workshops
-  # POST /workshops.json
-=begin  def preview
-    @workshop = Workshop.new(workshop_params)
-    @workshop.user_id = current_user.id # Give the current user id at the new workshop
 
-    respond_to do |format|
-      unless @workshop.validate
-        session[:workshop_data] = @workshop
-        format.html { render :show, notice: 'Workshop was successfully created.' }
-        format.json { render :show, status: :created, location: @workshop }
-      else
-        format.html { render :preview, notice: 'Projects and groups were successfully generated, validate the workshop' }
-        format.json { render json: @workshop.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-=end
   # PATCH/PUT /workshops/1
   # PATCH/PUT /workshops/1.json
   def update

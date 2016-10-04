@@ -40,9 +40,13 @@
   <strong>Teamnumber:</strong>
   <%= @workshop.teamnumber %>
 </p>
-<%= form_for @workshop, url: wizard_path, method: :put do |f| %>
+<%= form_tag(wizard_path, method: "put")do %>
+<div class="field">
+  <%= label_tag(:name, "Groupe n°1") %>
+  <%= text_field_tag(:description, "Groupe n°1 .... DUH!" ) %>
+</div>
 <div class="actions">
-  <%= f.submit %>
+  <%= submit_tag('Valider') %>
 </div>
 <% end %>
 <%= link_to 'Back', workshops_path %>
