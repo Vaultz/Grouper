@@ -28,9 +28,10 @@
     <%= f.date_field :year %>
   </div>
 
+  <!-- While subscribing, the user decides which role to take -->
   <div class="field">
-    <%= f.label :status %><br />
-    <%= f.text_field :status %>
+    <%= f.label :statut %><br />
+    <%= f.select :status, options_for_select([['Étudiant (non chef de projet)', 0], ['Étudiant (chef de projet)', 1], ['Prof/intervenant', 2]]); %>    
   </div>
 
 
