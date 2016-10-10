@@ -25,7 +25,7 @@
         <tr>
           <td><%= @workshop_last.name %></td>
           <td><%= @workshop_last.description %></td>
-          <td><%= @workshop_last.user_id %></td>
+          <td><%= @workshop_last.user.firstname %></td>
           <td><%= @workshop_last.teacher %></td>
           <td><%= @workshop_last.begins %></td>
           <td><%= @workshop_last.ends %></td>
@@ -64,7 +64,7 @@
         <tr>
           <td><%= workshop.name %></td>
           <td><%= workshop.description %></td>
-          <td><%= workshop.user_id %></td>
+          <td><%= workshop.user.firstname %></td>
           <td><%= workshop.teacher %></td>
           <td><%= workshop.begins %></td>
           <td><%= workshop.ends %></td>
