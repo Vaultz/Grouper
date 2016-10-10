@@ -2,7 +2,7 @@
 
 <h1>Workshops</h1>
 
-<%= link_to 'New Workshop', new_workshop_path %>
+<%= link_to 'New Workshop', controller: "create_workshop" %>
 
 
 <% if Workshop.count != 0 %> <!-- If there is no workshop, don't print on the screen -->

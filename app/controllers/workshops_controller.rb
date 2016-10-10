@@ -1,7 +1,6 @@
 class WorkshopsController < ApplicationController
   before_action :set_workshop, only: [:show, :edit, :update, :destroy]
   before_filter :authenticate_user! # Need to be connect to access at these pages
-
   # GET /workshops
   # GET /workshops.json
   def index
@@ -27,17 +26,21 @@ class WorkshopsController < ApplicationController
 
   # GET /workshops/1/edit
   def edit
+    if session[:workshop_data]
+      respond_to do |format|
+          format.html { render :edit }
+      end
+    end
   end
 
-  # POST /workshops
-  # POST /workshops.json
+
   def create
     @workshop = Workshop.new(workshop_params)
     @workshop.user_id = current_user.id # Give the current user id at the new workshop
 
     respond_to do |format|
       if @workshop.save
-        format.html { redirect_to "/workshops/preview", notice: 'Workshop was successfully created.' }
+        format.html { render :new, notice: 'Workshop was successfully created.' }
         format.json { render :show, status: :created, location: @workshop }
       else
         format.html { render :new }
@@ -46,9 +49,7 @@ class WorkshopsController < ApplicationController
     end
   end
 
-  def preview
 
-  end
 
   # PATCH/PUT /workshops/1
   # PATCH/PUT /workshops/1.json

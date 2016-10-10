@@ -3,6 +3,7 @@ Workshop.destroy_all
 Project.destroy_all
 Work.destroy_all
 
+
 #Hash with fake users
 f_u = Array.new
 f_u[0] = {:firstname => 'Patrick', :lastname => 'Chirac', :email => 'p.c@gmail.com', :year =>2016, :password => 'pastis'}

@@ -1,0 +1,52 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+
+  <strong>Name:</strong>
+  <%= @workshop.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @workshop.description %>
+</p>
+
+<p>
+  <strong>Createdby:</strong>
+  <%= @workshop.user_id %>
+</p>
+
+<p>
+  <strong>Teacher:</strong>
+  <%= @workshop.teacher %>
+</p>
+
+<p>
+  <strong>Begins:</strong>
+  <%= @workshop.begins %>
+</p>
+
+<p>
+  <strong>Ends:</strong>
+  <%= @workshop.ends %>
+</p>
+
+<p>
+  <strong>Teamgeneration:</strong>
+  <%= @workshop.teamgeneration %>
+</p>
+
+<p>
+  <strong>Teamnumber:</strong>
+  <%= @workshop.teamnumber %>
+</p>
+<%= form_tag(wizard_path, method: "put")do %>
+<div class="field">
+  <%= label_tag(:name, "Groupe n°1") %>
+  <%= text_field_tag(:description, "Groupe n°1 .... DUH!" ) %>
+</div>
+<div class="actions">
+  <%= submit_tag('Valider') %>
+</div>
+<% end %>
+<%= link_to 'Back', workshops_path %>
