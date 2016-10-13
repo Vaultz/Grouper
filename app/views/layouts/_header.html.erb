@@ -1,11 +1,25 @@
+<div class='container-fluid'>
+  <nav class='header row'>
+    <ul>
+      <li><img src='../assets/logo.png' alt='logo' /></li>
+    </ul>
 
-<% if user_signed_in? %>
+    <ul>
+      <li>Grrrrrouper</li>
+    </ul>
 
-  <%= link_to 'Sign out', destroy_user_session_path, :method => :delete %>
+    <ul>
+      <% if user_signed_in? %>
 
-<% else %>
+        <li class='link border_color'><%= link_to 'Se déconnecter', destroy_user_session_path, :method => :delete %></li>
 
-  <%= link_to 'Sign up', new_user_registration_path %>
-  <%= link_to 'Sign in', new_user_session_path %>
+      <% else %>
 
-<% end %>
+        <li class='link'><%= link_to 'S\'inscrire', new_user_registration_path %></li>
+        <li class='link border_color'><%= link_to 'Se connecter', new_user_session_path %></li>
+
+      <% end %>
+    </ul>
+
+  </nav>
+</div>

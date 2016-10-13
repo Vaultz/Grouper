@@ -1,24 +1,19 @@
-# README
+###Hey this is our very first Ruby on rails app !
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+#Step to install
+of course first clone the project
+`git clone https://github.com/lpdw/Grouper.git`
 
-Things you may want to cover:
+Then ...
+##Using Docker
+You need docker-compose
+just go in the app folder and do
+`docker-compose build`
+then migrate the Database
+`docker-compose run web rake db:migrate`
+Finally
+`docker-compose start`
+And you will have a working app on localhost:3000
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+##Without docker
+...

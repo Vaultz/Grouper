@@ -17,6 +17,9 @@ class CreateWorkshopController < ApplicationController
 
     when :validate
       @workshop = Workshop.new(session[:workshop])
+
+
+
     end
 
     # render the view corresponding to the actual step
@@ -34,8 +37,16 @@ class CreateWorkshopController < ApplicationController
     @workshop = Workshop.new(workshop_params)
     @workshop.user_id = current_user.id # Give the current user id at the new workshop
     session[:workshop] = @workshop.attributes
+    if @workshop.teamgeneration == 0
+      groups = Array.new
+      time = Time.now
+      @workshop.teamnumber.times do |i|
+        @projects[i]= @workshop.projects.create(name: @workshop.name + '_##{i}', description: 'Add a more precise description', created_at: time, updated_at: time)
+      end
+      
+    end
     redirect_to next_wizard_path
-    #When validating the last form the step won't be 'validate' but something else, so we put else 
+    #When validating the last form the step won't be 'validate' but something else, so we put else
     else
       @workshop = Workshop.new(session[:workshop])
       if @workshop.save
@@ -51,6 +62,10 @@ class CreateWorkshopController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def workshop_params
     params.require(:workshop).permit(:name, :description, :user_id, :teacher, :begins, :ends, :teamgeneration, :teamnumber)
+  end
+
+  def randomize_groups (groups, users)
+
   end
 
 end
