@@ -13,7 +13,8 @@ class CreateWorkshopController < ApplicationController
       #initialize the session variable that will be use to store the datas before saving to the database
       session[:workshop] = nil
 
-      session[:users] = User.all
+      
+      #session[:users] = User.all
 
     when :validate
       @workshop = Workshop.new(session[:workshop])
