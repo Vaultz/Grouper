@@ -34,14 +34,21 @@ class CreateWorkshopController < ApplicationController
     @workshop = Workshop.new(workshop_params)
     @workshop.user_id = current_user.id # Give the current user id at the new workshop
     session[:workshop] = @workshop.attributes
-=begin    if @workshop.teamgeneration == 0
+=begin
+    if @workshop.teamgeneration == 0
       groups = Array.new
       time = Time.now
+      year = time.to_s(:school_year)
+      users = User.where('year = #{year}').shuffle
+
       @workshop.teamnumber.times do |i|
         @projects[i]= @workshop.projects.create(name: @workshop.name + '_##{i}', description: 'Add a more precise description', created_at: time, updated_at: time)
+        groups[i] = Array.new
       end
-=end      
+      groups, users = randomize_groups(groups, users)
+
     end
+=end
     redirect_to next_wizard_path
     #When validating the last form the step won't be 'validate' but something else, so we put else
     else
@@ -61,8 +68,18 @@ class CreateWorkshopController < ApplicationController
     params.require(:workshop).permit(:name, :description, :user_id, :teacher, :begins, :ends, :teamgeneration, :teamnumber)
   end
 
-  def randomize_groups (groups, users)
+  def randomize_groups(groups,users)
+    groups.each do |group|
 
+    end
+
+    if users.any?
+
+      groups,users = randomize_groups(groups,users)
+
+    end
+
+    return groups, users
   end
 
 end

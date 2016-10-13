@@ -7,7 +7,7 @@ Rails.application.routes.draw do
     root to: 'workshops#index', as: :authenticated_root
   end
 
-  devise_for :users
+  devise_for :users, :controllers => {:registrations => "users/registrations"}
   root :to => "home#index"
 
   resources :create_workshop
