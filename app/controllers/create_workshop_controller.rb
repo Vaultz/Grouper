@@ -34,13 +34,13 @@ class CreateWorkshopController < ApplicationController
     @workshop = Workshop.new(workshop_params)
     @workshop.user_id = current_user.id # Give the current user id at the new workshop
     session[:workshop] = @workshop.attributes
-    if @workshop.teamgeneration == 0
+=begin    if @workshop.teamgeneration == 0
       groups = Array.new
       time = Time.now
       @workshop.teamnumber.times do |i|
         @projects[i]= @workshop.projects.create(name: @workshop.name + '_##{i}', description: 'Add a more precise description', created_at: time, updated_at: time)
       end
-      
+=end      
     end
     redirect_to next_wizard_path
     #When validating the last form the step won't be 'validate' but something else, so we put else
