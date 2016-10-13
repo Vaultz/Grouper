@@ -46,8 +46,9 @@ class CreateWorkshopController < ApplicationController
         groups[i] = Array.new
       end
       groups, users = randomize_groups(groups, users)
-=end
+
     end
+=end
     redirect_to next_wizard_path
     #When validating the last form the step won't be 'validate' but something else, so we put else
     else
@@ -67,15 +68,17 @@ class CreateWorkshopController < ApplicationController
     params.require(:workshop).permit(:name, :description, :user_id, :teacher, :begins, :ends, :teamgeneration, :teamnumber)
   end
 
-  def randomize_groups (groups, users)
+  def randomize_groups(groups,users)
     groups.each do |group|
 
     end
 
-
     if users.any?
-      groups, users = ramdomize_groups (groups, users)
+
+      groups,users = randomize_groups(groups,users)
+
     end
+
     return groups, users
   end
 
