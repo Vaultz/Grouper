@@ -12,10 +12,6 @@ class CreateWorkshopController < ApplicationController
       @workshop = Workshop.new
       #initialize the session variable that will be use to store the datas before saving to the database
       session[:workshop] = nil
-
-      
-      #session[:users] = User.all
-
     when :validate
       @workshop = Workshop.new(session[:workshop])
 
@@ -38,15 +34,15 @@ class CreateWorkshopController < ApplicationController
     @workshop = Workshop.new(workshop_params)
     @workshop.user_id = current_user.id # Give the current user id at the new workshop
     session[:workshop] = @workshop.attributes
-=begin    if @workshop.teamgeneration == 0
+=begin
+    if @workshop.teamgeneration == 0
       groups = Array.new
       time = Time.now
       @workshop.teamnumber.times do |i|
         @projects[i]= @workshop.projects.create(name: @workshop.name + '_##{i}', description: 'Add a more precise description', created_at: time, updated_at: time)
       end
-=end      
-    end
-    redirect_to next_wizard_path
+=end
+    endedirect_to next_wizard_path
     #When validating the last form the step won't be 'validate' but something else, so we put else
     else
       @workshop = Workshop.new(session[:workshop])
