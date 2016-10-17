@@ -13,7 +13,11 @@ then migrate the Database
 `docker-compose run web rake db:migrate`  
 Finally  
 `docker-compose start`  
-And you will have a working app on localhost:3000  
+And you will have a working app on localhost:3000
+
+## Notes  
+Rails & rake commands go like this :
+`docker-compose run web [railsCommand]``
 
 ##Without docker
 ...
