@@ -1,6 +1,6 @@
 class WorkshopsController < ApplicationController
   before_action :set_workshop, only: [:show, :edit, :update, :destroy]
-  before_filter :authenticate_user! # Need to be connect to access at these pages
+  #before_filter :authenticate_user! # Need to be connect to access at these pages
   # GET /workshops
   # GET /workshops.json
   def index
