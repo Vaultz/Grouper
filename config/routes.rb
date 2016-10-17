@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
+  # Module SOS
+  get 'alerts/index'
+  post 'alerts/create'
+
   resources :workshops
   get 'home/index'
 
