@@ -2,7 +2,7 @@ class CreateWorkshopController < ApplicationController
   include Wicked::Wizard
   # define the different step the form will have, wicked will automatiquely go to the next when validating
 
-  steps :create, :validate
+  steps :create, :projectsname, :validate
   # the main action for wicked, every step go through here
   def show
     #@workshop.user_id = current_user.id # Give the current user id at the new workshop
@@ -11,10 +11,16 @@ class CreateWorkshopController < ApplicationController
       # @workshop will be use to make the corresponding form in the view
       @workshop = Workshop.new
       #initialize the session variable that will be use to store the datas before saving to the database
-      session[:workshop] = nil
-    when :validate
-      @workshop = Workshop.new(session[:workshop])
+      #session[:workshop] = nil
+    when :projectsname
+      @workshop = Workshop.last
+      @projects = []
+      @workshop.teamnumber.times do |i|
+        @projects << @workshop.projects.build
+      end
 
+      #@workshop = Workshop.new(session[:workshop])
+    when :validate
 
 
     end
@@ -29,12 +35,23 @@ class CreateWorkshopController < ApplicationController
     #render_wizard @workshop
     case step
     when :create
+      abort workshop_params.inspect
+      @workshop = Workshop.new(workshop_params)
+      @workshop.user_id = current_user.id
+      @workshop.save
+      @workshop = Workshop.last
+      redirect_to next_wizard_path
+    when :projectsname
       # we create a new variable session with the nexly acquired info on the workshop
       #then we redirect to the next step defore wicked can save to the database
-    @workshop = Workshop.new(workshop_params)
-    @workshop.user_id = current_user.id # Give the current user id at the new workshop
-    session[:workshop] = @workshop.attributes
+
+    @workshop = Workshop.last
+    #@workshop.user_id = current_user.id # Give the current user id at the new workshop
+    #session[:workshop] = @workshop.attributes
     #We look at the generation mode
+
+    projects = Project.new(project_params)
+
     if @workshop.teamgeneration == 0
       #Let's create a variable for the groups
       @groups = Array.new
@@ -59,7 +76,9 @@ class CreateWorkshopController < ApplicationController
       end
       #This is where the magic append
       #we call the method with the leaders
-      @groups = distribute_users(@groups, leaders)
+      if @workshop.projectleaders
+        @groups = distribute_users(@groups, leaders)
+      end
       #then we call it with the users
       @groups = distribute_users(@groups, users)
 
@@ -72,7 +91,7 @@ class CreateWorkshopController < ApplicationController
       @workshop = Workshop.new(session[:workshop])
       if @workshop.save
           #When saving project to database
-          #@projects[i]= @workshop.projects.create(name: @workshop.name + '_##{i}', description: 'Add a more precise description', created_at: time, updated_at: time)
+          @projects[i]= @workshop.projects.create(project_params)
           redirect_to workshops_path(), notice: "Workshop was successfully created"
       end
     end
@@ -85,6 +104,9 @@ class CreateWorkshopController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def workshop_params
     params.require(:workshop).permit(:name, :description, :user_id, :teacher, :begins, :ends, :teamgeneration, :teamnumber, :projectleaders)
+  end
+  def project_params
+    params.require(:workshop).permit(:project_attributes=>[:name,:description])
   end
 
   # We use a recursive method, because we have to distribuate: projects leaders and users in 2 times

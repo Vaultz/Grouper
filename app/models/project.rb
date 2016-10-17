@@ -15,5 +15,5 @@ class Project < ApplicationRecord
     has_many :works
     belongs_to :workshop
     has_many :users, through: :works
-
+    validates :name, :description, :presence => true
 end

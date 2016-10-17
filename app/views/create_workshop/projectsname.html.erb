@@ -1,0 +1,37 @@
+<!--<%= form_for @projects, url: wizard_path, method: :put do |pro| %>
+  <% @projects.each_with_index do |index, project| %>
+      <div class="each_projet">
+        <div class="field">
+          <%= pro.label :name %>
+          <%= pro.text_field :name, placeholder: "Nom", :name => "projects['name'][]"  %>
+        </div>
+        <div class="field">
+          <%= pro.label :description%>
+          <%= pro.text_area :description,:name => "projects['description'][]"%>
+        </div>
+      <div class="line"></div>
+    <% end %>
+
+    <div class="actions">
+      <%= submit_tag('Valider') %>
+    </div>
+<% end %>-->
+
+
+
+<%= form_for @workshop, url: wizard_path, method: :put do |f| %>
+<ul>
+<%= f.fields_for :projects do |projects_form| %>
+      <li>
+        <%= projects_form.label :name %>
+        <%= projects_form.text_field :name %>
+
+        <%= projects_form.label :description %>
+        <%= projects_form.text_field :description %>
+      </li>
+    <% end %>
+</ul>
+<div class="actions">
+  <%= submit_tag('Valider') %>
+</div>
+<% end %>
