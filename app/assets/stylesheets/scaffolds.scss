@@ -1,17 +1,14 @@
+html {
+  overflow-x: hidden !important;
+}
+
 body {
   background-color: #fff;
   color: #333;
-  font-family: verdana, arial, helvetica, sans-serif;
   font-size: 13px;
   line-height: 18px;
   margin: 33px;
-}
-
-p, ol, ul, td {
-  font-family: verdana, arial, helvetica, sans-serif;
-  font-size: 13px;
-  line-height: 18px;
-  margin: 33px;
+  font-family: "Caviar_Dreams";
 }
 
 pre {
@@ -24,12 +21,12 @@ a {
   color: #000;
 
   &:visited {
-    color: #666;
+    color: #FFF;
   }
 
   &:hover {
-    color: #fff;
-    background-color: #000;
+    text-decoration: none;
+    color: #AAA !important;
   }
 }
 

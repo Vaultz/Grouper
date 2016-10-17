@@ -14,3 +14,18 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
+
+$(document).ready(function() {
+
+  $(window).scroll(function() {
+    var top = $(document).scrollTop();
+    if(top > 10) {
+       $('.header').css('background-color', 'black');
+       $('.header').css('transition', '.2s');
+    } else {
+      $('.header').css('background', 'rgba(0,0,0, 0)');
+    }
+  });
+
+
+});

@@ -1,3 +1,52 @@
 // Place all the styles related to the workshops controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+
+.line {
+  height: 1px;
+  width: 30px;
+  background-color: grey;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.canvas {
+  padding-left: 10px;
+  position: fixed;
+  left: 0;
+  top: 50px;
+  bottom: 0;
+  height: 100vh;
+  overflow-y: auto;
+  width: 200px;
+  background-color: black;
+  border-right: 1px solid #EEE;
+}
+
+.canvas a {
+  display: block;
+  margin: 0 auto;
+  text-align: center;
+  margin-top: 10px;
+  margin-left: -10px !important;
+  padding: 5px 0;
+}
+
+.canvas h4 {
+  color: white;
+}
+
+.last_workshop_view {
+  margin-left: 200px;
+}
+
+.each_workshop p {
+  font-size: 18px;
+  word-wrap: break-word;
+}
+
+.each_workshop a {
+  color: white;
+}

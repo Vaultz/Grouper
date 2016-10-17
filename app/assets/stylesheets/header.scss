@@ -10,60 +10,35 @@ body {
 /** HEADER **/
 
 .header {
+  color: white;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 500;
   font-family: "Caviar_Dreams";
-  background-color: #4F5760;
-  height : 100px;
-}
-
-.header ul {
-  margin : 0px !important;
-  display : inline-block;
+  border-bottom: 1px solid grey;
+  height : 50px;
 }
 
 .header ul:first-child {
-  float : left;
-  width : 150px;
-}
-
-.header ul:last-child {
-  float : right;
-  padding-right: 50px;
-}
-
-.header ul:last-child li {
-  margin : 0 10px;
-}
-
-.header ul li img {
-  width : 85%;
+  line-height: 50px;
+  float: left;
 }
 
 .header ul li {
-  display : inline-block;
-  line-height: 100px;
+  display: inline-block;
+  margin: 0 15px;
+  font-size: 15px;
 }
 
-.header ul:nth-child(2) {
+.header ul:last-child li a {
   color : white;
-  font-variant: small-caps;
-  font-size: 35px;
 }
 
-.header ul .link a {
-  padding : 7px 30px;
-  color : #FFF;
-  font-size : 20px;
-  background-color: #0F6D96;
-
-  font-variant: small-caps;
-  text-decoration: none;
-}
-
-.header ul .link a:hover {
-  background-color: inherit;
-  transition: .3s;
-}
-
-.header ul .link a {
-
+.header ul:last-child {
+  display: inline-block;
+  float: right;
+  line-height: 50px;
+  margin-right: 15px;
 }

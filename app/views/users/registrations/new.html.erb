@@ -1,56 +1,76 @@
-<h2>Inscription</h2>
-<h3>Attention : une seule inscription par étudiant !</h3>
-
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= devise_error_messages! %>
-
-  <div class="field">
-    <%= f.label :nom %><br />
-    <%= f.text_field :lastname %>
+<section class="container-fluid bg_full_width">
+  <div class="filter">
   </div>
+</section>
 
-  <div class="field">
-    <%= f.label :prénom %><br />
-    <%= f.text_field :firstname %>
+<div class="container-fluid full_width inscription">
+  <div class="content">
+
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+    <%= devise_error_messages! %>
+
+    <div class="margin_top new_user row">
+
+      <div class="col-md-offset-3 col-md-6">
+        <h1>Inscription</h1>
+        <h3>Attention : une seule inscription par étudiant !</h3>
+
+      </div>
+
+      <div class="col-md-offset-3 col-md-3">
+        <div class="field">
+          <%= f.text_field :lastname, placeholder: "Nom", autofocus: true %>
+        </div>
+
+        <div class="field">
+          <%= f.text_field :firstname, placeholder: "Prénom" %>
+        </div>
+        <div class="field">
+          <%= f.email_field :email, placeholder: "Email" %>
+        </div>
+
+        <div class="field">
+          <%= f.text_field :phone_number, placeholder: "Téléphone" %>
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <!--  <div class="field">
+          <%= f.label :début_de_l_année %><br />
+          <%= f.date_field :year %>
+        </div>-->
+
+        <!-- While subscribing, the user decides which role to take -->
+        <div class="field">
+          <%= f.label :statut %>
+          <%= f.select :status, options_for_select([['Étudiant (non chef de projet)', 0], ['Étudiant (chef de projet)', 1], ['Prof/intervenant', 2]]); %>
+        </div>
+
+        <div class="field">
+          <%= f.label :mot_de_passe, class: "input_inline" %>
+          <% if @minimum_password_length %>
+          <em>(<%= @minimum_password_length %> caractères minimum)</em>
+          <% end %><br />
+          <%= f.password_field :password, autocomplete: "off", placeholder: "Mot de passe" %>
+        </div>
+
+        <div class="field">
+          <%= f.password_field :password_confirmation, autocomplete: "off", placeholder: "Confirmation du mot de passe" %>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-offset-3 col-md-6">
+        <div class="actions">
+          <%= f.submit "Je valide mon inscription", class: "button_link" %>
+        </div>
+
+      Déjà inscris ? Ça se passe par ici ! <%= render "users/shared/links" %>
+      </div>
+    </div>
+
+    <% end %>
+
   </div>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true %>
-  </div>
-
-  <div class="field">
-    <%= f.label :numéro_de_téléphone %><br />
-    <%= f.text_field :phone_number %>
-  </div>
-
-<!--  <div class="field">
-    <%= f.label :début_de_l_année %><br />
-    <%= f.date_field :year %>
-  </div>-->
-
-  <!-- While subscribing, the user decides which role to take -->
-  <div class="field">
-    <%= f.label :statut %><br />
-    <%= f.select :status, options_for_select([['Étudiant (non chef de projet)', 0], ['Étudiant (chef de projet)', 1], ['Prof/intervenant', 2]]); %>
-  </div>
-
-
-  <div class="field">
-    <%= f.label :mot_de_passe %>
-    <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> caractères minimum)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "off" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "off" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Valider" %>
-  </div>
-<% end %>
-
-<%= render "users/shared/links" %>
+</div>

@@ -1,25 +1,14 @@
-<div class='container-fluid'>
-  <nav class='header row'>
+  <nav class='header'>
     <ul>
-      <li><img src='../assets/logo.png' alt='logo' /></li>
-    </ul>
-
-    <ul>
-      <li>Grrrrrouper</li>
+      <li><a href="/">Logo qui arrive</a></li>
     </ul>
 
     <ul>
       <% if user_signed_in? %>
-
-        <li class='link border_color'><%= link_to 'Se déconnecter', destroy_user_session_path, :method => :delete %></li>
-
+        <li><%= link_to 'Se déconnecter', destroy_user_session_path, :method => :delete %></li>
       <% else %>
-
-        <li class='link'><%= link_to 'S\'inscrire', new_user_registration_path %></li>
-        <li class='link border_color'><%= link_to 'Se connecter', new_user_session_path %></li>
-
+        <li><%= link_to 'S\'inscrire', new_user_registration_path %></li>
+        <li><%= link_to 'Se connecter', new_user_session_path %></li>
       <% end %>
     </ul>
-
   </nav>
-</div>
