@@ -2,8 +2,6 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-
-
 .line {
   height: 1px;
   width: 30px;
@@ -21,7 +19,7 @@
   height: 100vh;
   overflow-y: auto;
   width: 200px;
-  background-color: black;
+  background-color: #23232C;
   border-right: 1px solid #EEE;
 }
 
@@ -29,24 +27,86 @@
   display: block;
   margin: 0 auto;
   text-align: center;
-  margin-top: 10px;
   margin-left: -10px !important;
   padding: 5px 0;
 }
 
-.canvas h4 {
+.canvas h4, .fa-list {
+  color: #C2C2CA !important;
+  font-size: 18px !important;
+}
+
+.each_workshop a {
+  color: #C2C2CA;
+  display: inline-block;
+  font-size: 14px;
+  word-wrap: break-word;
+  text-align: left;
+  padding-left: 10px;
+}
+
+.each_workshop a:first-child {}
+
+.action_workshop {
+  float: right;
+  display: inline-block;
+  text-align: right;
+}
+
+.action_workshop a {
+  margin: 0 10px;
   color: white;
+  display: inline-block;
+}
+
+i.fa {
+  color: white;
+  font-size: 1.5em;
+}
+
+i.fa-trash-o {
+  color: #B44;
+  &:hover {
+    color: #DD0000;
+  }
+}
+
+i.fa-pencil-square-o {
+  color: #FFF;
+  &:hover {
+    color: #AAA;
+  }
 }
 
 .last_workshop_view {
   margin-left: 200px;
 }
 
-.each_workshop p {
-  font-size: 18px;
-  word-wrap: break-word;
+.wrapper_informations {
+  margin-bottom: 30px;
 }
 
-.each_workshop a {
-  color: white;
+.informations, .description, .every_projects {
+  position: relative;
+  padding: 10px 0 10px 15px;
+  background: rgba(0,0,0, 0.8);
+  height: auto;
+  text-align: left;
+}
+
+.informations div div p, .description p {
+  margin-top: 10px;
+  font-size: 1.5em;
+}
+
+.informations ul li {
+  margin: 8px 0;
+}
+
+.description .transform_position {
+  width: 90%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }

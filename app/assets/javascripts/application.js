@@ -27,5 +27,27 @@ $(document).ready(function() {
     }
   });
 
+});
 
+function informationsHeight(){
+  var i = 0;
+  var prevDiv = null;
+  $( '.informations' ).each(function(){
+    if(i % 2 == 1){
+      var h1 = prevDiv.height();
+      var h2 = $(this).height();
+      if(h1 > h2){
+        $(this).height(h1);
+      }
+      else{
+        prevDiv.height(h2);
+      }
+    }
+  prevDiv = $(this);
+  i++;
+  });
+}
+
+$(document).ready(function() {
+  informationsHeight();
 });

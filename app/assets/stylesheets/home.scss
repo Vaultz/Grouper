@@ -12,14 +12,20 @@
   background-size: cover;
 }
 
-
-
 .filter {
   margin: 0;
   position: absolute;
   height: 100%;
   width: 100%;
   background: rgba(0,0,0, 0.7);
+}
+
+.filter_workshop {
+  margin: 0;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background: rgba(0,0,0, 0.5);
 }
 
 .content {

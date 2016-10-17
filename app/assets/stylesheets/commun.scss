@@ -30,7 +30,6 @@ h3 {
   padding: 10px 15px;
   background-color: #232323;
   border: 0;
-
   &:hover {
     color: #AAA;
     transition: .2s;
@@ -43,7 +42,7 @@ h3 {
 
 /** /BUTTON STYLE **/
 
-/** INSCRIPTION FORM **/
+/** FORM **/
 
 .margin_top {
   margin-top: 50px;
@@ -70,6 +69,9 @@ h3 {
   padding-left: 10px;
   background: rgba(255,255,255, 0.7);
   margin: 5px 0;
+  &:focus{
+  	outline: none;
+  }
 }
 
-/** /INSCRIPTION FORM **/
+/** /FORM **/
