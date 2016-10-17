@@ -1,0 +1,20 @@
+<h1>Créer un SOS</h1>
+
+<h2>Envoyer un SOS permetde signaler une difficulté dans l'avancée de votre projet. Un mail sera envoyé aux membres des autres teams.</h2>
+
+<%= form_tag("send", method: "post") do %>
+
+  <div class="field">
+    <%= label_tag(:objet, "Objet du mail :") %>
+    <%= text_field_tag(:objet) %>
+  </div>
+
+  <div class="field">
+    <%= label_tag(:description, "Décrivez votre problème :") %>
+    <%= text_area_tag(:description) %>
+  </div>
+
+  <div class="actions">
+    <%= submit_tag("OK") %>
+  </div>
+<% end %>
