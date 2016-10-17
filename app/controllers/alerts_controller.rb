@@ -2,7 +2,6 @@ class AlertsController < ApplicationController
   def create
   end
 
-  def send
-    
+  def index
   end
 end
