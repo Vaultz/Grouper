@@ -22,13 +22,13 @@ f_u.each do |user|
 end
 #Fake worshop Hash
 f_w = Array.new
-f_w[0] = {:name => 'SQL', :description => 'Création d\'un schéma de base de données, associé à un CRUD et des exemples de requêtes SQL ', :teacher => 'Hitcham', :begins => '16-09-2016', :ends => '20-01-2017', :teamnumber =>'3', :teamgeneration => 0, :created_at => '16-09-2016'}
-f_w[1] = {:name => 'Devis', :description => 'Éditer un devis pour un projet fictif avec M Ricard qui s\'amuse à jouer M.Fortineau', :teacher => 'Laurent', :begins => '20-09-2016', :ends => '16-10-2016', :teamnumber =>'2', :teamgeneration => 0, :created_at => '20-09-2016', :updated_at =>'20-09-2016'}
-f_w[2] = {:name => 'Ruby-on-Rails', :description => 'Premier projet de développement en groupe, avec la technologie Ruby-on-Rails', :teacher => 'Kora', :begins => '25-09-2016', :ends => '25-10-2016', :teamnumber =>'2', :teamgeneration => 0, :created_at => '25-09-2016', :updated_at =>'25-09-2016'}
+f_w[0] = {:name => 'SQL', :description => 'Création d\'un schéma de base de données, associé à un CRUD et des exemples de requêtes SQL ', :teacher => 'Hitcham', :begins => '16-09-2016', :ends => '20-01-2017', :teamnumber =>'3', :teamgeneration => 0, :created_at => '16-09-2016', :projectleaders => 0}
+f_w[1] = {:name => 'Devis', :description => 'Éditer un devis pour un projet fictif avec M Ricard qui s\'amuse à jouer M.Fortineau', :teacher => 'Laurent', :begins => '20-09-2016', :ends => '16-10-2016', :teamnumber =>'2', :teamgeneration => 0, :created_at => '20-09-2016', :projectleaders => 1, :updated_at =>'20-09-2016'}
+f_w[2] = {:name => 'Ruby-on-Rails', :description => 'Premier projet de développement en groupe, avec la technologie Ruby-on-Rails', :teacher => 'Kora', :begins => '25-09-2016', :ends => '25-10-2016', :teamnumber =>'2', :teamgeneration => 0, :created_at => '25-09-2016', :updated_at =>'25-09-2016', :projectleaders => 1}
 f_w.each do |workshop|
   users_count = User.count
   creator = User.limit(1).offset(rand(users_count)).first
-  workshop = Workshop.create!({:name => workshop[:name], :description => workshop[:description], :user_id => creator.id, :teacher => workshop[:teacher], :begins => workshop[:begins], :ends => workshop[:ends], :teamnumber => workshop[:teamnumber], :teamgeneration => workshop[:teamgeneration], :created_at => workshop[:created_at], :updated_at =>workshop[:updated_at] })
+  workshop = Workshop.create!({:name => workshop[:name], :description => workshop[:description], :user_id => creator.id, :teacher => workshop[:teacher], :begins => workshop[:begins], :ends => workshop[:ends], :teamnumber => workshop[:teamnumber], :teamgeneration => workshop[:teamgeneration], :created_at => workshop[:created_at], :updated_at =>workshop[:updated_at], :projectleaders => workshop[:projectleaders]})
   workshop[:teamnumber].times do |i|
     Project.create!({ name: workshop.name + '_#'+ i.to_s, description: workshop.description + '_#'+ i.to_s, created_at: workshop[:created_at], updated_at: workshop[:updated_at], workshop_id: workshop[:id] })
   end
