@@ -66,9 +66,19 @@ class CreateWorkshopController < ApplicationController
     #@workshop.user_id = current_user.id # Give the current user id at the new workshop
     #session[:workshop] = @workshop.attributes
     #We look at the generation mode
+    projects = []
+    error = false
     project_params[:projects_attributes].each_pair do |key,project|
-      @workshop.projects.create(project)
+      project = @workshop.projects.new(project)
+      unless project.valid?
+        error = true
+      end
     end
+    if error
+      render wizard_path
+      return
+    end
+
 
     if @workshop.teamgeneration == 0
       #Let's create a variable for the groups
