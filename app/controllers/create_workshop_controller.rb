@@ -16,16 +16,24 @@ class CreateWorkshopController < ApplicationController
       if session[:workshop_unfinished]
         @workshop = Workshop.find(session[:workshop_unfinished])
       end
-      @projects = []
-      @projects.inspect
+      projects = []
+      projects.inspect
       @workshop.teamnumber.times do |i|
-        @projects << @workshop.projects.build
+        projects << @workshop.projects.build
       end
 
       #@workshop = Workshop.new(session[:workshop])
     when :validate
-
-
+      if session[:workshop_unfinished]
+        @workshop = Workshop.find(session[:workshop_unfinished])
+      end
+      @datas = []
+      projects = @workshop.projects.limit(@workshop.teamnumber)
+      projects.each_with_index do |project, index|
+          @datas[index] = {}
+          @datas[index]['project'] = project
+          @datas[index]['users'] = project.users
+      end
     end
 
     # render the view corresponding to the actual step
@@ -45,7 +53,6 @@ class CreateWorkshopController < ApplicationController
         if @workshop.save
           session[:workshop_unfinished] = Workshop.last.id
           format.html { redirect_to next_wizard_path, notice: 'Workshop was successfully updated.' }
-
         else
           format.html { render wizard_path }
           #format.json { render json: @workshop.errors, status: :unprocessable_entity }
@@ -60,12 +67,12 @@ class CreateWorkshopController < ApplicationController
     #session[:workshop] = @workshop.attributes
     #We look at the generation mode
     project_params[:projects_attributes].each_pair do |key,project|
-      @workshop.projects.create(project).inspect
+      @workshop.projects.create(project)
     end
 
     if @workshop.teamgeneration == 0
       #Let's create a variable for the groups
-      @groups = Array.new
+      @@groups = Array.new
       #The time will be use to get only the users of the same year
       time = Time.now
       year = time.to_s(:school_year)
@@ -76,23 +83,26 @@ class CreateWorkshopController < ApplicationController
         users = User.where('year = ? AND status=0', year).shuffle
       else
         #everyone is a slave ... to whom ?
-        users = User.where('year = ?', year).shuffle
+        users = User.where('year = ? AND status=0 OR status=1', year).shuffle
       end
       #Let's look at the nomber of projects we have to generate
       @workshop.teamnumber.times do |i|
         #projects are instanciate
 
         #We take advantage of the loop to generate the right nomber of groups
-        @groups[i] = Array.new
+        @@groups[i] = Array.new
       end
       #This is where the magic append
       #we call the method with the leaders
       if @workshop.projectleaders
-        @groups = distribute_users(@groups, leaders)
+        @@groups = distribute_users(@@groups, leaders)
       end
       #then we call it with the users
-      @groups = distribute_users(@groups, users)
-
+      @@groups = distribute_users(@@groups, users)
+      projects = @workshop.projects.limit(@workshop.teamnumber).shuffle
+      projects.each_with_index do |project, index|
+          projects[index].users << @@groups[index]
+      end
 
     end
 
@@ -102,7 +112,7 @@ class CreateWorkshopController < ApplicationController
       @workshop = Workshop.new(session[:workshop])
       if @workshop.save
           #When saving project to database
-          @projects[i]= @workshop.projects.create(project_params)
+          projects[i]= @workshop.projects.create(project_params)
           redirect_to workshops_path(), notice: "Workshop was successfully created"
       end
     end
@@ -143,7 +153,7 @@ class CreateWorkshopController < ApplicationController
       #if there is still users without group we call the method again
       distribute_users(groups,users)
     end
-    @groups = groups
+    @@groups = groups
   end
 
 end
