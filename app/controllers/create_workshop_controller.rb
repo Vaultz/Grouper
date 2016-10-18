@@ -13,8 +13,11 @@ class CreateWorkshopController < ApplicationController
       #initialize the session variable that will be use to store the datas before saving to the database
       #session[:workshop] = nil
     when :projectsname
-      @workshop = Workshop.last
+      if session[:workshop_unfinished]
+        @workshop = Workshop.find(session[:workshop_unfinished])
+      end
       @projects = []
+      @projects.inspect
       @workshop.teamnumber.times do |i|
         @projects << @workshop.projects.build
       end
@@ -37,9 +40,18 @@ class CreateWorkshopController < ApplicationController
     when :create
       @workshop = Workshop.new(workshop_params)
       @workshop.user_id = current_user.id
-      @workshop.save
-      @workshop = Workshop.last
-      redirect_to next_wizard_path
+      #Add redirection
+      respond_to do |format|
+        if @workshop.save
+          session[:workshop_unfinished] = Workshop.last.id
+          format.html { redirect_to next_wizard_path, notice: 'Workshop was successfully updated.' }
+
+        else
+          format.html { render wizard_path }
+          #format.json { render json: @workshop.errors, status: :unprocessable_entity }
+        end
+      end
+
     when :projectsname
       # we create a new variable session with the nexly acquired info on the workshop
       #then we redirect to the next step defore wicked can save to the database
