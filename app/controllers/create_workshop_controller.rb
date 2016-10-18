@@ -34,6 +34,8 @@ class CreateWorkshopController < ApplicationController
     @workshop = Workshop.new(workshop_params)
     @workshop.user_id = current_user.id # Give the current user id at the new workshop
     session[:workshop] = @workshop.attributes
+
+
     #We look at the generation mode
     if @workshop.teamgeneration == 0
       #Let's create a variable for the groups
@@ -65,7 +67,9 @@ class CreateWorkshopController < ApplicationController
 
 
     end
+    if @workshop.teamgeneration == 1
 
+    end
     redirect_to next_wizard_path
     #When validating the last form the step won't be 'validate' but something else, so we put else
 

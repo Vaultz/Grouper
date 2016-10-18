@@ -41,11 +41,14 @@
   <%= @workshop.teamnumber %>
 </p>
 <%= form_tag(wizard_path, method: "put")do %>
+<%= i=1 %>
+<% while(@workshop.teamnumber>=i) %>
 <div class="field">
-  <%= label_tag(:name, "Groupe n°1") %>
-  <%= text_field_tag(:description, "Groupe n°1 .... DUH!" ) %>
+  <%= label_tag(:name, "Groupe n° #{i}") %>
+  <%= text_field_tag(:description, "Groupe #{i}" ) %>
 </div>
-
+<% i=i+1 %>
+<% end %>
   <!-- <%= session[:users].inspect %> -->
 
 <div class="actions">
