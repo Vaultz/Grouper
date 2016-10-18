@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161017150754) do
+ActiveRecord::Schema.define(version: 20161018085434) do
 
   create_table "projects", force: :cascade do |t|
     t.string   "name"
@@ -51,17 +51,17 @@ ActiveRecord::Schema.define(version: 20161017150754) do
   end
 
   create_table "workshops", force: :cascade do |t|
-    t.string   "name",           null: false
-    t.text     "description",    null: false
+    t.string   "name",                     null: false
+    t.text     "description",              null: false
     t.integer  "user_id"
-    t.string   "teacher",        null: false
-    t.date     "begins",         null: false
-    t.date     "ends",           null: false
-    t.integer  "teamgeneration", null: false
-    t.integer  "teamnumber",     null: false
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
-    t.boolean  "projectleaders", null: false
+    t.string   "teacher",                  null: false
+    t.date     "begins",                   null: false
+    t.date     "ends",                     null: false
+    t.integer  "teamgeneration",           null: false
+    t.integer  "teamnumber",               null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.integer  "projectleaders", limit: 1
   end
 
 end
