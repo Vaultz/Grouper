@@ -13,8 +13,11 @@ class CreateWorkshopController < ApplicationController
       #initialize the session variable that will be use to store the datas before saving to the database
       #session[:workshop] = nil
     when :projectsname
-      @workshop = Workshop.last
+      if session[:workshop_unfinished]
+        @workshop = Workshop.find(session[:workshop_unfinished])
+      end
       @projects = []
+      @projects.inspect
       @workshop.teamnumber.times do |i|
         @projects << @workshop.projects.build
       end
@@ -35,22 +38,30 @@ class CreateWorkshopController < ApplicationController
     #render_wizard @workshop
     case step
     when :create
-      abort workshop_params.inspect
       @workshop = Workshop.new(workshop_params)
       @workshop.user_id = current_user.id
-      @workshop.save
-      @workshop = Workshop.last
-      redirect_to next_wizard_path
+      #Add redirection
+      respond_to do |format|
+        if @workshop.save
+          session[:workshop_unfinished] = Workshop.last.id
+          format.html { redirect_to next_wizard_path, notice: 'Workshop was successfully updated.' }
+
+        else
+          format.html { render wizard_path }
+          #format.json { render json: @workshop.errors, status: :unprocessable_entity }
+        end
+      end
+
     when :projectsname
       # we create a new variable session with the nexly acquired info on the workshop
       #then we redirect to the next step defore wicked can save to the database
-
     @workshop = Workshop.last
     #@workshop.user_id = current_user.id # Give the current user id at the new workshop
     #session[:workshop] = @workshop.attributes
     #We look at the generation mode
-
-    projects = Project.new(project_params)
+    project_params[:projects_attributes].each_pair do |key,project|
+      @workshop.projects.create(project).inspect
+    end
 
     if @workshop.teamgeneration == 0
       #Let's create a variable for the groups
@@ -106,7 +117,7 @@ class CreateWorkshopController < ApplicationController
     params.require(:workshop).permit(:name, :description, :user_id, :teacher, :begins, :ends, :teamgeneration, :teamnumber, :projectleaders)
   end
   def project_params
-    params.require(:workshop).permit(:project_attributes=>[:name,:description])
+    params.require(:workshop).permit(projects_attributes: [:name,:description])
   end
 
   # We use a recursive method, because we have to distribuate: projects leaders and users in 2 times
