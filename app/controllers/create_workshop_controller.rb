@@ -35,7 +35,7 @@ class CreateWorkshopController < ApplicationController
     #render_wizard @workshop
     case step
     when :create
-      abort workshop_params.inspect
+      #abort workshop_params.inspect
       @workshop = Workshop.new(workshop_params)
       @workshop.user_id = current_user.id
       @workshop.save
