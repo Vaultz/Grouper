@@ -1,6 +1,6 @@
-<h1>Créer un SOS</h1>
+<h1>Envoyer un SOS</h1>
 
-<h4>Envoyer un SOS permetde signaler une difficulté dans l'avancée de votre projet. Un mail sera envoyé aux membres des autres teams.</h4>
+<h4>La fonction SOS vous permet de signaler une difficulté particulière dans l'avancée de votre projet. Un mail sera envoyé aux membres des autres teams pour les avertir de votre problème.</h4>
 
 <%= form_tag("/alerts/create") do %>
 
@@ -15,6 +15,6 @@
   </div>
 
   <div class="actions">
-    <%= submit_tag("OK") %>
+    <%= submit_tag "OK", data: { confirm: "Êtes-vous sûr(e) de vouloir envoyer ce SOS ?" } %>
   </div>
 <% end %>
