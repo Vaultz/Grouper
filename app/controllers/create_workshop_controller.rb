@@ -68,6 +68,7 @@ class CreateWorkshopController < ApplicationController
 
     redirect_to next_wizard_path
     #When validating the last form the step won't be 'validate' but something else, so we put else
+
     else
       @workshop = Workshop.new(session[:workshop])
       if @workshop.save
