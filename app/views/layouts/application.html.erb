@@ -11,7 +11,9 @@
 
   <body>
     <%= render('layouts/header') %>
+    <main class='margin_top'>
     <%= yield %>
+    </main>
     <%= render('layouts/footer') %>
 
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>

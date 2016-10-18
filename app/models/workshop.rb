@@ -20,7 +20,8 @@ class Workshop < ApplicationRecord
   has_many :projects, dependent: :destroy # Destroy associated projects
   belongs_to :user
 
-  validates :name, :description, :teacher, :begins, :ends, :teamgeneration, :teamnumber, :projectleaders, presence: true
+  validates :name, :description, :teacher, :begins, :ends, :teamgeneration, :projectleaders,:teamnumber, presence: true
+  validates :teamnumber, numericality: { only_integer: true, :greater_than_or_equal_to => 1  }
   accepts_nested_attributes_for :projects
 
 end
