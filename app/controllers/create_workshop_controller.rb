@@ -35,7 +35,6 @@ class CreateWorkshopController < ApplicationController
     #render_wizard @workshop
     case step
     when :create
-      #abort workshop_params.inspect
       @workshop = Workshop.new(workshop_params)
       @workshop.user_id = current_user.id
       @workshop.save
@@ -44,6 +43,7 @@ class CreateWorkshopController < ApplicationController
     when :projectsname
       # we create a new variable session with the nexly acquired info on the workshop
       #then we redirect to the next step defore wicked can save to the database
+      abort project_params.inspect
 
     @workshop = Workshop.last
     #@workshop.user_id = current_user.id # Give the current user id at the new workshop
@@ -106,7 +106,7 @@ class CreateWorkshopController < ApplicationController
     params.require(:workshop).permit(:name, :description, :user_id, :teacher, :begins, :ends, :teamgeneration, :teamnumber, :projectleaders)
   end
   def project_params
-    params.require(:workshop).permit(:project_attributes=>[:name,:description])
+    params.require(:workshop).permit(projects_attributes: [:name,:description])
   end
 
   # We use a recursive method, because we have to distribuate: projects leaders and users in 2 times
