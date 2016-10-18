@@ -21,8 +21,10 @@ class CreateWorkshopController < ApplicationController
 
       #@workshop = Workshop.new(session[:workshop])
     when :validate
-
-
+      @project= Project.new(project_params)
+      @project.workshop_id = Workshop.last
+      @project.save
+      @project = Project.last
     end
 
     # render the view corresponding to the actual step
@@ -43,14 +45,14 @@ class CreateWorkshopController < ApplicationController
     when :projectsname
       # we create a new variable session with the nexly acquired info on the workshop
       #then we redirect to the next step defore wicked can save to the database
-      abort project_params.inspect
+      #abort project_params.inspect
 
     @workshop = Workshop.last
     #@workshop.user_id = current_user.id # Give the current user id at the new workshop
     #session[:workshop] = @workshop.attributes
     #We look at the generation mode
 
-    projects = Project.new(project_params)
+    #projects = Project.new(project_params)
 
     if @workshop.teamgeneration == 0
       #Let's create a variable for the groups
