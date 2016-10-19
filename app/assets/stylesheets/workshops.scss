@@ -11,6 +11,7 @@
   overflow-y: auto;
   width: 220px;
   background-color: #23232C;
+  margin-bottom: 15px;
 }
 
 .canvas a {
@@ -156,6 +157,6 @@
 .no_project a {
   font-size: 15em;
   color: rgba(0,0,0, .3);
-  display: block;
+  display: inline-block;
   cursor: pointer;
 }

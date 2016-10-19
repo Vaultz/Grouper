@@ -13,68 +13,62 @@
   <% end %>
 </div>
 
-<% if Workshop.count != 0 %>
+<div class="actions_workshop">
+  <%= link_to (content_tag(:i, nil, class: 'fa fa-pencil-square-o')), edit_workshop_path(@workshop) %>
+  <%= link_to (content_tag(:i, nil, class: 'fa fa-trash-o')), @workshop, method: :delete, data: { confirm: 'Are you sure?' } %>
+</div>
 
-  <div class="actions_workshop">
-    <%= link_to (content_tag(:i, nil, class: 'fa fa-pencil-square-o')), edit_workshop_path(@workshop) %>
-    <%= link_to (content_tag(:i, nil, class: 'fa fa-trash-o')), @workshop, method: :delete, data: { confirm: 'Are you sure?' } %>
-  </div>
+<div class="container-fluid full_width last_workshop_view">
+  <div class="content">
 
-  <div class="container-fluid full_width last_workshop_view">
-    <div class="content">
+    <div class="row">
+      <div class="col-md-12 title_workshop">
+        <div class="filter">
+          <h1><%= @workshop.name %></h1>
+        </div>
+      </div>
+    </div>
 
-      <div class="row">
-        <div class="col-md-12 title_workshop">
-          <div class="filter">
-            <h1>Dernier Workshop créé</h1>
-          </div>
+    <div class="row wrapper_informations">
+
+      <div class="col-md-6 col-sm-12">
+        <div class="line_title">
+          <h3><i class="fa fa-info" aria-hidden="true"></i> Informations</h3>
+        </div>
+
+        <div class="informations">
+          <ul>
+            <li><span class="attribut">Titre :</span> <%= @workshop.name %></li>
+            <li><span class="attribut">Créé par :</span> <%= @workshop.user.firstname %></li>
+            <li><span class="attribut">Professeur(s) associé(s) :</span> <%= @workshop.teacher %></li>
+            <li><span class="attribut">Date de début :</span> <%= @workshop.begins %></li>
+            <li><span class="attribut">Date de fin :</span> <%= @workshop.ends %></li>
+            <li><span class="attribut">Nombre de groupes :</span> <%= @workshop.teamnumber %></li>
+          </ul>
+        </div>
+
+        <div class="line_title">
+          <h3><i class="fa fa-comment" aria-hidden="true"></i> Description</h3>
+        </div>
+
+        <div class="description">
+          <p><%= @workshop.description %></p>
         </div>
       </div>
 
-      <div class="row wrapper_informations">
+      <div class="col-md-6 col-sm-12">
+        <div class="line_title">
+          <h3><i class="fa fa-users" aria-hidden="true"></i> Les projets</h3>
+        </div><!-- If there is no workshop, don't print on the screen -->
+        <div class="every_projects">
 
-        <div class="col-md-6 col-sm-12">
-          <div class="line_title">
-            <h3><i class="fa fa-info" aria-hidden="true"></i> Informations</h3>
-          </div>
-
-          <div class="informations">
-            <ul>
-              <li><span class="attribut">Titre :</span> <%= @workshop.name %></li>
-              <li><span class="attribut">Créé par :</span> <%= @workshop.user.firstname %></li>
-              <li><span class="attribut">Professeur(s) associé(s) :</span> <%= @workshop.teacher %></li>
-              <li><span class="attribut">Date de début :</span> <%= @workshop.begins %></li>
-              <li><span class="attribut">Date de fin :</span> <%= @workshop.ends %></li>
-              <li><span class="attribut">Nombre de groupes :</span> <%= @workshop.teamnumber %></li>
-            </ul>
-          </div>
-
-          <div class="line_title">
-            <h3><i class="fa fa-comment" aria-hidden="true"></i> Description</h3>
-          </div>
-
-          <div class="description">
-            <p><%= @workshop.description %></p>
-          </div>
-        </div>
-
-        <div class="col-md-6 col-sm-12">
-          <div class="line_title">
-            <h3><i class="fa fa-users" aria-hidden="true"></i> Les projets</h3>
-          </div><!-- If there is no workshop, don't print on the screen -->
-          <div class="every_projects">
-
-              <% @project.each do |project| %>
-                <% if @id == project.workshop_id %> <!-- Display project associated to this workshop by id (last workshop only) -->
-                  <%= project.name %>
-                <% end %>
+            <% @project.each do |project| %>
+              <% if @id == project.workshop_id %> <!-- Display project associated to this workshop by id (last workshop only) -->
+                <%= project.name %>
               <% end %>
-          </div>
+            <% end %>
         </div>
       </div>
     </div>
   </div>
-
-<% else %>
-  Il n'y a pas de projet.
-<% end %> <!-- end if -->
+</div>
