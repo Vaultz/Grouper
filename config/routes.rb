@@ -3,6 +3,8 @@ Rails.application.routes.draw do
   # Module SOS
   get 'alerts/index'
   post 'alerts/create'
+  get 'workshops/addto' => "home/index"
+  get 'workshops/switchto' => "home/index"
 
   resources :workshops
 
