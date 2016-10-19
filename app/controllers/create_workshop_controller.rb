@@ -62,14 +62,15 @@ class CreateWorkshopController < ApplicationController
     when :projectsname
       # we create a new variable session with the nexly acquired info on the workshop
       #then we redirect to the next step defore wicked can save to the database
-    @workshop = Workshop.last
+    @workshop = Workshop.find(session[:workshop_unfinished])
     #@workshop.user_id = current_user.id # Give the current user id at the new workshop
     #session[:workshop] = @workshop.attributes
     #We look at the generation mode
     projects = []
     error = false
-    project_params[:projects_attributes].each_pair do |key,project|
-      project = @workshop.projects.new(project)
+    project_params[:projects_attributes].each_pair do |key,project_tmp|
+      project = @workshop.projects.new(project_tmp)
+      projects << project
       unless project.valid?
         error = true
       end
@@ -77,6 +78,10 @@ class CreateWorkshopController < ApplicationController
     if error
       render wizard_path
       return
+    else
+      projects.each do |project|
+        project.save
+      end
     end
 
 
@@ -118,15 +123,16 @@ class CreateWorkshopController < ApplicationController
 
     redirect_to next_wizard_path
     #When validating the last form the step won't be 'validate' but something else, so we put else
-    else
-      @workshop = Workshop.new(session[:workshop])
-      if @workshop.save
-          #When saving project to database
-          projects[i]= @workshop.projects.create(project_params)
-          redirect_to workshops_path(), notice: "Workshop was successfully created"
-      end
+    # else
+    #   @workshop = Workshop.new(session[:workshop])
+    #   if @workshop.save
+    #       #When saving project to database
+    #       projects[i]= @workshop.projects.create(project_params)
+    #       redirect_to workshops_path(), notice: "Workshop was successfully created"
+    #   end
     end
   end
+
   private
 
   def finish_wizard_path
