@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   get 'alerts/index'
   post 'alerts/create'
   get 'workshops/addto' => "home/index"
+  get 'workshops/switchto' => "home/index"
 
   resources :workshops
   get 'home/index'

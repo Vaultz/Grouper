@@ -58,6 +58,17 @@ class WorkshopsController < ApplicationController
     redirect_to workshops_url
   end
 
+  def switchto
+
+    # abort params[:id_group_current].inspect
+    work = Work.find(params[:id_group_current])
+    work.project_id = params[:id_group]
+    work.save
+
+    redirect_to workshops_url
+
+  end
+
   # PATCH/PUT /workshops/1
   # PATCH/PUT /workshops/1.json
   def update

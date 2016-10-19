@@ -91,14 +91,34 @@
           </tbody>
         </table>
 
+        <% total=0 %>
+        <% @project.each do |project| %>
+          <% if @id_last == project.workshop_id %> <!-- Display project associated to this workshop by id (last workshop only) -->
+            <% @id_project = project.id %>
+              <% @work = Work.where('user_id = ? AND project_id= ?', current_user, project.id ) %>
+              <% if @work.blank? %>
+                <% total=total +1 %>
+              <% end %>
+              <% if @work.present? %>
+                <% @work.each do |work| %>
+                  <% @current_project = work.id %>
+                <% end %>
+              <% end %>
+          <% end %>
+        <% end %>
+
         <% @project.each do |project| %>
           <% if @id_last == project.workshop_id %> <!-- Display project associated to this workshop by id (last workshop only) -->
             <%= project.name %>
             <% @id_project = project.id %>
 
               <% @work = Work.where('user_id = ? AND project_id= ?', current_user, project.id ) %>
-              <% if @work.blank? %>
-                <%= link_to "Switch", {:controller => :workshops, :action => :addto, :id_user => current_user, :id_group => project.id }%>
+              <% if(total==@workshop_last.teamnumber) %>
+                  <%= link_to "S\'ajouter", {:controller => :workshops, :action => :addto, :id_user => current_user, :id_group => project.id }%>
+              <% else %>
+                <% if @work.blank? %>
+                  <%= link_to "Switch", {:controller => :workshops, :action => :switchto, :id_user => current_user, :id_group => project.id, :id_group_current => @current_project }%>
+                  <% end %>
               <% end %>
           <% end %>
         <% end %>
