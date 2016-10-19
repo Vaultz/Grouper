@@ -49,7 +49,14 @@ class WorkshopsController < ApplicationController
     end
   end
 
+  def addto
+    # abort params[:id_group]
 
+      work = Work.new(:user_id => params[:id_user], :project_id => params[:id_group])
+      work.save
+
+    redirect_to workshops_url
+  end
 
   # PATCH/PUT /workshops/1
   # PATCH/PUT /workshops/1.json
@@ -76,6 +83,7 @@ class WorkshopsController < ApplicationController
   end
 
   private
+
     # Use callbacks to share common setup or constraints between actions.
     def set_workshop
       @workshop = Workshop.find(params[:id])

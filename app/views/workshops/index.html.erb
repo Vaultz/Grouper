@@ -67,7 +67,7 @@
               <th>Teacher</th>
               <th>Begins</th>
               <th>Ends</th>
-              <th>Teamgeneration</th>
+              <th>Mode de génération</th>
               <th>Teamnumber</th>
               <th colspan="3"></th>
             </tr>
@@ -94,6 +94,12 @@
         <% @project.each do |project| %>
           <% if @id_last == project.workshop_id %> <!-- Display project associated to this workshop by id (last workshop only) -->
             <%= project.name %>
+            <% @id_project = project.id %>
+
+              <% @work = Work.where('user_id = ? AND project_id= ?', current_user, project.id ) %>
+              <% if @work.blank? %>
+                <%= link_to "Switch", {:controller => :workshops, :action => :addto, :id_user => current_user, :id_group => project.id }%>
+              <% end %>
           <% end %>
         <% end %>
       <% else %>
