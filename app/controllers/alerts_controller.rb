@@ -15,7 +15,7 @@ class AlertsController < ApplicationController
     end
 
     # when calling the Rails Mail object, you need to call the deliver_now method in order to send the mail right now
-    AlertMailer.send_mail(mailAddresses).deliver_now
+    mailreturn = AlertMailer.send_mail(mailAddresses).deliver_now
 
   end
 
