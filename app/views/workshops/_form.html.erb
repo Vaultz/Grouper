@@ -1,4 +1,4 @@
-<%= form_for (workshop), url: { action: "preview" } do |f| %>
+<%= form_for (workshop) do |f| %>
   <% if workshop.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(workshop.errors.count, "error") %> prohibited this workshop from being saved:</h2>
@@ -36,29 +36,6 @@
     <%= f.date_select :ends %>
   </div>
 
-  <div class="field">
-    <!--
-    Deleting the original field in order to remplace it with a radio_button_tag
-    <%= f.number_field :teamgeneration %> -->
-    <div>Mode de génération des groupes</div>
-    <%= label :teamgeneration, "Full Random" %>
-    <%= f.radio_button :teamgeneration, 0 %>
-
-    <%= label :teamgeneration, "Manuel" %>
-    <%= f.radio_button :teamgeneration, 1, disabled: true %>
-
-    <%= label :teamgeneration, "Mi-random" %>
-    <%= f.radio_button :teamgeneration, 2, disabled: true %>
-
-    <%= label :teamgeneration, "Préférences" %>
-    <%= f.radio_button :teamgeneration, 3, disabled: true %>
-
-  </div>
-
-  <div class="field">
-    <%= f.label :teamnumber %>
-    <%= f.number_field :teamnumber %>
-  </div>
 
   <div class="actions">
     <%= f.submit %>

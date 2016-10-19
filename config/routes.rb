@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   post 'alerts/create'
 
   resources :workshops
+
   get 'home/index'
 
   authenticated :user do
@@ -15,8 +16,12 @@ Rails.application.routes.draw do
   root :to => "home#index"
 
   resources :create_workshop
-  #match "create_workshop/validate", to: "create_workshop#validate", via: "put"
+  #get '/workshop/:id/edit' => 'create_workshop#wicked_first', :as => 'edit_workshop'
 
+  # , only: [:show, :update]
+  # controller :workshops do
+  #   resources :create_workshop, only: :update
+  # end
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
