@@ -17,6 +17,11 @@ class WorkshopsController < ApplicationController
   # GET /workshops/1
   # GET /workshops/1.json
   def show
+    @workshops = Workshop.all # Useful to display every workshops
+    if Workshop.count != 0 # If there is no workshop, don't create these variables
+      @id = @workshop.id
+      @project = Project.all
+    end
   end
 
   # GET /workshops/new
