@@ -36,6 +36,8 @@ class WorkshopsController < ApplicationController
           format.html { render :edit }
       end
     end
+
+
   end
 
 
@@ -54,7 +56,24 @@ class WorkshopsController < ApplicationController
     end
   end
 
+  def addto
+    # abort params[:id_group]
 
+      work = Work.new(:user_id => params[:id_user], :project_id => params[:id_group])
+      work.save
+
+    redirect_to workshops_url
+  end
+
+  def switchto
+
+    work = Work.find(params[:id_group_current])
+    work.project_id = params[:id_group]
+    work.save
+
+    redirect_to workshops_url
+
+  end
 
   # PATCH/PUT /workshops/1
   # PATCH/PUT /workshops/1.json
@@ -73,6 +92,9 @@ class WorkshopsController < ApplicationController
   # DELETE /workshops/1
   # DELETE /workshops/1.json
   def destroy
+    if session[:workshop_unfinished] == @workshop.id
+      session.delete(:workshop_unfinished)
+    end
     @workshop.destroy
     respond_to do |format|
       format.html { redirect_to workshops_url, notice: 'Workshop was successfully destroyed.' }
@@ -81,6 +103,7 @@ class WorkshopsController < ApplicationController
   end
 
   private
+
     # Use callbacks to share common setup or constraints between actions.
     def set_workshop
       @workshop = Workshop.find(params[:id])
@@ -89,5 +112,8 @@ class WorkshopsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def workshop_params
       params.require(:workshop).permit(:name, :description, :user_id, :teacher, :begins, :ends, :teamgeneration, :teamnumber)
+    end
+    def workshop_id
+      params[:id]
     end
 end

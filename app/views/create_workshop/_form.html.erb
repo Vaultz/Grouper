@@ -1,5 +1,5 @@
 <%= form_for workshop, url: wizard_path, method: :put do |f| %>
-<!-- <% if workshop.errors.any? %>
+ <% if workshop.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(workshop.errors.count, "error") %> prohibited this workshop from being saved:</h2>
 
@@ -10,7 +10,7 @@
       </ul>
     </div>
   <% end %>
--->
+
 
   <div class="field">
     <%= f.label :name %>
@@ -46,7 +46,7 @@
     <%= f.radio_button :teamgeneration, 0 %>
 
     <%= label :teamgeneration, "Manuel" %>
-    <%= f.radio_button :teamgeneration, 1, disabled: true %>
+    <%= f.radio_button :teamgeneration, 1 %>
 
     <%= label :teamgeneration, "Mi-random" %>
     <%= f.radio_button :teamgeneration, 2, disabled: true %>

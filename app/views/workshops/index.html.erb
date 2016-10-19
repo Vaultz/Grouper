@@ -34,12 +34,10 @@
         </div>
 
         <div class="row wrapper_informations">
-
           <div class="col-md-6 col-sm-12">
             <div class="line_title">
               <h3><i class="fa fa-info" aria-hidden="true"></i> Informations</h3>
             </div>
-
             <div class="informations">
               <ul>
                 <li><span class="attribut">Titre :</span> <%= @workshop_last.name %></li>
@@ -65,7 +63,26 @@
               <h3><i class="fa fa-users" aria-hidden="true"></i> Les projets</h3>
             </div>
             <div class="every_projects">
+              <% if(@workshop_last.teamgeneration==1) %>
+                <% total=0 %>
+                <% @project.each do |project| %>
+                  <% if @id_last == project.workshop_id %>
+                    <% @id_project = project.id %>
+                    <% @work = Work.where('user_id = ? AND project_id= ?', current_user, project.id ) %> <!-- search Work where user isn't present -->
+                    <% if @work.blank? %> <!-- function isset() in rails   -->
+                      <% total=total +1 %> <!-- Count number group where user isn't present -->
+                    <% end %>
+                    <% if @work.present? %> <!-- function empty() in rails  -->
+                      <% @work.each do |work| %>
+                        <% @current_project = work.id %> <!-- recover id project where's user -->
+                      <% end %>
+                    <% end %>
+                  <% end %>
+                <% end %>
+              <% end %>
+
               <% @project.each do |project| %>
+
                 <div class="group">
                   <% if @id_last == project.workshop_id %> <!-- Display project associated to this workshop by id (last workshop only) -->
                     <p><%= project.name %></p>
@@ -81,6 +98,25 @@
                   <% end %>
                 </div>
               <% end %>
+
+                <% if @id_last == project.workshop_id %> <!-- Display project associated to this workshop by id (last workshop only) -->
+                  <%= project.name %>
+                  <% @id_project = project.id %>
+
+                    <% if(@workshop_last.teamgeneration==1) %>
+                      <% @work = Work.where('user_id = ? AND project_id= ?', current_user, project.id ) %> <!-- search Work where user isn't present -->
+                      <% if(total==@workshop_last.teamnumber) %> <!-- if user don't have select a group display button 'S ajouter' for join a group -->
+                        <%= link_to "S\'ajouter", {:controller => :workshops, :action => :addto, :id_user => current_user, :id_group => project.id }%>
+                      <% else %>
+                        <% if @work.blank? %> <!-- if user have select a group display button 'Switch' for switch group -->
+                          <%= link_to "Switch", {:controller => :workshops, :action => :switchto, :id_user => current_user, :id_group => project.id, :id_group_current => @current_project }%>
+                        <% end %>
+                      <% end %>
+                    <% end %>
+                <% end %>
+
+              <% end %> <!-- end do -->
+
             </div>
           </div>
         </div>
@@ -91,6 +127,7 @@
             Aucun projet :(
           </div>
         </div>
+
       <% end %> <!-- end if -->
     </div>
   </div>
