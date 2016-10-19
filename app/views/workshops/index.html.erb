@@ -1,139 +1,115 @@
 <p id="notice"><%= notice %></p>
-<section class="container-fluid bg_full_width">
-  <div class="filter_workshop">
-  </div>
+<section class="container-fluid bg_full_width_workshop">
 </section>
 
 <div class="canvas">
   <%= link_to 'Créer un Workshop', controller: "create_workshop" %>
   <h4><i class="fa fa-list" aria-hidden="true"></i> Workshops</h4>
 
-  <div class="line"></div>
   <% @workshops.each do |workshop| %>
     <div class="each_workshop">
       <%= link_to workshop.name, workshop %>
-      <div class="action_workshop">
+      <!-- <div class="action_workshop">
         <%= link_to (content_tag(:i, nil, class: 'fa fa-pencil-square-o')), edit_workshop_path(workshop) %>
         <%= link_to (content_tag(:i, nil, class: 'fa fa-trash-o')), workshop, method: :delete, data: { confirm: 'Are you sure?' } %>
-      </div>
+      </div> -->
     </div>
-    <div class="line"></div>
   <% end %>
 </div>
 
 <div class="container-fluid full_width last_workshop_view">
   <div class="content">
 
-    <div class="margin_top row">
-      <div class="col-md-12">
-        <h1>Dernier Workshop créé:</h1>
+    <% if Workshop.count != 0 %>
+      <div class="actions_workshop">
+        <%= link_to (content_tag(:i, nil, class: 'fa fa-pencil-square-o')), edit_workshop_path(@workshop_last) %>
+        <%= link_to (content_tag(:i, nil, class: 'fa fa-trash-o')), @workshop_last, method: :delete, data: { confirm: 'Are you sure?' } %>
       </div>
-    </div>
-
-    <div class="row wrapper_informations">
-      <div class="col-md-offset-1 col-md-3 col-sm-12 informations">
-        <div>
-          <div>
-            <p><i class="fa fa-info" aria-hidden="true"></i> Informations :</p>
+        <div class="row">
+          <div class="col-md-12 title_workshop">
+            <div class="filter">
+              <h1>Dernier Workshop créé</h1>
+            </div>
           </div>
-          <ul>
-            <li>Titre : <%= @workshop_last.name %></li>
-            <li>Créé par : <%= @workshop_last.user.firstname %></li>
-            <li>Professeur(s) associé(s) : <%= @workshop_last.teacher %></li>
-            <li>Date de début : <%= @workshop_last.begins %></li>
-            <li>Date de fin : <%= @workshop_last.ends %></li>
-            <li>Nombre de groupes : <%= @workshop_last.teamnumber %></li>
-          </ul>
         </div>
-      </div>
 
-      <div class="col-md-7 col-sm-12 informations description">
-        <p><i class="fa fa-comment" aria-hidden="true"></i> Description :</p>
-        <div class="transform_position">
-          <%= @workshop_last.description %>
-        </div>
-      </div>
-    </div>
+        <div class="row wrapper_informations">
+          <div class="col-md-6 col-sm-12">
+            <div class="line_title">
+              <h3><i class="fa fa-info" aria-hidden="true"></i> Informations</h3>
+            </div>
+            <div class="informations">
+              <ul>
+                <li><span class="attribut">Titre :</span> <%= @workshop_last.name %></li>
+                <li><span class="attribut">Créé par :</span> <%= @workshop_last.user.firstname %></li>
+                <li><span class="attribut">Professeur(s) associé(s) :</span> <%= @workshop_last.teacher %></li>
+                <li><span class="attribut">Date de début :</span> <%= @workshop_last.begins %></li>
+                <li><span class="attribut">Date de fin :</span> <%= @workshop_last.ends %></li>
+                <li><span class="attribut">Nombre de groupes :</span> <%= @workshop_last.teamnumber %></li>
+              </ul>
+            </div>
 
-    <div class="row">
-      <div class="col-md-offset-1 col-md-10 every_projects">
-        <% if Workshop.count != 0 %> <!-- If there is no workshop, don't print on the screen -->
-        <table>
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Description</th>
-              <th>Createdby</th>
-              <th>Teacher</th>
-              <th>Begins</th>
-              <th>Ends</th>
-              <th>Mode de génération</th>
-              <th>Teamnumber</th>
-              <th colspan="3"></th>
-            </tr>
-          </thead>
+            <div class="line_title">
+              <h3><i class="fa fa-comment" aria-hidden="true"></i> Description</h3>
+            </div>
 
-          <tbody>
-              <tr>
-                <td><%= @workshop_last.name %></td>
-                <td><%= @workshop_last.description %></td>
-                <td><%= @workshop_last.user.firstname %></td>
-                <td><%= @workshop_last.teacher %></td>
-                <td><%= @workshop_last.begins %></td>
-                <td><%= @workshop_last.ends %></td>
-                <td><%= @workshop_last.teamgeneration %></td>
-                <td><%= @workshop_last.teamnumber %></td>
-                <td><%= link_to 'Show', @workshop_last %></td>
-                <td><%= link_to 'Edit', edit_workshop_path(@workshop_last) %></td>
-                <td><%= link_to 'Destroy', @workshop_last, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-                <td><%= link_to 'SOS', alerts_index_path %></td>
-              </tr>
-          </tbody>
-        </table>
+            <div class="description">
+              <p><%= @workshop_last.description %></p>
+            </div>
+          </div>
 
-        <% if(@workshop_last.teamgeneration==1) %>
-          <% total=0 %>
-          <% @project.each do |project| %>
-            <% if @id_last == project.workshop_id %>
-              <% @id_project = project.id %>
-              <% @work = Work.where('user_id = ? AND project_id= ?', current_user, project.id ) %> <!-- search Work where user isn't present -->
-              <% if @work.blank? %> <!-- function isset() in rails   -->
-                <% total=total +1 %> <!-- Count number group where user isn't present -->
-              <% end %>
-              <% if @work.present? %> <!-- function empty() in rails  -->
-                <% @work.each do |work| %>
-                  <% @current_project = work.id %> <!-- recover id project where's user -->
-                <% end %>
-              <% end %>
-            <% end %>
-          <% end %>
-        <% end %>
-
-        <% @project.each do |project| %>
-          <% if @id_last == project.workshop_id %> <!-- Display project associated to this workshop by id (last workshop only) -->
-            <%= project.name %>
-            <% @id_project = project.id %>
-
+          <div class="col-md-6 col-sm-12">
+            <div class="line_title">
+              <h3><i class="fa fa-users" aria-hidden="true"></i> Les projets</h3>
+            </div>
+            <div class="every_projects">
               <% if(@workshop_last.teamgeneration==1) %>
-                <% @work = Work.where('user_id = ? AND project_id= ?', current_user, project.id ) %> <!-- search Work where user isn't present -->
-                <% if(total==@workshop_last.teamnumber) %> <!-- if user don't have select a group display button 'S ajouter' for join a group -->
-                  <%= link_to "S\'ajouter", {:controller => :workshops, :action => :addto, :id_user => current_user, :id_group => project.id }%>
-                <% else %>
-                  <% if @work.blank? %> <!-- if user have select a group display button 'Switch' for switch group -->
-                    <%= link_to "Switch", {:controller => :workshops, :action => :switchto, :id_user => current_user, :id_group => project.id, :id_group_current => @current_project }%>
+                <% total=0 %>
+                <% @project.each do |project| %>
+                  <% if @id_last == project.workshop_id %>
+                    <% @id_project = project.id %>
+                    <% @work = Work.where('user_id = ? AND project_id= ?', current_user, project.id ) %> <!-- search Work where user isn't present -->
+                    <% if @work.blank? %> <!-- function isset() in rails   -->
+                      <% total=total +1 %> <!-- Count number group where user isn't present -->
+                    <% end %>
+                    <% if @work.present? %> <!-- function empty() in rails  -->
+                      <% @work.each do |work| %>
+                        <% @current_project = work.id %> <!-- recover id project where's user -->
+                      <% end %>
+                    <% end %>
                   <% end %>
                 <% end %>
               <% end %>
-          <% end %>
 
-        <% end %> <!-- end do -->
+              <% @project.each do |project| %>
+                <% if @id_last == project.workshop_id %> <!-- Display project associated to this workshop by id (last workshop only) -->
+                  <%= project.name %>
+                  <% @id_project = project.id %>
+
+                    <% if(@workshop_last.teamgeneration==1) %>
+                      <% @work = Work.where('user_id = ? AND project_id= ?', current_user, project.id ) %> <!-- search Work where user isn't present -->
+                      <% if(total==@workshop_last.teamnumber) %> <!-- if user don't have select a group display button 'S ajouter' for join a group -->
+                        <%= link_to "S\'ajouter", {:controller => :workshops, :action => :addto, :id_user => current_user, :id_group => project.id }%>
+                      <% else %>
+                        <% if @work.blank? %> <!-- if user have select a group display button 'Switch' for switch group -->
+                          <%= link_to "Switch", {:controller => :workshops, :action => :switchto, :id_user => current_user, :id_group => project.id, :id_group_current => @current_project }%>
+                        <% end %>
+                      <% end %>
+                    <% end %>
+                <% end %>
+
+              <% end %> <!-- end do -->
+            </div>
+          </div>
+        </div>
       <% else %>
-        Il n'y a pas de projet.
+        <div class="row">
+          <div class="col-md-12 no_project">
+            <%= link_to (content_tag(:i, nil, class: 'fa fa-plus-square-o')), controller: "create_workshop" %><br />
+            Aucun projet :(
+          </div>
+        </div>
+
       <% end %> <!-- end if -->
-      </div>
     </div>
-
-
-
-
-<br>
+  </div>

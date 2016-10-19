@@ -19,11 +19,16 @@ body {
   font-family: "Caviar_Dreams";
   border-bottom: 1px solid grey;
   height : 50px;
+  background-color: black;
 }
 
 .header ul:first-child {
   line-height: 50px;
   float: left;
+}
+
+.header ul:last-child li:first-child::first-letter {
+  text-transform: uppercase;
 }
 
 .header ul li {

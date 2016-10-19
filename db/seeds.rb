@@ -21,6 +21,7 @@ f_u.each do |user|
   new_user.save!
 end
 #Fake worshop Hash
+
 f_w = Array.new
 f_w[0] = {:name => 'SQL', :description => 'Création d\'un schéma de base de données, associé à un CRUD et des exemples de requêtes SQL ', :teacher => 'Hitcham', :begins => '16-09-2016', :ends => '20-01-2017', :teamnumber =>'3', :teamgeneration => 0, :created_at => '16-09-2016', :projectleaders => 0}
 f_w[1] = {:name => 'Devis', :description => 'Éditer un devis pour un projet fictif avec M Ricard qui s\'amuse à jouer M.Fortineau', :teacher => 'Laurent', :begins => '20-09-2016', :ends => '16-10-2016', :teamnumber =>'2', :teamgeneration => 0, :created_at => '20-09-2016', :projectleaders => 1, :updated_at =>'20-09-2016'}

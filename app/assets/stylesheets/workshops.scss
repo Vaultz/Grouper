@@ -2,105 +2,128 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.line {
-  height: 1px;
-  width: 30px;
-  background-color: grey;
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
-
 .canvas {
-  padding-left: 10px;
   position: fixed;
   left: 0;
   top: 50px;
   bottom: 0;
   height: 100vh;
   overflow-y: auto;
-  width: 200px;
+  width: 220px;
   background-color: #23232C;
-  border-right: 1px solid #EEE;
+  margin-bottom: 15px;
 }
 
 .canvas a {
+  color: #C2C2CA !important;
   display: block;
   margin: 0 auto;
   text-align: center;
   margin-left: -10px !important;
-  padding: 5px 0;
+  padding: 17px;
 }
 
 .canvas h4, .fa-list {
-  color: #C2C2CA !important;
+  margin-left: 5px;
+  color: #C2C2CA;
   font-size: 18px !important;
 }
 
+.each_workshop {
+    border-bottom: 1px solid #343434;
+    &:hover {
+      background-color: #34343D;
+    }
+}
+
 .each_workshop a {
-  color: #C2C2CA;
-  display: inline-block;
+  display: block;
   font-size: 14px;
   word-wrap: break-word;
-  text-align: left;
+  text-align: center;
   padding-left: 10px;
 }
 
-.each_workshop a:first-child {}
-
-.action_workshop {
-  float: right;
-  display: inline-block;
-  text-align: right;
+.title_workshop {
+  padding: 0 !important;
+  color: black;
+  height: 200px;
+  background: image_url('background_home.jpg') center center no-repeat;
+  background-size: cover;
 }
 
-.action_workshop a {
-  margin: 0 10px;
-  color: white;
-  display: inline-block;
-}
-
-i.fa {
-  color: white;
-  font-size: 1.5em;
-}
-
-i.fa-trash-o {
-  color: #B44;
-  &:hover {
-    color: #DD0000;
-  }
-}
-
-i.fa-pencil-square-o {
-  color: #FFF;
-  &:hover {
-    color: #AAA;
-  }
+.title_workshop h1 {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  color : white;
 }
 
 .last_workshop_view {
-  margin-left: 200px;
+  margin-left: 220px;
+  margin-right: 70px;
 }
 
-.wrapper_informations {
-  margin-bottom: 30px;
+.actions_workshop {
+  color: white !important;
+  width: 70px;
+  height: 100vh;
+  position: fixed;
+  top: 50px;
+  bottom: 0;
+  right: 0;
+  background-color: #23232C;
+}
+
+.actions_workshop .filter {
+
+}
+
+.actions_workshop a {
+  display: block;
+  text-align: center;
+  width: 100%;
+  border-bottom: 1px solid #343434;
+  &:hover {
+    background-color: #34343D;
+  }
+  &:hover > .fa-pencil-square-o {
+    color: #257B00;
+  }
+  &:hover > .fa-trash-o {
+    color: #A40000;
+  }
+}
+
+.actions_workshop a .fa {
+  font-size: 3.5em;
+  margin: 5px 0;
+}
+
+.actions_workshop a .fa-pencil-square-o {
+  margin-top: 10px;
+  position: relative;
+  left: 3px;
 }
 
 .informations, .description, .every_projects {
+  font-family: Helvetica;
   position: relative;
   padding: 10px 0 10px 15px;
-  background: rgba(0,0,0, 0.8);
+  background: rgba(0,0,0, 0.5);
   height: auto;
   text-align: left;
 }
 
-.informations div div p, .description p {
+.description p {
+  margin-left: 20px;
   margin-top: 10px;
-  font-size: 1.5em;
 }
 
 .informations ul li {
   margin: 8px 0;
+  list-style-type: none;
 }
 
 .description .transform_position {
@@ -109,4 +132,31 @@ i.fa-pencil-square-o {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+.line_title {
+  width: 100%;
+  height: 50px;
+  background: rgba(0,0,0, 1);
+}
+
+.line_title h3 {
+  line-height: 50px;
+  text-align: right;
+  padding-right: 15px;
+}
+
+.no_project {
+  color: black;
+  position: relative;
+  margin-top: 250px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.no_project a {
+  font-size: 15em;
+  color: rgba(0,0,0, .3);
+  display: inline-block;
+  cursor: pointer;
 }

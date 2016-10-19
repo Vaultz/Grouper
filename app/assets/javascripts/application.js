@@ -16,38 +16,13 @@
 //= require_tree .
 
 $(document).ready(function() {
-
-  $(window).scroll(function() {
-    var top = $(document).scrollTop();
-    if(top > 10) {
-       $('.header').css('background-color', 'black');
-       $('.header').css('transition', '.2s');
-    } else {
-      $('.header').css('background', 'rgba(0,0,0, 0)');
-    }
-  });
-
-});
-
-function informationsHeight(){
-  var i = 0;
-  var prevDiv = null;
-  $( '.informations' ).each(function(){
-    if(i % 2 == 1){
-      var h1 = prevDiv.height();
-      var h2 = $(this).height();
-      if(h1 > h2){
-        $(this).height(h1);
-      }
-      else{
-        prevDiv.height(h2);
-      }
-    }
-  prevDiv = $(this);
-  i++;
-  });
-}
-
-$(document).ready(function() {
-  informationsHeight();
+  console.log ($('#notice').html());
+  if($('#notice').html() == '') {
+    $('#notice').removeClass('alert alert-success');
+  } else {
+    $('#notice').addClass('alert alert-success');
+    setTimeout(function(){
+      $('#notice').remove();
+    }, 3000);
+  }
 });
