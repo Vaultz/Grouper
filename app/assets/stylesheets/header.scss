@@ -17,7 +17,7 @@ body {
   right: 0;
   z-index: 500;
   font-family: "Caviar_Dreams";
-  border-bottom: 1px solid grey;
+  border-bottom: 1px solid #343434;
   height : 50px;
   background-color: black;
 }
@@ -46,4 +46,69 @@ body {
   float: right;
   line-height: 50px;
   margin-right: 15px;
+}
+
+.header ul .fa-bars {
+  position: relative;
+  top: 5px;
+  cursor: pointer;
+}
+
+
+
+
+/** NAV MOBILE **/
+
+.header ul li:not(.open_menu) {
+  display: inline-block !important;
+}
+
+.open_menu {
+  display: none !important;
+}
+
+@media (max-width: 550px) {
+  .header ul li:not(.open_menu) {
+    display: none !important;
+  }
+
+  .open_menu {
+    display: block !important;
+  }
+}
+
+.nav_mobile {
+  
+  z-index: 1500;
+  position: fixed;
+  height: 100vh;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 220px;
+  background-color: #23232C;
+}
+
+.nav_mobile .fa-times-circle-o {
+  position: relative;
+  left: 10px;
+  line-height: 50px;
+  float: left;
+  cursor: pointer;
+}
+
+.logo_mobile {
+  height: 50px;
+  color: white;
+  line-height: 50px;
+  text-align: center;
+}
+
+.nav_mobile a {
+  color: #C2C2CA !important;
+  display: block;
+  margin: 0 auto;
+  text-align: center;
+  margin-left: -10px !important;
+  padding: 12px;
 }
