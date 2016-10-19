@@ -82,6 +82,23 @@
               <% end %>
 
               <% @project.each do |project| %>
+
+                <div class="group">
+                  <% if @id_last == project.workshop_id %> <!-- Display project associated to this workshop by id (last workshop only) -->
+                    <p><%= project.name %></p>
+                    <% project.users.each do |users| %>
+                    <ul>
+                      <li><%= users.firstname %>
+                      <%= users.lastname %>
+                      <% if users.status == '1' %>
+                        <%= users.status %></li>
+                      <% end %>
+                    </ul>
+                    <% end %>
+                  <% end %>
+                </div>
+              <% end %>
+
                 <% if @id_last == project.workshop_id %> <!-- Display project associated to this workshop by id (last workshop only) -->
                   <%= project.name %>
                   <% @id_project = project.id %>
@@ -99,6 +116,7 @@
                 <% end %>
 
               <% end %> <!-- end do -->
+
             </div>
           </div>
         </div>
