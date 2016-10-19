@@ -32,6 +32,7 @@ class CreateWorkshopController < ApplicationController
 
       #@workshop = Workshop.new(session[:workshop])
     when :validate
+
       if session[:workshop_unfinished]
         @workshop = Workshop.find(session[:workshop_unfinished])
       end
@@ -133,11 +134,11 @@ class CreateWorkshopController < ApplicationController
       projects.each_with_index do |project, index|
           projects[index].users << @@groups[index]
       end
-
     end
 
     if @workshop.teamgeneration == 1
-      return redirect_to workshop_path
+      session.delete(:workshop_unfinished)
+      return redirect_to workshops_path
     end
 
     redirect_to next_wizard_path
