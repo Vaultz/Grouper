@@ -1,44 +1,74 @@
 <p id="notice"><%= notice %></p>
+<section class="container-fluid bg_full_width_workshop">
+</section>
 
-<p>
-  <strong>Nom:</strong>
-  <%= @workshop.name %>
-</p>
+<div class="canvas">
+  <%= link_to 'Créer un Workshop', controller: "create_workshop" %>
+  <h4><i class="fa fa-list" aria-hidden="true"></i> Workshops</h4>
 
-<p>
-  <strong>Description:</strong>
-  <%= @workshop.description %>
-</p>
+  <% @workshops.each do |workshop| %>
+    <div class="each_workshop">
+      <%= link_to workshop.name, workshop %>
+    </div>
+  <% end %>
+</div>
 
-<p>
-  <strong>Createdby:</strong>
-  <%= @workshop.user_id %>
-</p>
+<div class="actions_workshop">
+  <%= link_to (content_tag(:i, nil, class: 'fa fa-pencil-square-o')), edit_workshop_path(@workshop) %>
+  <%= link_to (content_tag(:i, nil, class: 'fa fa-trash-o')), @workshop, method: :delete, data: { confirm: 'Are you sure?' } %>
+</div>
 
-<p>
-  <strong>Teacher:</strong>
-  <%= @workshop.teacher %>
-</p>
+<div class="container-fluid full_width last_workshop_view">
+  <div class="content">
 
-<p>
-  <strong>Begins:</strong>
-  <%= @workshop.begins %>
-</p>
+    <div class="row">
+      <div class="col-md-12 title_workshop">
+        <div class="filter">
+          <h1><%= @workshop.name %></h1>
+        </div>
+      </div>
+    </div>
 
-<p>
-  <strong>Ends:</strong>
-  <%= @workshop.ends %>
-</p>
+    <div class="row wrapper_informations">
 
-<p>
-  <strong>Teamgeneration:</strong>
-  <%= @workshop.teamgeneration %>
-</p>
+      <div class="col-md-6 col-sm-12">
+        <div class="line_title">
+          <h3><i class="fa fa-info" aria-hidden="true"></i> Informations</h3>
+        </div>
 
-<p>
-  <strong>Teamnumber:</strong>
-  <%= @workshop.teamnumber %>
-</p>
+        <div class="informations">
+          <ul>
+            <li><span class="attribut">Titre :</span> <%= @workshop.name %></li>
+            <li><span class="attribut">Créé par :</span> <%= @workshop.user.firstname %></li>
+            <li><span class="attribut">Professeur(s) associé(s) :</span> <%= @workshop.teacher %></li>
+            <li><span class="attribut">Date de début :</span> <%= @workshop.begins %></li>
+            <li><span class="attribut">Date de fin :</span> <%= @workshop.ends %></li>
+            <li><span class="attribut">Nombre de groupes :</span> <%= @workshop.teamnumber %></li>
+          </ul>
+        </div>
 
-<%= link_to 'Edit', edit_workshop_path(@workshop) %> |
-<%= link_to 'Back', workshops_path %>
+        <div class="line_title">
+          <h3><i class="fa fa-comment" aria-hidden="true"></i> Description</h3>
+        </div>
+
+        <div class="description">
+          <p><%= @workshop.description %></p>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-sm-12">
+        <div class="line_title">
+          <h3><i class="fa fa-users" aria-hidden="true"></i> Les projets</h3>
+        </div><!-- If there is no workshop, don't print on the screen -->
+        <div class="every_projects">
+
+            <% @project.each do |project| %>
+              <% if @id == project.workshop_id %> <!-- Display project associated to this workshop by id (last workshop only) -->
+                <%= project.name %>
+              <% end %>
+            <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
