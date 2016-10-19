@@ -60,7 +60,6 @@ class WorkshopsController < ApplicationController
 
   def switchto
 
-    # abort params[:id_group_current].inspect
     work = Work.find(params[:id_group_current])
     work.project_id = params[:id_group]
     work.save
