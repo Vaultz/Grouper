@@ -8,19 +8,27 @@ class CreateWorkshopController < ApplicationController
     #@workshop.user_id = current_user.id # Give the current user id at the new workshop
     case step
     when :create
-      # @workshop will be use to make the corresponding form in the view
-      @workshop = Workshop.new
-      #initialize the session variable that will be use to store the datas before saving to the database
-      #session[:workshop] = nil
+      if session[:workshop_unfinished]
+       @workshop = Workshop.find(session[:workshop_unfinished])
+      else
+        # @workshop will be use to make the corresponding form in the view
+        @workshop = Workshop.new
+     end
+
     when :projectsname
       if session[:workshop_unfinished]
         @workshop = Workshop.find(session[:workshop_unfinished])
       end
       projects = []
-      projects.inspect
-      @workshop.teamnumber.times do |i|
-        projects << @workshop.projects.build
-      end
+      if @workshop.projects.any?
+        @workshop.projects.each do |project|
+          project.destroy
+        end
+      else
+       @workshop.teamnumber.times do |i|
+         projects << @workshop.projects.build
+       end
+     end
 
       #@workshop = Workshop.new(session[:workshop])
     when :validate
@@ -46,8 +54,15 @@ class CreateWorkshopController < ApplicationController
     #render_wizard @workshop
     case step
     when :create
-      @workshop = Workshop.new(workshop_params)
-      @workshop.user_id = current_user.id
+      if session[:workshop_unfinished]
+        @workshop = Workshop.find(session[:workshop_unfinished])
+        @workshop.update(workshop_params)
+        @workshop.user_id = current_user.id
+      else
+        @workshop = Workshop.new(workshop_params)
+        @workshop.user_id = current_user.id
+     end
+
       #Add redirection
       respond_to do |format|
         if @workshop.save
@@ -136,6 +151,7 @@ class CreateWorkshopController < ApplicationController
   private
 
   def finish_wizard_path
+    session.delete(:workshop_unfinished)
    workshops_path()
   end
   # Never trust parameters from the scary internet, only allow the white list through.
