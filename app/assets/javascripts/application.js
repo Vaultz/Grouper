@@ -38,12 +38,12 @@ $(document).ready(function() {
     }
   });
 
-  $('.fa-bars').click(function() {
-    $('.nav_mobile').show();
+  $(document).on('click', '.fa-bars', function() {
+    $('.nav_mobile').css('display', 'block');
   });
 
-  $('.fa-times-circle-o').click(function() {
-    $('.nav_mobile').hide();
+  $(document).on('click', '.fa-times-circle-o', function() {
+    $('.nav_mobile').css('display', 'none');
   });
 
 });

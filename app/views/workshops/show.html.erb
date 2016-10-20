@@ -92,10 +92,10 @@
                 <% if(@workshop.teamgeneration==1) %>
                   <% @work = Work.where('user_id = ? AND project_id= ?', current_user, project.id ) %> <!-- search Work where user isn't present -->
                   <% if(total==@workshop.teamnumber) %> <!-- if user don't have select a group display button 'S ajouter' for join a group -->
-                    <%= link_to "S\'ajouter", {:controller => :workshops, :action => :addto, :id_user => current_user, :id_group => project.id }%>
+                    <%= link_to "S\'ajouter", {:controller => :workshops, :action => :addto, :id_user => current_user, :id_group => project.id, :id_workshop => @workshop.id }%>
                   <% else %>
                     <% if @work.blank? %> <!-- if user have select a group display button 'Switch' for switch group -->
-                      <%= link_to "Switch", {:controller => :workshops, :action => :switchto, :id_user => current_user, :id_group => project.id, :id_group_current => @current_project }%>
+                      <%= link_to "Switch", {:controller => :workshops, :action => :switchto, :id_user => current_user, :id_group => project.id, :id_group_current => @current_project, :id_workshop => @workshop.id }%>
                     <% end %>
                   <% end %>
                 <% end %>
