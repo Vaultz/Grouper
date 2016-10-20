@@ -19,7 +19,11 @@
           <div class="field">
             <%= f.email_field :email, autofocus: true, placeholder: "email" %>
           </div>
-
+          <!-- While subscribing, the user decides which role to take -->
+          <div class="field">
+            <%= f.label :statut %>
+            <%= f.select :status, options_for_select([['Étudiant (non chef de projet)', 0], ['Étudiant (chef de projet)', 1], ['Prof/intervenant', 2]]); %>
+          </div>
           <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
             <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
           <% end %>
