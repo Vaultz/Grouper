@@ -15,7 +15,6 @@ class CreateWorkshopController < ApplicationController
         # @workshop will be use to make the corresponding form in the view
         @workshop = Workshop.new
      end
-
     when :projectsname
       if session[:workshop_unfinished]
         @workshop = Workshop.find(session[:workshop_unfinished])
@@ -63,7 +62,7 @@ class CreateWorkshopController < ApplicationController
       else
         @workshop = Workshop.new(workshop_params)
         @workshop.user_id = current_user.id
-     end
+      end
 
       #Add redirection
       respond_to do |format|
@@ -74,7 +73,7 @@ class CreateWorkshopController < ApplicationController
           format.html { render wizard_path }
           #format.json { render json: @workshop.errors, status: :unprocessable_entity }
         end
-      end
+    end
 
     when :projectsname
       # we create a new variable session with the nexly acquired info on the workshop
@@ -194,9 +193,10 @@ class CreateWorkshopController < ApplicationController
       end
 
     end
+    #we reverse groups to fill those which have less users in priority in the next call of distribute_users
+    groups = groups.reverse
     if users.any?
       #if there is still users without group we call the method again
-      groups = groups.reverse
       distribute_users(groups,users)
     end
     @@groups = groups
