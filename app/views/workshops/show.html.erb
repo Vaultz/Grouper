@@ -59,23 +59,7 @@
           <h3><i class="fa fa-users" aria-hidden="true"></i> Les projets</h3>
         </div><!-- If there is no workshop, don't print on the screen -->
         <div class="every_projects">
-          <% if(@workshop.teamgeneration==1) %>
-            <% total=0 %>
-            <% @project.each do |project| %>
-              <% if @id == project.workshop_id %>
-                <% @id_project = project.id %>
-                <% @work = Work.where('user_id = ? AND project_id= ?', current_user, project.id ) %> <!-- search Work where user isn't present -->
-                <% if @work.blank? %> <!-- function isset() in rails   -->
-                  <% total=total +1 %> <!-- Count number group where user isn't present -->
-                <% end %>
-                <% if @work.present? %> <!-- function empty() in rails  -->
-                  <% @work.each do |work| %>
-                    <% @current_project = work.id %> <!-- recover id project where's user -->
-                  <% end %>
-                <% end %>
-              <% end %>
-            <% end %>
-          <% end %>
+          <% total = @total %>
           <% @project.each do |project| %>
             <div class="group">
               <% if @id == project.workshop_id %> <!-- Display project associated to this workshop by id (last workshop only) -->

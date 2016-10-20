@@ -20,6 +20,8 @@ class WorkshopsController < ApplicationController
     if Workshop.count != 0 # If there is no workshop, don't create these variables
       @id = @workshop.id
       @project = @workshop.projects
+
+      @count = count_groups(@project)
     end
   end
 
@@ -62,7 +64,7 @@ class WorkshopsController < ApplicationController
 
     @params_projet.works.create(user: @params_user)
 
-    redirect_to workshops_url
+    redirect_to workshop_path(params[:id_workshop])
   end
 
   def switchto
