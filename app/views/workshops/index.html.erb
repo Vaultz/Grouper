@@ -45,9 +45,8 @@
                 <li><span class="attribut">Titre :</span> <%= @workshop_last.name %></li>
                 <li><span class="attribut">Créé par :</span> <%= @workshop_last.user.firstname %></li>
                 <li><span class="attribut">Professeur(s) associé(s) :</span> <%= @workshop_last.teacher %></li>
-                <li><span class="attribut">Date de début :</span> <%= @workshop_last.begins %></li>
-                <li><span class="attribut">Date de fin :</span> <%= @workshop_last.ends %></li>
-                <li><span class="attribut">Nombre de groupes :</span> <%= @workshop_last.teamnumber %></li>
+                <li><span class="attribut">Date de début :</span> <span class="beginDate"><%= @workshop_last.begins %></span></li>
+                <li><span class="attribut">Date de fin :</span> <span class="endDate"><%= @workshop_last.ends %></span></li>
               </ul>
             </div>
 
@@ -111,6 +110,11 @@
             </div>
           </div>
         </div>
+
+      <div class='col-md-offset-2 col-md-8' id="pbar_outerdiv">
+        <div id="pbar_innertext"></div>
+      </div>
+
       <% else %>
         <div class="row">
           <div class="col-md-12 no_project">

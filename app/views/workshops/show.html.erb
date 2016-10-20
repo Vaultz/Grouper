@@ -40,8 +40,8 @@
           <ul>
             <li><span class="attribut">Créé par :</span> <%= @workshop.user.firstname %></li>
             <li><span class="attribut">Professeur(s) associé(s) :</span> <%= @workshop.teacher %></li>
-            <li><span class="attribut">Date de début :</span> <%= @workshop.begins %></li>
-            <li><span class="attribut">Date de fin :</span> <%= @workshop.ends %></li>
+            <li><span class="attribut">Date de début :</span> <span class="beginDate"><%= @workshop.begins %></span></li>
+            <li><span class="attribut">Date de fin :</span> <span class="endDate"><%= @workshop.ends %></span></li>
           </ul>
         </div>
 
@@ -105,5 +105,10 @@
         </div>
       </div>
     </div>
+
+    <div class='col-md-offset-2 col-md-8' id="pbar_outerdiv">
+      <div id="pbar_innertext"></div>
+    </div>
+
   </div>
 </div>
