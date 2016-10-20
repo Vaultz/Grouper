@@ -14,7 +14,6 @@ class CreateWorkshopController < ApplicationController
         # @workshop will be use to make the corresponding form in the view
         @workshop = Workshop.new
      end
-
     when :projectsname
       if session[:workshop_unfinished]
         @workshop = Workshop.find(session[:workshop_unfinished])
@@ -62,7 +61,7 @@ class CreateWorkshopController < ApplicationController
       else
         @workshop = Workshop.new(workshop_params)
         @workshop.user_id = current_user.id
-     end
+      end
 
       #Add redirection
       respond_to do |format|
@@ -73,7 +72,7 @@ class CreateWorkshopController < ApplicationController
           format.html { render wizard_path }
           #format.json { render json: @workshop.errors, status: :unprocessable_entity }
         end
-      end
+    end
 
     when :projectsname
       # we create a new variable session with the nexly acquired info on the workshop
@@ -108,7 +107,7 @@ class CreateWorkshopController < ApplicationController
       time = Time.now
       year = time.to_s(:school_year)
       #if we have to choose projects leader we query the database differently
-      if @workshop.projectleaders
+      if @workshop.projectleaders == 1
         #Leaders had register with the status equal to 1
         leaders = User.where('year = ? AND status=1', year).shuffle
         users = User.where('year = ? AND status=0', year).shuffle
@@ -125,25 +124,24 @@ class CreateWorkshopController < ApplicationController
       end
       #This is where the magic append
       #we call the method with the leaders
-      if @workshop.projectleaders
+      if @workshop.projectleaders == 1
         @@groups = distribute_users(@@groups, leaders)
       end
+
       #then we call it with the users
       @@groups = distribute_users(@@groups, users)
       projects = @workshop.projects.limit(@workshop.teamnumber).shuffle
       projects.each_with_index do |project, index|
           projects[index].users << @@groups[index]
       end
+
     end
 
     if @workshop.teamgeneration == 1
-      session.delete(:workshop_unfinished)
-      return redirect_to workshops_path
-    end
 
-    if @workshop.teamgeneration == 1
-      session.delete(:workshop_unfinished)
-      return redirect_to workshops_path
+      redirect_to finish_wizard_path
+      return
+
     end
 
     redirect_to next_wizard_path
@@ -162,7 +160,7 @@ class CreateWorkshopController < ApplicationController
 
   def finish_wizard_path
     session.delete(:workshop_unfinished)
-   workshops_path()
+    workshops_path()
   end
   # Never trust parameters from the scary internet, only allow the white list through.
   def workshop_params
@@ -191,6 +189,8 @@ class CreateWorkshopController < ApplicationController
       end
 
     end
+    #we reverse groups to fill those which have less users in priority in the next call of distribute_users
+    groups = groups.reverse
     if users.any?
       #if there is still users without group we call the method again
       distribute_users(groups,users)
