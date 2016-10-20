@@ -71,7 +71,7 @@ class WorkshopsController < ApplicationController
     work.project_id = params[:id_group]
     work.save
 
-    redirect_to workshops_url
+    redirect_to workshop_path(params[:id_workshop])
 
   end
 

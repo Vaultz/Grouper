@@ -142,11 +142,6 @@ class CreateWorkshopController < ApplicationController
       return redirect_to workshops_path
     end
 
-    if @workshop.teamgeneration == 1
-      session.delete(:workshop_unfinished)
-      return redirect_to workshops_path
-    end
-
     redirect_to next_wizard_path
     #When validating the last form the step won't be 'validate' but something else, so we put else
     # else
