@@ -59,7 +59,6 @@
           <h3><i class="fa fa-users" aria-hidden="true"></i> Les projets</h3>
         </div><!-- If there is no workshop, don't print on the screen -->
         <div class="every_projects">
-
           <% if(@workshop.teamgeneration==1) %>
             <% total=0 %>
             <% @project.each do |project| %>
@@ -77,12 +76,19 @@
               <% end %>
             <% end %>
           <% end %>
-
           <% @project.each do |project| %>
-            <% if @id == project.workshop_id %> <!-- Display project associated to this workshop by id (last workshop only) -->
-              <%= project.name %>
-              <% @id_project = project.id %>
-
+            <div class="group">
+              <% if @id == project.workshop_id %> <!-- Display project associated to this workshop by id (last workshop only) -->
+                <p><%= project.name %></p>
+                <% project.users.each do |users| %>
+                <ul>
+                  <li><%= users.firstname %>
+                  <%= users.lastname %>
+                  <% if users.status == 1 %>
+                    <%= users.status %></li>
+                  <% end %>
+                </ul>
+                <% end %>
                 <% if(@workshop.teamgeneration==1) %>
                   <% @work = Work.where('user_id = ? AND project_id= ?', current_user, project.id ) %> <!-- search Work where user isn't present -->
                   <% if(total==@workshop.teamnumber) %> <!-- if user don't have select a group display button 'S ajouter' for join a group -->
@@ -93,11 +99,10 @@
                     <% end %>
                   <% end %>
                 <% end %>
-            <% end %>
-
-          <% end %> <!-- end do -->
+              <% end %>
+            </div>
+          <% end %>
         </div>
-
       </div>
     </div>
   </div>
