@@ -1,6 +1,5 @@
 class CreateWorkshopController < ApplicationController
   include Wicked::Wizard
-  before_action :set_workshop, only: [:show, :edit, :update, :destroy]
   # define the different step the form will have, wicked will automatiquely go to the next when validating
 
   steps :create, :projectsname, :validate
@@ -193,11 +192,5 @@ class CreateWorkshopController < ApplicationController
     end
     @@groups = groups
   end
-
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_workshop
-      @workshops = Workshop.all
-    end
 
 end
