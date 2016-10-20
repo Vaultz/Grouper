@@ -108,7 +108,7 @@ class CreateWorkshopController < ApplicationController
       time = Time.now
       year = time.to_s(:school_year)
       #if we have to choose projects leader we query the database differently
-      if @workshop.projectleaders
+      if @workshop.projectleaders == 1
         #Leaders had register with the status equal to 1
         leaders = User.where('year = ? AND status=1', year).shuffle
         users = User.where('year = ? AND status=0', year).shuffle
@@ -125,15 +125,17 @@ class CreateWorkshopController < ApplicationController
       end
       #This is where the magic append
       #we call the method with the leaders
-      if @workshop.projectleaders
+      if @workshop.projectleaders == 1
         @@groups = distribute_users(@@groups, leaders)
       end
+
       #then we call it with the users
       @@groups = distribute_users(@@groups, users)
       projects = @workshop.projects.limit(@workshop.teamnumber).shuffle
       projects.each_with_index do |project, index|
           projects[index].users << @@groups[index]
       end
+
     end
 
     if @workshop.teamgeneration == 1
@@ -188,6 +190,7 @@ class CreateWorkshopController < ApplicationController
     end
     if users.any?
       #if there is still users without group we call the method again
+      groups = groups.reverse
       distribute_users(groups,users)
     end
     @@groups = groups
