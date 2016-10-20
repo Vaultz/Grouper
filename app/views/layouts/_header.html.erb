@@ -7,9 +7,48 @@
       <% if user_signed_in? %>
         <li><%= link_to current_user.firstname, edit_user_registration_path %></li>
         <li><%= link_to 'Se déconnecter', destroy_user_session_path, :method => :delete %></li>
+        <li class="open_menu"><i class="fa fa-bars fa-2x" aria-hidden="true"></i></li>
       <% else %>
         <li><%= link_to 'S\'inscrire', new_user_registration_path %></li>
         <li><%= link_to 'Se connecter', new_user_session_path %></li>
+        <li><i class="fa fa-bars fa-2x" aria-hidden="true"></i></li>
       <% end %>
     </ul>
+  </nav>
+
+  <nav class='nav_mobile'>
+    <div class="logo_mobile">
+      <i class="fa fa-times-circle-o fa-2x" aria-hidden="true"></i>
+      Logo qui arrive !!
+    </div>
+
+    <% if user_signed_in? %>
+      <h4><i class="fa fa-user" aria-hidden="true"></i> Mon profil</h4>
+
+      <div class="my_profil">
+        <%= link_to current_user.firstname, edit_user_registration_path %>
+      </div>
+      <div class="my_profil">
+        <%= link_to 'Se déconnecter', destroy_user_session_path, :method => :delete %>
+      </div>
+
+      <h4><i class="fa fa-list" aria-hidden="true"></i> Workshops</h4>
+
+      <% @workshops.each do |workshop| %>
+        <div class="each_workshop <% if params[:controller] == 'workshops' && params[:action] == 'show' && params[:id].to_i == workshop.id  %> active <% end %>">
+          <%= link_to workshop.name, workshop %>
+        </div>
+      <% end %>
+
+    <% else %>
+
+      <h4><i class="fa fa-user" aria-hidden="true"></i> Rejoins-nous</h4>
+
+      <div class="my_profil">
+        <%= link_to 'S\'inscrire', new_user_registration_path %>
+      </div>
+      <div class="my_profil">
+        <%= link_to 'Se connecter', new_user_session_path %>
+      </div>
+    <% end %>
   </nav>

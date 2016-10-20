@@ -1,5 +1,6 @@
 class CreateWorkshopController < ApplicationController
   include Wicked::Wizard
+  before_action :set_workshop, only: [:show, :edit, :update, :destroy]
   # define the different step the form will have, wicked will automatiquely go to the next when validating
 
   steps :create, :projectsname, :validate
@@ -143,6 +144,11 @@ class CreateWorkshopController < ApplicationController
       return redirect_to workshops_path
     end
 
+    if @workshop.teamgeneration == 1
+      session.delete(:workshop_unfinished)
+      return redirect_to workshops_path
+    end
+
     redirect_to next_wizard_path
     #When validating the last form the step won't be 'validate' but something else, so we put else
     # else
@@ -195,5 +201,11 @@ class CreateWorkshopController < ApplicationController
     end
     @@groups = groups
   end
+
+  private
+    # Use callbacks to share common setup or constraints between actions.
+    def set_workshop
+      @workshops = Workshop.all
+    end
 
 end

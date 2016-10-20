@@ -16,7 +16,6 @@
 //= require_tree .
 
 $(document).ready(function() {
-  console.log ($('#notice').html());
   if($('#notice').html() == '') {
     $('#notice').removeClass('alert alert-success');
   } else {
@@ -25,4 +24,26 @@ $(document).ready(function() {
       $('#notice').remove();
     }, 3000);
   }
+
+  $('.nav_mobile').hide();
+
+  $(window).resize(function () {
+    var width = $(window).width();
+    if (width > 550) {
+      $('.nav_mobile').hide();
+      $('.header ul li').not('.open_menu').show();
+    } else {
+      $('.header ul li').not('.open_menu').hide();
+      $('.open_menu').show();
+    }
+  });
+
+  $('.fa-bars').click(function() {
+    $('.nav_mobile').show();
+  });
+
+  $('.fa-times-circle-o').click(function() {
+    $('.nav_mobile').hide();
+  });
+
 });

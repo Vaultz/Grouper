@@ -34,10 +34,12 @@
         </div>
 
         <div class="row wrapper_informations">
+
           <div class="col-md-6 col-sm-12">
             <div class="line_title">
               <h3><i class="fa fa-info" aria-hidden="true"></i> Informations</h3>
             </div>
+
             <div class="informations">
               <ul>
                 <li><span class="attribut">Titre :</span> <%= @workshop_last.name %></li>
@@ -80,12 +82,19 @@
                   <% end %>
                 <% end %>
               <% end %>
-
               <% @project.each do |project| %>
-                <% if @id_last == project.workshop_id %> <!-- Display project associated to this workshop by id (last workshop only) -->
-                  <%= project.name %>
-                  <% @id_project = project.id %>
-
+                <div class="group">
+                  <% if @id_last == project.workshop_id %> <!-- Display project associated to this workshop by id (last workshop only) -->
+                    <p><%= project.name %></p>
+                    <% project.users.each do |users| %>
+                    <ul>
+                      <li><%= users.firstname %>
+                      <%= users.lastname %>
+                      <% if users.status == '1' %>
+                        <%= users.status %></li>
+                      <% end %>
+                    </ul>
+                    <% end %>
                     <% if(@workshop_last.teamgeneration==1) %>
                       <% @work = Work.where('user_id = ? AND project_id= ?', current_user, project.id ) %> <!-- search Work where user isn't present -->
                       <% if(total==@workshop_last.teamnumber) %> <!-- if user don't have select a group display button 'S ajouter' for join a group -->
@@ -96,9 +105,9 @@
                         <% end %>
                       <% end %>
                     <% end %>
-                <% end %>
-
-              <% end %> <!-- end do -->
+                  <% end %>
+                </div>
+              <% end %>
             </div>
           </div>
         </div>
@@ -109,7 +118,6 @@
             Aucun projet :(
           </div>
         </div>
-
       <% end %> <!-- end if -->
     </div>
   </div>

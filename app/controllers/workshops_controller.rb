@@ -9,7 +9,7 @@ class WorkshopsController < ApplicationController
 
     if Workshop.count != 0 # If there is no workshop, don't create these variables
       @id_last = @workshop_last.id
-      @project = Project.all
+      @project = @workshop_last.projects
     end
 
   end
@@ -20,7 +20,7 @@ class WorkshopsController < ApplicationController
     @workshops = Workshop.all # Useful to display every workshops
     if Workshop.count != 0 # If there is no workshop, don't create these variables
       @id = @workshop.id
-      @project = Project.all
+      @project = @workshop.projects
     end
   end
 
