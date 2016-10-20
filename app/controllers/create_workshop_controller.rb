@@ -138,13 +138,8 @@ class CreateWorkshopController < ApplicationController
     end
 
     if @workshop.teamgeneration == 1
-      session.delete(:workshop_unfinished)
-      return redirect_to workshops_path
-    end
-
-    if @workshop.teamgeneration == 1
-      session.delete(:workshop_unfinished)
-      return redirect_to workshops_path
+      redirect_to finish_wizard_path
+      return
     end
 
     redirect_to next_wizard_path
@@ -163,7 +158,7 @@ class CreateWorkshopController < ApplicationController
 
   def finish_wizard_path
     session.delete(:workshop_unfinished)
-   workshops_path()
+    workshops_path()
   end
   # Never trust parameters from the scary internet, only allow the white list through.
   def workshop_params
