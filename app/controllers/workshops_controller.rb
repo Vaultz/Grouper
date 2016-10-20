@@ -4,7 +4,6 @@ class WorkshopsController < ApplicationController
   # GET /workshops
   # GET /workshops.json
   def index
-    @workshops = Workshop.all # Useful to display every workshops
     @workshop_last = Workshop.last # Useful to display the last workshop
 
     if Workshop.count != 0 # If there is no workshop, don't create these variables
@@ -17,7 +16,6 @@ class WorkshopsController < ApplicationController
   # GET /workshops/1
   # GET /workshops/1.json
   def show
-    @workshops = Workshop.all # Useful to display every workshops
     if Workshop.count != 0 # If there is no workshop, don't create these variables
       @id = @workshop.id
       @project = @workshop.projects
@@ -71,7 +69,7 @@ class WorkshopsController < ApplicationController
     work.project_id = params[:id_group]
     work.save
 
-    redirect_to workshops_url
+    redirect_to workshop_path(params[:id_workshop])
 
   end
 
