@@ -166,8 +166,7 @@ class CreateWorkshopController < ApplicationController
   end
   # Never trust parameters from the scary internet, only allow the white list through.
   def workshop_params
-    params[:workshop][:begins] = Date.strptime(params[:workshop][:begins], '%m/%d/%Y')
-    params[:workshop][:ends] = Date.strptime(params[:workshop][:ends], '%m/%d/%Y')
+
     params.require(:workshop).permit(:name, :description, :user_id, :teacher, :begins, :ends, :teamgeneration, :teamnumber, :projectleaders)
   end
   def project_params
