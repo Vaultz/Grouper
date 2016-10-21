@@ -60,3 +60,5 @@ gem 'wicked'
 gem 'rails-i18n'
 
 gem 'bootstrap-datepicker-rails'
+
+gem 'validates_timeliness', '~> 4.0'

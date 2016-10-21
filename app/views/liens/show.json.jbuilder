@@ -1,0 +1,1 @@
+json.partial! "liens/lien", lien: @lien
