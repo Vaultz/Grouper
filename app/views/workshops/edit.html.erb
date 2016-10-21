@@ -1,6 +1,6 @@
-<h1>Editing Workshop</h1>
+<h1><%= t 'views.workshop.edit.title' %></h1>
 
 <%= render 'form', workshop: @workshop %>
 
-<%= link_to 'Show', @workshop %> |
-<%= link_to 'Back', workshops_path %>
+<%= link_to I18n.t('views.show'), @workshop %> |
+<%= link_to I18n.t('views.back'), workshops_path %>
