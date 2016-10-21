@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :liens
   get 'promo/' => 'promo#index'
 
   # Module SOS
