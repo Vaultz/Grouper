@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
-
-  get 'promo/index'
+  
   get 'promo/' => 'promo#index'
 
   # Module SOS
