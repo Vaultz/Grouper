@@ -13,8 +13,9 @@ class ApplicationController < ActionController::Base
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_workshops
-      time = Time.now
-      promo = time.to_s(:school_year)
+      if params[:year]
+        promo = params[:year]
+      end
       @workshops = Workshop.where('year = ?', promo)
     end
 end

@@ -56,4 +56,9 @@ gem 'annotate'
 # gem for multiple step form (wizard)
 gem 'wicked'
 
+# gem to design input date
 gem 'pickadate-rails'
+
+# gem to modify default langage of rails application
+gem 'rails-i18n'
+gem 'validates_timeliness', '~> 4.0'

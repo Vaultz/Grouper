@@ -69,7 +69,7 @@ class CreateWorkshopController < ApplicationController
       respond_to do |format|
         if @workshop.save
           session[:workshop_unfinished] = Workshop.last.id
-          format.html { redirect_to next_wizard_path, notice: 'Workshop was successfully updated.' }
+          format.html { redirect_to next_wizard_path, notice: I18n.t('views.workshop.flash_messages.workshop_was_successfully_created') }
         else
           format.html { render wizard_path }
           #format.json { render json: @workshop.errors, status: :unprocessable_entity }
