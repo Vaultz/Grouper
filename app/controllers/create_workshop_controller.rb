@@ -1,6 +1,5 @@
 class CreateWorkshopController < ApplicationController
   include Wicked::Wizard
-  before_action :set_workshop, only: [:show, :edit, :update, :destroy]
   # define the different step the form will have, wicked will automatiquely go to the next when validating
 
   steps :create, :projectsname, :validate
@@ -68,7 +67,7 @@ class CreateWorkshopController < ApplicationController
       respond_to do |format|
         if @workshop.save
           session[:workshop_unfinished] = Workshop.last.id
-          format.html { redirect_to next_wizard_path, notice: 'Workshop was successfully updated.' }
+          format.html { redirect_to next_wizard_path, notice: I18n.t('views.workshop.flash_messages.workshop_was_successfully_created') }
         else
           format.html { render wizard_path }
           #format.json { render json: @workshop.errors, status: :unprocessable_entity }
@@ -139,13 +138,10 @@ class CreateWorkshopController < ApplicationController
     end
 
     if @workshop.teamgeneration == 1
-      session.delete(:workshop_unfinished)
-      return redirect_to workshops_path
-    end
 
-    if @workshop.teamgeneration == 1
-      session.delete(:workshop_unfinished)
-      return redirect_to workshops_path
+      redirect_to finish_wizard_path
+      return
+
     end
 
     redirect_to next_wizard_path
@@ -164,7 +160,7 @@ class CreateWorkshopController < ApplicationController
 
   def finish_wizard_path
     session.delete(:workshop_unfinished)
-   workshops_path()
+    workshops_path()
   end
   # Never trust parameters from the scary internet, only allow the white list through.
   def workshop_params
@@ -201,11 +197,5 @@ class CreateWorkshopController < ApplicationController
     end
     @@groups = groups
   end
-
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_workshop
-      @workshops = Workshop.all
-    end
 
 end

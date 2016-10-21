@@ -4,7 +4,6 @@ class WorkshopsController < ApplicationController
   # GET /workshops
   # GET /workshops.json
   def index
-    @workshops = Workshop.all # Useful to display every workshops
     @workshop_last = Workshop.last # Useful to display the last workshop
 
     if Workshop.count != 0 # If there is no workshop, don't create these variables
@@ -17,7 +16,6 @@ class WorkshopsController < ApplicationController
   # GET /workshops/1
   # GET /workshops/1.json
   def show
-    @workshops = Workshop.all # Useful to display every workshops
     if Workshop.count != 0 # If there is no workshop, don't create these variables
       @id = @workshop.id
       @project = @workshop.projects
@@ -47,7 +45,7 @@ class WorkshopsController < ApplicationController
 
     respond_to do |format|
       if @workshop.save
-        format.html { render :new, notice: 'Workshop was successfully created.' }
+        format.html { render :new, notice: I18n.t('views.workshop.flash_messages.workshop_was_successfully_created') }
         format.json { render :show, status: :created, location: @workshop }
       else
         format.html { render :new }
@@ -71,7 +69,7 @@ class WorkshopsController < ApplicationController
     work.project_id = params[:id_group]
     work.save
 
-    redirect_to workshops_url
+    redirect_to workshop_path(params[:id_workshop])
 
   end
 
@@ -80,7 +78,7 @@ class WorkshopsController < ApplicationController
   def update
     respond_to do |format|
       if @workshop.update(workshop_params)
-        format.html { redirect_to @workshop, notice: 'Workshop was successfully updated.' }
+        format.html { redirect_to @workshop, notice: I18n.t('views.workshop.flash_messages.workshop_was_successfully_updated') }
         format.json { render :show, status: :ok, location: @workshop }
       else
         format.html { render :edit }
@@ -97,7 +95,7 @@ class WorkshopsController < ApplicationController
     end
     @workshop.destroy
     respond_to do |format|
-      format.html { redirect_to workshops_url, notice: 'Workshop was successfully destroyed.' }
+      format.html { redirect_to workshops_url, notice: I18n.t('views.workshop.flash_messages.workshop_was_successfully_deleted') }
       format.json { head :no_content }
     end
   end
