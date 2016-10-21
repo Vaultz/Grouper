@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
 
+  get 'promo/index'
+  get 'promo/' => 'promo#index'
+
   # Module SOS
   get 'alerts/index'
   post 'alerts/create'

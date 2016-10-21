@@ -57,12 +57,14 @@ class CreateWorkshopController < ApplicationController
       if session[:workshop_unfinished]
         @workshop = Workshop.find(session[:workshop_unfinished])
         @workshop.update(workshop_params)
-        @workshop.user_id = current_user.id
+
       else
         @workshop = Workshop.new(workshop_params)
-        @workshop.user_id = current_user.id
       end
-
+      @workshop.user_id = current_user.id
+      time = Time.now
+      year = time.to_s(:school_year)
+      @workshop.year = year
       #Add redirection
       respond_to do |format|
         if @workshop.save
