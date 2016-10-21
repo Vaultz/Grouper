@@ -5,11 +5,18 @@ Rails.application.routes.draw do
   # Module SOS
   get 'alerts/index'
   post 'alerts/create'
+
+  #Workshops routes, cannot use ressoures because we want to know the promo year
   get 'workshops/addto'
   get 'workshops/switchto'
-  get 'workshops/promo/:year' =>'workshops#index', as: 'workshops_promo'
+  get ':year/workshop/:id' => 'workshops#show', as: 'workshop', :defaults => { :year => Time.now.to_s(:school_year) }
+  get ':year/workshops' => 'workshops#index', as: 'workshops', :defaults => { :year => Time.now.to_s(:school_year) }
+  get ':year/workshops/edit/:id'=> 'workshops#edit', as: 'edit_workshop', :defaults => { :year => Time.now.to_s(:school_year) }
+  delete ':year/workshops/:id'=> 'workshops#destroy', :defaults => { :year => Time.now.to_s(:school_year) }
+  put ':year/workshops/:id'=> 'workshops#update', :defaults => { :year => Time.now.to_s(:school_year) }
+  patch ':year/workshops/:id'=> 'workshops#update', :defaults => { :year => Time.now.to_s(:school_year) }
 
-  resources :workshops
+
 
   get 'home/index'
 
