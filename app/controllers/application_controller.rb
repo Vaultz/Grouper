@@ -15,9 +15,6 @@ class ApplicationController < ActionController::Base
     def set_workshops
       if params[:year]
         promo = params[:year]
-      else
-        time = Time.now
-        promo = time.to_s(:school_year)
       end
       @workshops = Workshop.where('year = ?', promo)
     end

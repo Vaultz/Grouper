@@ -8,7 +8,8 @@
 
   <% @workshops.each do |workshop| %>
     <div class="each_workshop">
-      <%= link_to workshop.name, workshop %>
+      <%= workshop.to_param %>
+      <%= link_to workshop.name, workshop_path(workshop.to_param) %>
       <!-- <div class="action_workshop">
         <%= link_to (content_tag(:i, nil, class: 'fa fa-pencil-square-o')), edit_workshop_path(workshop) %>
         <%= link_to (content_tag(:i, nil, class: 'fa fa-trash-o')), workshop, method: :delete, data: { confirm: 'Are you sure?' } %>
