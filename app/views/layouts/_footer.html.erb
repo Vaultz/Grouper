@@ -32,8 +32,20 @@ $(document).ready(function() {
 
   updateProgress();
   progress(timeLeft, tDays);
-
-
 });
+
+$('.datepicker_begin').pickadate({
+  format: "Début !du projet le dd mmm yyyy",
+  today: "",
+  clear: "Effacer",
+  close: "Fermer"
+})
+
+$('.datepicker_end').pickadate({
+  format: "Le projet finira le dd mmm yyyy",
+  today: "",
+  clear: "Effacer",
+  close: "Fermer"
+})
 
 </script>
