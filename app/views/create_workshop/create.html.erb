@@ -1,4 +1,20 @@
-<h1>New Workshop</h1>
-<%= render 'form', workshop: @workshop %>
+<section class="container-fluid bg_full_width">
+  <div class="filter">
+  </div>
+</section>
 
-<%= link_to 'Back', workshops_path %>
+<div class="container-fluid full_width inscription">
+  <div class="content">
+
+    <div class="design_form row">
+      <div class="col-md-offset-3 col-md-6">
+        <h1>Créer un nouveau workshop</h1>
+      </div>
+
+      <%= render 'form', workshop: @workshop %>
+
+      <%= link_to 'Back', workshops_path %>
+    </div>
+
+  </div>
+</div>

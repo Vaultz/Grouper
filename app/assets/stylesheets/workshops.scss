@@ -131,7 +131,7 @@
 .informations, .description {
   font-family: Helvetica;
   position: relative;
-  padding: 10px 0 10px 15px;
+  padding: 10px 15px 10px 15px;
   background: rgba(0,0,0, 0.6);
   text-align: left;
 }
@@ -191,14 +191,6 @@
 .informations ul li {
   margin: 8px 0;
   list-style-type: none;
-}
-
-.description .transform_position {
-  width: 90%;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
 }
 
 .line_title {

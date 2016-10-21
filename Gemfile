@@ -55,3 +55,5 @@ gem 'annotate'
 
 # gem for multiple step form (wizard)
 gem 'wicked'
+
+gem 'bootstrap-datepicker-rails'

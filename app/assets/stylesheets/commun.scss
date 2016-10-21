@@ -107,7 +107,7 @@ h3 {
   display: inline-block;
 }
 
-.new_user input:not([type=submit]):not([type=checkbox]), .new_user select {
+.design_form input:not([type=submit]):not([type=checkbox]):not([type=radio]), .design_form select, .design_form textarea {
   height: 40px;
   border-radius: 0px !important;
   border: 0;
@@ -119,6 +119,14 @@ h3 {
   &:focus{
   	outline: none;
   }
+}
+
+.generation label {
+  display: inline-block;
+}
+
+.design_form textarea {
+  height: 80px;
 }
 
 /** /FORM **/

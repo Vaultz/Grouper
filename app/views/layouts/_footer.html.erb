@@ -2,8 +2,7 @@
 
 $(document).ready(function() {
 
-  var oneDay = 24*60*60*1000,
-      bDate = new Date($('.beginDate').html()),
+  var bDate = new Date($('.beginDate').html()),
       eDate = new Date($('.endDate').html()),
       cDate = new Date(),
       tDays = eDate - bDate,
