@@ -83,10 +83,6 @@
                       <% if(total==@workshop_last.teamnumber) %> <!-- if user don't have select a group display button 'S ajouter' for join a group -->
                         <%= link_to "S\'ajouter", {:controller => :workshops, :action => :addto, :id_user => current_user, :id_group => project.id, :id_workshop => @workshop_last.id }%>
                       <% else %>
-                        <% if @work.blank? %> <!-- if user have select a group display button 'Switch' for switch group -->
-                          <%= link_to "Switch", {:controller => :workshops, :action => :switchto, :id_user => current_user, :id_group => project.id, :id_group_current => @current_project, :id_workshop => @workshop_last.id }%>
-                        <li class="button_link"><%= link_to "S\'ajouter", {:controller => :workshops, :action => :addto, :id_user => current_user, :id_group => project.id, :id_workshop => @workshop_last.id }%></li>
-                      <% else %>
                         <% if Work.where('user_id = ? AND project_id= ?', current_user, project.id ).blank? %> <!-- if user have select a group display button 'Switch' for switch group -->
                           <li class="button_link"><%= link_to "Switch", {:controller => :workshops, :action => :switchto, :id_user => current_user, :id_group => project.id, :id_group_current => @current_project, :id_workshop => @workshop_last.id }%></li>
                         <% end %>
