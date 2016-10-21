@@ -58,3 +58,5 @@ gem 'wicked'
 
 # gem to modify default langage of rails application
 gem 'rails-i18n'
+
+gem 'bootstrap-datepicker-rails'

@@ -131,7 +131,7 @@
 .informations, .description {
   font-family: Helvetica;
   position: relative;
-  padding: 10px 0 10px 15px;
+  padding: 10px 15px 10px 15px;
   background: rgba(0,0,0, 0.6);
   text-align: left;
 }
@@ -147,7 +147,7 @@
 .every_projects div {
   position: relative;
   left: 3px;
-  display: inline-block;
+  display: inline-table;
   background-color: rgba(0,0,0, 0.4);
   width: 45%;
   margin: 10px 2%;
@@ -162,6 +162,14 @@
 .group ul li {
   list-style-type: none;
   text-align: left;
+}
+
+.group .button_link {
+  float: right;
+}
+
+.group .button_link a {
+  color: white;
 }
 
 @media (max-width: 750px) {
@@ -183,14 +191,6 @@
 .informations ul li {
   margin: 8px 0;
   list-style-type: none;
-}
-
-.description .transform_position {
-  width: 90%;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
 }
 
 .line_title {

@@ -27,6 +27,39 @@ h3 {
   }
 }
 
+#pbar_outerdiv {
+  margin-top: 35px;
+  height: 40px;
+  border: 1px solid grey;
+  z-index: 1;
+}
+
+#pbar_innertext {
+  line-height: 40px;
+  max-width: 100%;
+  background-color: green;
+  z-index: 2;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  color: black;
+  font-weight: bold;
+  text-align: center;
+}
+
+.cochon {
+  height: 38px;
+  position: absolute;
+  right: 10px;
+  -moz-transform: scaleX(-1);
+        -o-transform: scaleX(-1);
+        -webkit-transform: scaleX(-1);
+        transform: scaleX(-1);
+        filter: FlipH;
+        -ms-filter: "FlipH";
+}
+
 /** NOTICE **/
 
 #notice {
@@ -74,7 +107,7 @@ h3 {
   display: inline-block;
 }
 
-.new_user input:not([type=submit]):not([type=checkbox]), .new_user select {
+.design_form input:not([type=submit]):not([type=checkbox]):not([type=radio]), .design_form select, .design_form textarea {
   height: 40px;
   border-radius: 0px !important;
   border: 0;
@@ -86,6 +119,14 @@ h3 {
   &:focus{
   	outline: none;
   }
+}
+
+.generation label {
+  display: inline-block;
+}
+
+.design_form textarea {
+  height: 80px;
 }
 
 /** /FORM **/

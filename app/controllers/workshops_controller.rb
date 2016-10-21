@@ -5,10 +5,11 @@ class WorkshopsController < ApplicationController
   # GET /workshops.json
   def index
     @workshop_last = Workshop.last # Useful to display the last workshop
-
     if Workshop.count != 0 # If there is no workshop, don't create these variables
       @id_last = @workshop_last.id
       @project = @workshop_last.projects
+
+      @count = count_groups(@project)
     end
 
   end
@@ -19,6 +20,8 @@ class WorkshopsController < ApplicationController
     if Workshop.count != 0 # If there is no workshop, don't create these variables
       @id = @workshop.id
       @project = @workshop.projects
+
+      @count = count_groups(@project)
     end
   end
 
@@ -55,23 +58,43 @@ class WorkshopsController < ApplicationController
   end
 
   def addto
-    # abort params[:id_group]
 
-      work = Work.new(:user_id => params[:id_user], :project_id => params[:id_group])
-      work.save
+    @params_user=User.find(current_user)
+    @params_projet=Project.find(params[:id_group])
 
-    redirect_to workshops_url
+    @params_projet.works.create(user: @params_user)
+
+    redirect_to workshop_path(params[:id_workshop])
   end
 
   def switchto
 
-    work = Work.find(params[:id_group_current])
-    work.project_id = params[:id_group]
-    work.save
+    @params_user=User.find(current_user)
+    @params_projet=Project.find(params[:id_group])
+    @work = Work.find(params[:id_group_current])
+    @work.destroy
+    @params_projet.works.create(user: @params_user)
+    # work.project_id = params[:id_group]
+    # work.save
 
     redirect_to workshop_path(params[:id_workshop])
 
   end
+
+  def count_groups(project_params)
+    @total=0
+    project_params.each do |project|
+      @work = Work.where('user_id = ? AND project_id= ?', current_user, project.id )
+      if @work.blank?
+        @total=@total +1
+      end
+      if @work.present?
+        @work.each do |work|
+          @current_project = work.id
+        end
+      end
+    end
+  end #end do
 
   # PATCH/PUT /workshops/1
   # PATCH/PUT /workshops/1.json
