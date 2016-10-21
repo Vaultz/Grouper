@@ -164,6 +164,14 @@
   text-align: left;
 }
 
+.group .button_link {
+  float: right;
+}
+
+.group .button_link a {
+  color: white;
+}
+
 @media (max-width: 750px) {
   .every_projects div {
     width: 94%;
