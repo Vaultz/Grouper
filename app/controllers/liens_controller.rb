@@ -4,7 +4,9 @@ class LiensController < ApplicationController
   # GET /liens
   # GET /liens.json
   def index
-    @liens = Lien.all
+    time = Time.now
+    year = time.to_s(:school_year)
+    @liens = Lien.where('year = ? ', year)
   end
 
   # GET /liens/1
