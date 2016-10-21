@@ -1,0 +1,18 @@
+<h1> Promo <%= @year %></h1>
+
+<table>
+  <tr>
+    <td>Nom</td>
+    <td>Prenom</td>
+    <td>Email</td>
+    <td>Telephone</td>
+  </tr>
+  <% @user_promo.each do |promo| %>
+    <tr>
+      <td><%= promo.lastname %></td>
+      <td><%= promo.firstname %></td>
+      <td><%= promo.email %></td>
+      <td><%= promo.phone_number %></td>
+    </tr>
+  <% end %>
+</table>
