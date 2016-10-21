@@ -1,7 +1,7 @@
 <%= form_for workshop, url: wizard_path, method: :put do |f| %>
  <% if workshop.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(workshop.errors.count, "error") %> prohibited this workshop from being saved:</h2>
+      <h2><%= I18n.t('errors.template.header', model: Workshop.model_name.human, count: @workshop.errors.count) %></h2>
 
       <ul>
       <% workshop.errors.full_messages.each do |message| %>
@@ -11,63 +11,78 @@
     </div>
   <% end %>
 
+<div class="col-md-offset-2 col-md-4">
 
-  <div class="field">
-    <%= f.label :name %>
-    <%= f.text_field :name %>
+    <div class="field">
+      <%= f.text_field :name, placeholder: "Nom du workshop" %>
+    </div>
+
+    <div class="field">
+      <%= f.text_area :description, placeholder: "Description" %>
+    </div>
+
+    <div class="field">
+      <%= f.text_field :teacher, placeholder: "Professeur associé" %>
+    </div>
+
+    <div class="input-daterange input-group">
+      <div class="field">
+        <%= f.label :begins %>
+        <%= f.text_field :begins, class: "input-sm form-control" %>
+      </div>
+        <span class="input-group-addon">to</span>
+      <div class="field">
+        <%= f.label :ends %>
+        <%= f.text_field :ends, class: "input-sm form-control" %>
+      </div>
+    </div>
+
+</div>
+
+<div class="col-md-4">
+
+    <div class="field generation">
+      <!--
+      Deleting the original field in order to remplace it with a radio_button_tag
+      <%= f.number_field :teamgeneration %> -->
+      <div>Mode de génération des groupes</div><br />
+      <%= f.radio_button :teamgeneration, 0 %>
+      <%= label :teamgeneration, "Full Random" %><br />
+
+      <%= f.radio_button :teamgeneration, 1 %>
+      <%= label :teamgeneration, "Manuel" %><br />
+
+      <%= f.radio_button :teamgeneration, 2, disabled: true %>
+      <%= label :teamgeneration, "Mi-random" %><br />
+
+      <%= f.radio_button :teamgeneration, 3, disabled: true %>
+      <%= label :teamgeneration, "Préférences" %>
+
+    </div>
+
+    <div class="field">
+      <%= f.number_field :teamnumber, placeholder: "Nombre d'équipes" %>
+    </div>
+
+    <div class="field generation">
+      <%= f.label "Activer l'option chefs de projet ?" %>
+      <%= f.check_box :projectleaders %>
+    </div>
+
+</div>
+
+<div class="row">
+  <div class="col-md-offset-3 col-md-6">
+    <div class="actions">
+      <%= f.submit "Etape suivante", class: "button_link" %>
+    </div>
   </div>
+</div>
 
-  <div class="field">
-    <%= f.label :description %>
-    <%= f.text_area :description %>
-  </div>
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('.form-control').datepicker({});
+  });
+</script>
 
-  <div class="field">
-    <%= f.label :teacher %>
-    <%= f.text_field :teacher %>
-  </div>
-
-  <div class="field">
-    <%= f.label :begins %>
-    <%= f.date_select :begins %>
-  </div>
-
-  <div class="field">
-    <%= f.label :ends %>
-    <%= f.date_select :ends %>
-  </div>
-
-  <div class="field">
-    <!--
-    Deleting the original field in order to remplace it with a radio_button_tag
-    <%= f.number_field :teamgeneration %> -->
-    <div>Mode de génération des groupes</div>
-    <%= label :teamgeneration, "Full Random" %>
-    <%= f.radio_button :teamgeneration, 0 %>
-
-    <%= label :teamgeneration, "Manuel" %>
-    <%= f.radio_button :teamgeneration, 1 %>
-
-    <%= label :teamgeneration, "Mi-random" %>
-    <%= f.radio_button :teamgeneration, 2, disabled: true %>
-
-    <%= label :teamgeneration, "Préférences" %>
-    <%= f.radio_button :teamgeneration, 3, disabled: true %>
-
-  </div>
-
-  <div class="field">
-    <%= f.label :teamnumber %>
-    <%= f.number_field :teamnumber %>
-  </div>
-
-  <div class="field">
-    <%= f.label :chefs_de_projet %>
-    <%= f.check_box :projectleaders %>
-  </div>
-
-
-  <div class="actions">
-    <%= f.submit %>
-  </div>
 <% end %>

@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  
+
   get 'promo/' => 'promo#index'
 
   # Module SOS
@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   post 'alerts/create'
   get 'workshops/addto'
   get 'workshops/switchto'
+  get 'workshops/promo/:year' =>'workshops#index', as: 'workshops_promo'
 
   resources :workshops
 
@@ -28,4 +29,5 @@ Rails.application.routes.draw do
   # end
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+
 end

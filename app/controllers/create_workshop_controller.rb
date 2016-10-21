@@ -69,7 +69,7 @@ class CreateWorkshopController < ApplicationController
       respond_to do |format|
         if @workshop.save
           session[:workshop_unfinished] = Workshop.last.id
-          format.html { redirect_to next_wizard_path, notice: 'Workshop was successfully updated.' }
+          format.html { redirect_to next_wizard_path, notice: I18n.t('views.workshop.flash_messages.workshop_was_successfully_created') }
         else
           format.html { render wizard_path }
           #format.json { render json: @workshop.errors, status: :unprocessable_entity }
@@ -166,6 +166,8 @@ class CreateWorkshopController < ApplicationController
   end
   # Never trust parameters from the scary internet, only allow the white list through.
   def workshop_params
+    params[:workshop][:begins] = Date.strptime(params[:workshop][:begins], '%m/%d/%Y')
+    params[:workshop][:ends] = Date.strptime(params[:workshop][:ends], '%m/%d/%Y')
     params.require(:workshop).permit(:name, :description, :user_id, :teacher, :begins, :ends, :teamgeneration, :teamnumber, :projectleaders)
   end
   def project_params
