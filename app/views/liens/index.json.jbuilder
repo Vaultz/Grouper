@@ -1,0 +1,1 @@
+json.array! @liens, partial: 'liens/lien', as: :lien
