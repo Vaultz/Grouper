@@ -102,6 +102,12 @@ class CreateWorkshopController < ApplicationController
     end
 
 
+
+    #######################
+    ### TEAM GENERATION ###
+    #######################
+
+    # Full random mode
     if @workshop.teamgeneration == 0
       #Let's create a variable for the groups
       @@groups = Array.new
@@ -139,10 +145,45 @@ class CreateWorkshopController < ApplicationController
 
     end
 
+    # MANUAL MODE
     if @workshop.teamgeneration == 1
 
       redirect_to finish_wizard_path
       return
+
+    end
+
+    # MIXED MODE
+    # Similar to the full random mode, but females are splitted before males 
+    if @workshop.teamgeneration == 2
+      @@groups = Array.new
+      time = Time.new
+      year = time.to_s(:school_year)
+
+      if @workshop.projectleaders == 1
+        leaders = User.where('year = ? AND status = 1', year).shuffle
+        females = User.where('year = ? AND status = 0 AND gender = "f"', year).shuffle
+        males = User.where('year = ? AND status = 0 AND gender = "m"', year).shuffle
+      else
+        females = User.where('year = ? AND gender = "f"', year).shuffle
+        males = User.where('year = ? AND gender = "m"', year).shuffle
+      end
+
+      @workshop.teamnumber.times do |i|
+        @@groups[i] = Array.new
+      end
+
+      if @workshop.projectleaders == 1
+        @@groups = distribute_users(@@groups, leaders)
+      end
+
+      @@groups = distribute_users(@@groups, females)
+      @@groups = distribute_users(@@groups, males)
+
+      projects = @workshop.projects.limit(@workshop.teamnumber).shuffle
+      projects.each_with_index do |project, index|
+          projects[index].users << @@groups[index]
+      end
 
     end
 
