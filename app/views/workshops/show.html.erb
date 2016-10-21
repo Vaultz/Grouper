@@ -14,8 +14,8 @@
 </div>
 
 <div class="actions_workshop">
-  <%= link_to (content_tag(:i, nil, class: 'fa fa-pencil-square-o')), edit_workshop_path(@workshop.to_param) %>
-  <%= link_to (content_tag(:i, nil, class: 'fa fa-trash-o')), @workshop.to_param, method: :delete, data: { confirm: I18n.t('views.are_you_sure') } %>
+  <%= link_to (content_tag(:i, nil, class: 'fa fa-pencil-square-o')), edit_workshop_path(@workshop.id) %>
+  <%= link_to (content_tag(:i, nil, class: 'fa fa-trash-o')), @workshop.id, method: :delete, data: { confirm: I18n.t('views.are_you_sure') } %>
 </div>
 
 <div class="container-fluid full_width last_workshop_view">
