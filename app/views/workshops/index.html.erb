@@ -22,8 +22,8 @@
 
     <% if Workshop.count != 0 %>
       <div class="actions_workshop">
-        <%= link_to (content_tag(:i, nil, class: 'fa fa-pencil-square-o')), edit_workshop_path(@workshop_last) %>
-        <%= link_to (content_tag(:i, nil, class: 'fa fa-trash-o')), @workshop_last, method: :delete, data: { confirm: I18n.t('views.are_you_sure') } %>
+        <%= link_to (content_tag(:i, nil, class: 'fa fa-pencil-square-o')), edit_workshop_path(@workshop_last.to_param) %>
+        <%= link_to (content_tag(:i, nil, class: 'fa fa-trash-o')), workshop_path(@workshop_last.to_param), method: :delete, data: { confirm: I18n.t('views.are_you_sure') } %>
       </div>
         <div class="row">
           <div class="col-md-12 title_workshop">

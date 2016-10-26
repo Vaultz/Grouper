@@ -16,7 +16,7 @@ class WorkshopsController < ApplicationController
   # GET /workshops/1
   # GET /workshops/1.json
   def show
-    if Workshop.count != 0 # If there is no workshop, don't create these variables
+    if @workshops.count != 0 # If there is no workshop, don't create these variables
       @id = @workshop.id
       @project = @workshop.projects
 
@@ -100,7 +100,7 @@ class WorkshopsController < ApplicationController
   def update
     respond_to do |format|
       if @workshop.update(workshop_params)
-        format.html { redirect_to @workshop, notice: I18n.t('views.workshop.flash_messages.workshop_was_successfully_updated') }
+        format.html { redirect_to @workshop.to_param, notice: I18n.t('views.workshop.flash_messages.workshop_was_successfully_updated') }
         format.json { render :show, status: :ok, location: @workshop }
       else
         format.html { render :edit }
@@ -127,7 +127,7 @@ class WorkshopsController < ApplicationController
 
     # Use callbacks to share common setup or constraints between actions.
     def set_workshop
-      @workshop = Workshop.find(params[:id])
+      @workshop = @workshops.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

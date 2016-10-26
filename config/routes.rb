@@ -10,12 +10,12 @@ Rails.application.routes.draw do
   #Workshops routes, cannot use ressoures because we want to know the promo year
   get 'workshops/addto'
   get 'workshops/switchto'
-  get ':year/workshop/:id' => 'workshops#show', as: 'workshop', :defaults => { :year => Time.now.to_s(:school_year) }
-  get ':year/workshops' => 'workshops#index', as: 'workshops', :defaults => { :year => Time.now.to_s(:school_year) }
-  get ':year/workshops/edit/:id'=> 'workshops#edit', as: 'edit_workshop', :defaults => { :year => Time.now.to_s(:school_year) }
-  delete ':year/workshops/:id'=> 'workshops#destroy',as: 'delete_workshop', :defaults => { :year => Time.now.to_s(:school_year) }
-  put ':year/workshops/:id'=> 'workshops#update',as: 'update_workshop', :defaults => { :year => Time.now.to_s(:school_year) }
-  patch ':year/workshops/:id'=> 'workshops#update',:defaults => { :year => Time.now.to_s(:school_year) }
+  get 'workshops/:year/:id' => 'workshops#show', as: 'workshop', :defaults => { :year => Time.now.to_s(:school_year) }
+  get 'workshops/:year' => 'workshops#index', as: 'workshops', :defaults => { :year => Time.now.to_s(:school_year) }
+  get 'workshops/edit/:year/:id'=> 'workshops#edit', as: 'edit_workshop', :defaults => { :year => Time.now.to_s(:school_year) }
+  delete 'workshops/:year/:id'=> 'workshops#destroy'
+  put 'workshops/:year/:id'=> 'workshops#update'
+  patch 'workshops/:year/:id'=> 'workshops#update', as: 'update_workshop'
 
 
 
