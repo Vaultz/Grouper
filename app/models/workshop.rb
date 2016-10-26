@@ -16,6 +16,20 @@
 #
 
 class Workshop < ApplicationRecord
+  include FriendlyId
+  friendly_id :slug_candidates, use: :slugged
+  def should_generate_new_friendly_id?
+    name_changed?
+  end
+  # Try building a slug based on the following fields in
+# increasing order of specificity.
+  def slug_candidates
+    [
+      :name,
+      [:name, :year],
+      [:name, Time.now]
+    ]
+  end
 
   has_many :projects, dependent: :destroy # Destroy associated projects
   belongs_to :user
@@ -28,7 +42,7 @@ class Workshop < ApplicationRecord
 
   # Method to define the params use when generating ral path
   def to_param
-    {year: year, id: id}
+    {year: year, id: slug}
   end
 
 end
