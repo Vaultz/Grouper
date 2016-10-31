@@ -63,16 +63,17 @@
           <% @project.each do |project| %>
 
             <div class="group">
-              <% if @id == project.workshop_id %> <!-- Display project associated to this workshop by id (last workshop only) -->
                 <p><%= project.name %></p>
-                <% project.users.each do |users| %>
-                <ul>
-                  <li><%= users.firstname %>
-                  <%= users.lastname %>
-                  <% if users.status == 1 %>
-                    <%= users.status %></li>
-                  <% end %>
-                </ul>
+                <% project.users.order(status: :desc).each do |users| %>
+                  <ul>
+                    <li>
+                      <%= users.firstname %>
+                      <%= users.lastname %>
+                      <% if users.status == 1 %>
+                        <%= users.status %>
+                      <% end %>
+                    </li>
+                  </ul>
                 <% end %>
                 <% if(@workshop.teamgeneration==1) %>
                   <% @work = Work.where('user_id = ? AND project_id= ?', current_user, project.id ) %> <!-- search Work where user isn't present -->
@@ -84,7 +85,6 @@
                     <% end %>
                   <% end %>
                 <% end %>
-              <% end %>
             </div>
           <% end %>
         </div>
