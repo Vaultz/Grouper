@@ -6,18 +6,18 @@ Work.destroy_all
 
 #Hash with fake users
 f_u = Array.new
-f_u[0] = {:firstname => 'Patrick', :lastname => 'Chirac', :email => 'p.c@gmail.com', :year =>2016, :password => 'pastis', :status => 0}
-f_u[1] = {:firstname => 'Régis-robert', :lastname => 'Régis-robert', :email => 'dagobert@gmail.com', :year =>2016, :password => 'hugodelire', :status => 0}
-f_u[2] = {:firstname => 'Nicolas', :lastname => 'Sarkozy', :email => 'talonnette@gmail.com', :year =>2016, :password => '#notrialforme', :status => 1}
-f_u[3] = {:firstname => 'Obiwan', :lastname => 'Kenoby', :email => 'foreveralone@gmail.com', :year =>2016, :password => 'notthepasswordyouarelookingfor', :status => 0}
-f_u[4] = {:firstname => 'Bob', :lastname => 'l\'éponge', :email => 'jesuispasunemmental@gmail.com', :year =>2016, :password => 'garyforever', :status => 1}
-f_u[5] = {:firstname => 'Speedy', :lastname => 'Gonzalez', :email => 'SoyMexicanos@gmail.com', :year =>2016, :password => 'ouiunpeuraciste', :status => 0}
-f_u[6] = {:firstname => 'Fanklin', :lastname => 'la tortue', :email => 'saitlasserseslacets@gmail.com', :year =>2016, :password => 'napasdechaussures', :status => 1}
-f_u[7] = {:firstname => 'Mr', :lastname => 'Robot', :email => 'h-a-t@gmail.com', :year =>2016, :password => 'hacker/justicier', :status => 0}
-f_u[8] = {:firstname => 'Robin', :lastname => 'Wood', :email => 'MorningWood@gmail.com', :year =>2016, :password => 'envraijesuisjustesdf', :status => 0}
 #the loop which create each user
+f_u[0] = {:firstname => 'Patrick', :lastname => 'Chirac', :email => 'p.c@gmail.com', :year =>2016, :password => 'pastis', :status => 0, :gender => 'm'}
+f_u[1] = {:firstname => 'Régis-robert', :lastname => 'Régis-robert', :email => 'dagobert@gmail.com', :year =>2016, :password => 'hugodelire', :status => 0, :gender => 'm'}
+f_u[2] = {:firstname => 'Nicolas', :lastname => 'Sarkozy', :email => 'talonnette@gmail.com', :year =>2016, :password => '#notrialforme', :status => 1, :gender => 'm'}
+f_u[3] = {:firstname => 'Obiwan', :lastname => 'Kenoby', :email => 'foreveralone@gmail.com', :year =>2016, :password => 'notthepasswordyouarelookingfor', :status => 0, :gender => 'm'}
+f_u[4] = {:firstname => 'Bob', :lastname => 'l\'éponge', :email => 'jesuispasunemmental@gmail.com', :year =>2016, :password => 'garyforever', :status => 1, :gender => 'm'}
+f_u[5] = {:firstname => 'Speedy', :lastname => 'Gonzalez', :email => 'SoyMexicanos@gmail.com', :year =>2016, :password => 'ouiunpeuraciste', :status => 0, :gender => 'm'}
+f_u[6] = {:firstname => 'Fanklin', :lastname => 'la tortue', :email => 'saitlasserseslacets@gmail.com', :year =>2016, :password => 'napasdechaussures', :status => 1, :gender => 'm'}
+f_u[7] = {:firstname => 'Mr', :lastname => 'Robot', :email => 'h-a-t@gmail.com', :year =>2016, :password => 'hacker/justicier', :status => 0, :gender => 'm'}
+f_u[8] = {:firstname => 'Robin', :lastname => 'Wood', :email => 'MorningWood@gmail.com', :year =>2016, :password => 'envraijesuisjustesdf', :status => 0, :gender => 'm'}
 f_u.each do |user|
-  new_user = User.new(:firstname => user[:firstname], :lastname => user[:lastname], :email => user[:email], :year => user[:year], :password => user[:password], :password_confirmation => user[:password], :status => user[:status]  )
+  new_user = User.new(:firstname => user[:firstname], :lastname => user[:lastname], :email => user[:email], :year => user[:year], :password => user[:password], :password_confirmation => user[:password], :status => user[:status], :gender => user[:gender]  )
   new_user.save!
 end
 #Fake worshop Hash

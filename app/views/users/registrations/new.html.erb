@@ -32,6 +32,14 @@
         <div class="field">
           <%= f.text_field :phone_number, placeholder: "Téléphone" %>
         </div>
+
+        <div class ="field">
+          <%= label :gender, "Femme" %>
+          <%= f.radio_button :gender, "f", :checked => true %>
+
+          <%= label :gender, "Homme" %>
+          <%= f.radio_button :gender, "m" %>
+        </div>
       </div>
 
       <div class="col-md-3">
