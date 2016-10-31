@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161021122727) do
+ActiveRecord::Schema.define(version: 20161026220149) do
 
   create_table "liens", force: :cascade do |t|
     t.string   "name"
@@ -72,6 +72,7 @@ ActiveRecord::Schema.define(version: 20161021122727) do
     t.datetime "updated_at",               null: false
     t.integer  "projectleaders", limit: 1
     t.integer  "year",           limit: 2
+    t.string   "slug"
   end
 
 end

@@ -171,9 +171,9 @@ fr:
         name: Nom
         description: Description
         teacher: Professeur
-        begins: Date de debut
+        begins: Date de début
         ends: Date de fin
-        teamgeneration: Mode de generation
+        teamgeneration: Mode de génération
         teamnumber: Nombre de groupes
       project:
         name: Nom
