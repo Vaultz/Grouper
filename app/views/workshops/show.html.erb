@@ -61,6 +61,7 @@
         <div class="every_projects">
           <% total = @total %>
           <% @project.each do |project| %>
+
             <div class="group">
               <% if @id == project.workshop_id %> <!-- Display project associated to this workshop by id (last workshop only) -->
                 <p><%= project.name %></p>

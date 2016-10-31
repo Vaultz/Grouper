@@ -4,12 +4,13 @@ class WorkshopsController < ApplicationController
   # GET /workshops
   # GET /workshops.json
   def index
-    @workshop_last = @workshops.last # Useful to display the last workshop
+    @workshop = @workshops.last # Useful to display the last workshop
     if @workshops.count != 0 # If there is no workshop, don't create these variables
-      @id_last = @workshop_last.id
-      @project = @workshop_last.projects
+      @id = @workshop.id
+      @project = @workshop.projects
       @count = count_groups(@project)
     end
+    render :show
 
   end
 
