@@ -14,10 +14,10 @@ class ApplicationController < ActionController::Base
     # Use callbacks to share common setup or constraints between actions.
     def set_workshops
       if params[:year]
-        promo = params[:year]
+        @promo = params[:year]
       else
-        promo = Time.now.to_s(:school_year)
+        @promo = Time.now.to_s(:school_year)
       end
-      @workshops = Workshop.where('year = ?', promo)
+      @workshops = Workshop.where('year = ?', @promo)
     end
 end
