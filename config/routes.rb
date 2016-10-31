@@ -8,10 +8,11 @@ Rails.application.routes.draw do
   post 'alerts/create'
 
   #Workshops routes, cannot use ressoures because we want to know the promo year
-  get 'workshops/addto'
-  get 'workshops/switchto'
+  get 'workshops/addto', as: 'add_to_workshop'
+  get 'workshops/switchto', as: 'switch_to_workshop'
   get 'workshops/:year/:id' => 'workshops#show', as: 'workshop', :defaults => { :year => Time.now.to_s(:school_year) }
-  get 'workshops/:year' => 'workshops#index', as: 'workshops', :defaults => { :year => Time.now.to_s(:school_year) }
+  get 'workshops/:year' => 'workshops#show', as: 'workshops', :defaults => { :year => Time.now.to_s(:school_year) }
+  get 'workshops' => 'workshops#show'
   get 'workshops/edit/:year/:id'=> 'workshops#edit', as: 'edit_workshop', :defaults => { :year => Time.now.to_s(:school_year) }
   delete 'workshops/:year/:id'=> 'workshops#destroy'
   put 'workshops/:year/:id'=> 'workshops#update'
@@ -22,7 +23,7 @@ Rails.application.routes.draw do
   get 'home/index'
 
   authenticated :user do
-    root to: 'workshops#index', as: :authenticated_root
+    root to: 'workshops#show', as: :authenticated_root
   end
 
   devise_for :users, :controllers => {:registrations => "users/registrations"}

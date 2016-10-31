@@ -59,8 +59,12 @@
           <h3><i class="fa fa-users" aria-hidden="true"></i> Les projets</h3>
         </div><!-- If there is no workshop, don't print on the screen -->
         <div class="every_projects">
-          <% total = @total %>
+          <!-- if user doesn't have selected a group display button 'S ajouter' for join a group -->
+          <% userInWorkshop = @workshop.users.include? current_user %>
+          <!-- if user have select a group display button 'Switch' for switch group -->
           <% @project.each do |project| %>
+
+          <% userInProject = project.users.include? current_user %>
 
             <div class="group">
                 <p><%= project.name %></p>
@@ -76,13 +80,10 @@
                   </ul>
                 <% end %>
                 <% if(@workshop.teamgeneration==1) %>
-                  <% @work = Work.where('user_id = ? AND project_id= ?', current_user, project.id ) %> <!-- search Work where user isn't present -->
-                  <% if(total==@workshop.teamnumber) %> <!-- if user don't have select a group display button 'S ajouter' for join a group -->
+                  <% if !userInWorkshop  %>
                     <%= link_to "S\'ajouter", {:controller => :workshops, :action => :addto, :id_user => current_user, :id_group => project.id, :id_workshop => @workshop.id }%>
-                  <% else %>
-                    <% if @work.blank? %> <!-- if user have select a group display button 'Switch' for switch group -->
-                      <li class="button_link"><%= link_to "Switch", {:controller => :workshops, :action => :switchto, :id_user => current_user, :id_group => project.id, :id_group_current => @current_project, :id_workshop => @workshop.id }%></li>
-                    <% end %>
+                  <% elsif !userInProject %>
+                      <li class="button_link"><%= link_to "Switch", {:controller => :workshops, :action => :switchto, :id_user => current_user, :id_group => project.id, :id_group_current => @current_project_id, :id_workshop => @workshop.id }%></li>
                   <% end %>
                 <% end %>
             </div>

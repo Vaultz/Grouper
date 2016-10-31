@@ -33,6 +33,8 @@ class Workshop < ApplicationRecord
 
   has_many :projects, dependent: :destroy # Destroy associated projects
   belongs_to :user
+  has_many :users, through: :projects
+
 
   validates :name, :description, :teacher, :begins, :ends, :teamgeneration, :projectleaders,:teamnumber, presence: true
   validates :teamnumber, numericality: { only_integer: true, :greater_than_or_equal_to => 1}

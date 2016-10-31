@@ -4,13 +4,13 @@ class WorkshopsController < ApplicationController
   # GET /workshops
   # GET /workshops.json
   def index
-    @workshop = @workshops.last # Useful to display the last workshop
-    if @workshops.count != 0 # If there is no workshop, don't create these variables
-      @id = @workshop.id
-      @project = @workshop.projects
-      @count = count_groups(@project)
-    end
-    render :show
+    # @workshop = @workshops.last # Useful to display the last workshop
+    # if @workshops.count != 0 # If there is no workshop, don't create these variables
+    #   @id = @workshop.id
+    #   @project = @workshop.projects
+    #   @count = count_groups(@project)
+    # end
+    # render :show
 
   end
 
@@ -20,8 +20,8 @@ class WorkshopsController < ApplicationController
     if @workshops.count != 0 # If there is no workshop, don't create these variables
       @id = @workshop.id
       @project = @workshop.projects
-
-      @count = count_groups(@project)
+      @current_project_id = current_user.projects.where(workshop_id: @id)
+      abort @current_project_id
     end
   end
 
@@ -65,6 +65,7 @@ class WorkshopsController < ApplicationController
     @params_projet.works.create(user: @params_user)
 
     redirect_to workshop_path(params[:id_workshop])
+
   end
 
   def switchto
@@ -81,20 +82,6 @@ class WorkshopsController < ApplicationController
 
   end
 
-  def count_groups(project_params)
-    @total=0
-    project_params.each do |project|
-      @work = Work.where('user_id = ? AND project_id= ?', current_user, project.id )
-      if @work.blank?
-        @total=@total +1
-      end
-      if @work.present?
-        @work.each do |work|
-          @current_project = work.id
-        end
-      end
-    end
-  end #end do
 
   # PATCH/PUT /workshops/1
   # PATCH/PUT /workshops/1.json
@@ -128,7 +115,11 @@ class WorkshopsController < ApplicationController
 
     # Use callbacks to share common setup or constraints between actions.
     def set_workshop
-      @workshop = @workshops.friendly.find(params[:id])
+      if params[:id]
+        @workshop = @workshops.friendly.find(params[:id])
+      else
+        @workshop = @workshops.last
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
