@@ -19,9 +19,13 @@ class WorkshopsController < ApplicationController
   def show
     if @workshops.count != 0 # If there is no workshop, don't create these variables
       @id = @workshop.id
-      @project = @workshop.projects
-      @current_project_id = current_user.projects.where(workshop_id: @id)
-      abort @current_project_id
+      @projects = @workshop.projects
+      if current_user.projects.find_by(workshop_id: @id)
+        @current_project_id = current_user.projects.find_by(workshop_id: @id).id
+      else
+        @current_project_id = nil
+      end
+
     end
   end
 
@@ -59,10 +63,14 @@ class WorkshopsController < ApplicationController
 
   def addto
 
-    @params_user=User.find(current_user)
-    @params_projet=Project.find(params[:id_group])
 
-    @params_projet.works.create(user: @params_user)
+
+    current_user.projects << Project.find(params[:id_project])
+
+    # @params_user=User.find(current_user)
+    # @params_projet=Project.find(params[:id_group])
+    #
+    # @params_projet.works.create(user: @params_user)
 
     redirect_to workshop_path(params[:id_workshop])
 
@@ -70,11 +78,18 @@ class WorkshopsController < ApplicationController
 
   def switchto
 
-    @params_user=User.find(current_user)
-    @params_projet=Project.find(params[:id_group])
-    @work = Work.find(params[:id_group_current])
-    @work.destroy
-    @params_projet.works.create(user: @params_user)
+
+    current_user.projects.delete(Project.find(params[:id_old_project]))
+    current_user.projects << Project.find(params[:id_project])
+
+
+
+
+    # @params_user=User.find(current_user)
+    # @params_projet=Project.find(params[:id_group])
+    # @work = Work.find(params[:id_group_current])
+    # @work.destroy
+    # @params_projet.works.create(user: @params_user)
     # work.project_id = params[:id_group]
     # work.save
 

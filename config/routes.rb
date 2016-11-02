@@ -8,8 +8,8 @@ Rails.application.routes.draw do
   post 'alerts/create'
 
   #Workshops routes, cannot use ressoures because we want to know the promo year
-  get 'workshops/addto', as: 'add_to_workshop'
-  get 'workshops/switchto', as: 'switch_to_workshop'
+  get 'workshops/addto/:id_workshop/:id_project'=> 'workshops#addto', as: 'add_to_project'
+  get 'workshops/switchto/:id_workshop/:id_old_project/:id_project'=>'workshops#switchto', as: 'switch_to_project'
   get 'workshops/:year/:id' => 'workshops#show', as: 'workshop', :defaults => { :year => Time.now.to_s(:school_year) }
   get 'workshops/:year' => 'workshops#show', as: 'workshops', :defaults => { :year => Time.now.to_s(:school_year) }
   get 'workshops' => 'workshops#show'

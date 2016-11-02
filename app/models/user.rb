@@ -26,6 +26,7 @@ class User < ApplicationRecord
 
   has_many :works
   has_many :projects, through: :works
+  has_many :workshops, through: :projects
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
