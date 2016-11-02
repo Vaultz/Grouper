@@ -66,7 +66,6 @@ class WorkshopsController < ApplicationController
 
 
     current_user.projects << Project.find(params[:id_project])
-
     # @params_user=User.find(current_user)
     # @params_projet=Project.find(params[:id_group])
     #
@@ -81,10 +80,6 @@ class WorkshopsController < ApplicationController
 
     current_user.projects.delete(Project.find(params[:id_old_project]))
     current_user.projects << Project.find(params[:id_project])
-
-
-
-
     # @params_user=User.find(current_user)
     # @params_projet=Project.find(params[:id_group])
     # @work = Work.find(params[:id_group_current])

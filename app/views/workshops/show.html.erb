@@ -73,7 +73,7 @@
                     <li>
                       <%= users.firstname %>
                       <%= users.lastname %>
-                      <% if users.status == 1 %>
+                      <% if users.status == 1 && @workshop.projectleaders == 1 %>
                         <%= users.status %>
                       <% end %>
                     </li>
