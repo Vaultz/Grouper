@@ -23,12 +23,13 @@ end
 #Fake worshop Hash
 
 f_w = Array.new
-f_w[0] = {:name => 'SQL', :description => 'Création d\'un schéma de base de données, associé à un CRUD et des exemples de requêtes SQL ', :teacher => 'Hitcham', :begins => '16-09-2016', :ends => '20-01-2017', :teamnumber =>'4', :teamgeneration => 0, :created_at => '16-09-2016', :projectleaders => 0, :year => '2015'}
-f_w[1] = {:name => 'SQL', :description => 'Création d\'un schéma de base de données, associé à un CRUD et des exemples de requêtes SQL ', :teacher => 'Hitcham', :begins => '16-09-2015', :ends => '20-01-2016', :teamnumber =>'4', :teamgeneration => 0, :created_at => '16-09-2015', :projectleaders => 0, :year => '2016'}
-f_w[2] = {:name => 'Devis', :description => 'Éditer un devis pour un projet fictif avec M Ricard qui s\'amuse à jouer M.Fortineau', :teacher => 'Laurent', :begins => '20-09-2016', :ends => '16-10-2016', :teamnumber =>'3', :teamgeneration => 0, :created_at => '20-09-2016', :projectleaders => 1, :updated_at =>'20-09-2016', :year => '2015'}
-f_w[3] = {:name => 'Devis', :description => 'Éditer un devis pour un projet fictif avec M Ricard qui s\'amuse à jouer M.Fortineau', :teacher => 'Laurent', :begins => '20-09-2015', :ends => '16-10-2015', :teamnumber =>'3', :teamgeneration => 0, :created_at => '20-09-2015', :projectleaders => 1, :updated_at =>'20-09-2015', :year => '2016'}
-f_w[4] = {:name => 'Ruby-on-Rails', :description => 'Premier projet de développement en groupe, avec la technologie Ruby-on-Rails', :teacher => 'Kora', :begins => '25-09-2016', :ends => '25-10-2016', :teamnumber =>'3', :teamgeneration => 0, :created_at => '25-09-2016', :updated_at =>'25-09-2016', :projectleaders => 1, :year => '2015'}
-f_w[5] = {:name => 'Ruby-on-Rails', :description => 'Premier projet de développement en groupe, avec la technologie Ruby-on-Rails', :teacher => 'Kora', :begins => '25-09-2015', :ends => '25-10-2015', :teamnumber =>'3', :teamgeneration => 0, :created_at => '25-09-2015', :updated_at =>'25-09-2015', :projectleaders => 1, :year => '2016'}
+f_w[0] = {:name => 'SQL', :description => 'Création d\'un schéma de base de données, associé à un CRUD et des exemples de requêtes SQL ', :teacher => 'Hitcham', :begins => '16-09-2016', :ends => '20-01-2017', :teamnumber =>'4', :teamgeneration => 0, :created_at => '16-09-2016', :projectleaders => 0, :year => '2016'}
+f_w[1] = {:name => 'SQL', :description => 'Création d\'un schéma de base de données, associé à un CRUD et des exemples de requêtes SQL ', :teacher => 'Hitcham', :begins => '16-09-2015', :ends => '20-01-2016', :teamnumber =>'4', :teamgeneration => 0, :created_at => '16-09-2015', :projectleaders => 0, :year => '2015'}
+f_w[2] = {:name => 'Devis', :description => 'Éditer un devis pour un projet fictif avec M Ricard qui s\'amuse à jouer M.Fortineau', :teacher => 'Laurent', :begins => '20-09-2016', :ends => '16-10-2016', :teamnumber =>'3', :teamgeneration => 0, :created_at => '20-09-2016', :projectleaders => 1, :updated_at =>'20-09-2016', :year => '2016'}
+f_w[3] = {:name => 'Devis', :description => 'Éditer un devis pour un projet fictif avec M Ricard qui s\'amuse à jouer M.Fortineau', :teacher => 'Laurent', :begins => '20-09-2015', :ends => '16-10-2015', :teamnumber =>'3', :teamgeneration => 0, :created_at => '20-09-2015', :projectleaders => 1, :updated_at =>'20-09-2015', :year => '2015'}
+f_w[4] = {:name => 'Ruby-on-Rails', :description => 'Premier projet de développement en groupe, avec la technologie Ruby-on-Rails', :teacher => 'Kora', :begins => '25-09-2016', :ends => '25-10-2016', :teamnumber =>'3', :teamgeneration => 0, :created_at => '25-09-2016', :updated_at =>'25-09-2016', :projectleaders => 1, :year => '2016'}
+f_w[5] = {:name => 'Ruby-on-Rails', :description => 'Premier projet de développement en groupe, avec la technologie Ruby-on-Rails', :teacher => 'Kora', :begins => '25-09-2015', :ends => '25-10-2015', :teamnumber =>'3', :teamgeneration => 0, :created_at => '25-09-2015', :updated_at =>'25-09-2015', :projectleaders => 1, :year => '2015'}
+f_w[6] = {:name => 'Final Fantasy', :description => 'Créer Final Fantasy dans ta console en C#', :teacher => 'Greg', :begins => '02-11-2016', :ends => '10-11-2016', :teamnumber =>'19', :teamgeneration => 1, :created_at => '02-11-2016', :updated_at =>'02-11-2016', :projectleaders => 0, :year => '2016'}
 f_w.each do |workshop|
   users_count = User.count
   creator = User.limit(1).offset(rand(users_count)).first
@@ -41,6 +42,7 @@ f_w.each do |workshop|
   workshop.projects.each do |project|
     offset = i * 3
     project.users = User.limit(3).offset(offset)
+    Work.last.update_attribute :project_leader, 1
     i = i + 1
   end
 end

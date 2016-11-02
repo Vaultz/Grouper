@@ -119,6 +119,10 @@ class CreateWorkshopController < ApplicationController
         #Leaders had register with the status equal to 1
         leaders = User.where('year = ? AND status=1', year).shuffle
         users = User.where('year = ? AND status=0', year).shuffle
+        difference = @workshop.teamnumber - leaders.size
+        if difference > 0
+          leaders.concat(users.slice!(0,difference))
+        end
       else
         #everyone is a slave ... to whom ?
         users = User.where('year = ? AND status=0 OR status=1', year).shuffle
@@ -130,15 +134,22 @@ class CreateWorkshopController < ApplicationController
         #We take advantage of the loop to generate the right nomber of groups
         @@groups[i] = Array.new
       end
+      projects = @workshop.projects.limit(@workshop.teamnumber).shuffle
       #This is where the magic append
       #we call the method with the leaders
       if @workshop.projectleaders == 1
-        @@groups = distribute_users(@@groups, leaders)
+        @@groups = distribute_users(@@groups, leaders, false)
+
+        projects.each_with_index do |project, index|
+            projects[index].users << @@groups[index].shift
+            project.works.last.update_attribute :project_leader, 1
+            @@groups[index] = []
+        end
       end
 
       #then we call it with the users
       @@groups = distribute_users(@@groups, users)
-      projects = @workshop.projects.limit(@workshop.teamnumber).shuffle
+
       projects.each_with_index do |project, index|
           projects[index].users << @@groups[index]
       end
@@ -154,7 +165,7 @@ class CreateWorkshopController < ApplicationController
     end
 
     # MIXED MODE
-    # Similar to the full random mode, but females are splitted before males 
+    # Similar to the full random mode, but females are splitted before males
     if @workshop.teamgeneration == 2
       @@groups = Array.new
       time = Time.new
@@ -172,15 +183,21 @@ class CreateWorkshopController < ApplicationController
       @workshop.teamnumber.times do |i|
         @@groups[i] = Array.new
       end
+      projects = @workshop.projects.limit(@workshop.teamnumber).shuffle
 
       if @workshop.projectleaders == 1
-        @@groups = distribute_users(@@groups, leaders)
+        @@groups = distribute_users(@@groups, leaders, false)
+        projects.each_with_index do |project, index|
+            projects[index].users << @@groups[index].shift
+            project.works.last.project_leader = 1
+            @@groups[index] = nil
+        end
+
       end
 
       @@groups = distribute_users(@@groups, females)
       @@groups = distribute_users(@@groups, males)
 
-      projects = @workshop.projects.limit(@workshop.teamnumber).shuffle
       projects.each_with_index do |project, index|
           projects[index].users << @@groups[index]
       end
@@ -215,7 +232,7 @@ class CreateWorkshopController < ApplicationController
   end
 
   # We use a recursive method, because we have to distribuate: projects leaders and users in 2 times
-  def distribute_users(groups,users)
+  def distribute_users(groups, users, recursive = true)
     # n°1 we look how many at the minimum it will have in a group
     # n°2 The number will be 0 or 1
     nb = (users.size/@workshop.teamnumber).round
@@ -235,7 +252,7 @@ class CreateWorkshopController < ApplicationController
     end
     #we reverse groups to fill those which have less users in priority in the next call of distribute_users
     groups = groups.reverse
-    if users.any?
+    if users.any? && recursive
       #if there is still users without group we call the method again
       distribute_users(groups,users)
     end

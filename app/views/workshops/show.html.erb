@@ -12,89 +12,96 @@
     </div>
   <% end %>
 </div>
-
-<div class="actions_workshop">
-  <%= link_to (content_tag(:i, nil, class: 'fa fa-pencil-square-o')), edit_workshop_path(@workshop.to_param) %>
-  <%= link_to (content_tag(:i, nil, class: 'fa fa-trash-o')),  workshop_path(@workshop.to_param), method: :delete, data: { confirm: I18n.t('views.are_you_sure') } %>
-</div>
-
 <div class="container-fluid full_width last_workshop_view">
   <div class="content">
-
-    <div class="row">
-      <div class="col-md-12 title_workshop">
-        <div class="filter">
-          <h1><%= @workshop.name %></h1>
-        </div>
+    <% if Workshop.count != 0 %>
+      <div class="actions_workshop">
+        <%= link_to (content_tag(:i, nil, class: 'fa fa-pencil-square-o')), edit_workshop_path(@workshop.to_param) %>
+        <%= link_to (content_tag(:i, nil, class: 'fa fa-trash-o')),  workshop_path(@workshop.to_param), method: :delete, data: { confirm: I18n.t('views.are_you_sure') } %>
       </div>
-    </div>
 
-    <div class="row wrapper_informations">
-
-      <div class="col-md-5 col-sm-12">
-        <div class="line_title">
-          <h3><i class="fa fa-info" aria-hidden="true"></i> Informations</h3>
-        </div>
-
-        <div class="informations">
-          <ul>
-            <li><span class="attribut">Créé par :</span> <%= @workshop.user.firstname %></li>
-            <li><span class="attribut">Professeur(s) associé(s) :</span> <%= @workshop.teacher %></li>
-            <li><span class="attribut">Date de début :</span> <span class="beginDate"><%= @workshop.begins %></span></li>
-            <li><span class="attribut">Date de fin :</span> <span class="endDate"><%= @workshop.ends %></span></li>
-          </ul>
-        </div>
-
-        <div class="line_title">
-          <h3><i class="fa fa-comment" aria-hidden="true"></i> Description</h3>
-        </div>
-
-        <div class="description">
-          <p><%= @workshop.description %></p>
+      <div class="row">
+        <div class="col-md-12 title_workshop">
+          <div class="filter">
+            <h1><%= @workshop.name %></h1>
+          </div>
         </div>
       </div>
 
-      <div class="col-md-7 col-sm-12">
-        <div class="line_title">
-          <h3><i class="fa fa-users" aria-hidden="true"></i> Les projets</h3>
-        </div><!-- If there is no workshop, don't print on the screen -->
-        <div class="every_projects">
-          <!-- if user doesn't have selected a group display button 'S ajouter' for join a group -->
-          <% userInWorkshop = @workshop.users.include? current_user %>
-          <!-- if user have select a group display button 'Switch' for switch group -->
-          <% @projects.each do |project| %>
+      <div class="row wrapper_informations">
 
-          <% userInProject = project.users.include? current_user %>
+        <div class="col-md-5 col-sm-12">
+          <div class="line_title">
+            <h3><i class="fa fa-info" aria-hidden="true"></i> Informations</h3>
+          </div>
 
-            <div class="group">
-                <p><%= project.name %></p>
-                <% project.users.order(status: :desc).each do |users| %>
-                  <ul>
-                    <li>
-                      <%= users.firstname %>
-                      <%= users.lastname %>
-                      <% if users.status == 1 && @workshop.projectleaders == 1 %>
-                        <%= users.status %>
-                      <% end %>
-                    </li>
-                  </ul>
-                <% end %>
-                <% if(@workshop.teamgeneration==1) %>
-                  <% if !userInWorkshop  %>
-                    <%= link_to "S\'ajouter", add_to_project_path(@id, project.id)%>
-                  <% elsif !userInProject %>
-                      <li class="button_link"><%= link_to "Switch",switch_to_project_path(@id,@current_project_id, project.id)%></li>
+          <div class="informations">
+            <ul>
+              <li><span class="attribut">Créé par :</span> <%= @workshop.user.firstname %></li>
+              <li><span class="attribut">Professeur(s) associé(s) :</span> <%= @workshop.teacher %></li>
+              <li><span class="attribut">Date de début :</span> <span class="beginDate"><%= @workshop.begins %></span></li>
+              <li><span class="attribut">Date de fin :</span> <span class="endDate"><%= @workshop.ends %></span></li>
+            </ul>
+          </div>
+
+          <div class="line_title">
+            <h3><i class="fa fa-comment" aria-hidden="true"></i> Description</h3>
+          </div>
+
+          <div class="description">
+            <p><%= @workshop.description %></p>
+          </div>
+        </div>
+
+        <div class="col-md-7 col-sm-12">
+          <div class="line_title">
+            <h3><i class="fa fa-users" aria-hidden="true"></i> Les projets</h3>
+          </div><!-- If there is no workshop, don't print on the screen -->
+          <div class="every_projects">
+            <!-- if user doesn't have selected a group display button 'S ajouter' for join a group -->
+            <% userInWorkshop = @workshop.users.include? current_user %>
+            <!-- if user have select a group display button 'Switch' for switch group -->
+            <% @projects.each do |project| %>
+
+            <% userInProject = project.users.include? current_user %>
+
+              <div class="group">
+                  <p><%= project.name %></p>
+                  <% project.users.order('works.project_leader DESC').each do |user| %>
+                    <ul>
+                      <li>
+                        <%= user.firstname %>
+                        <%= user.lastname %>
+                        <% if user.works.find_by(project_id: project.id).project_leader  == 1 && @workshop.projectleaders == 1 %>
+                          <i class="fa fa-star" aria-hidden="true"></i>
+                        <% end %>
+                      </li>
+                    </ul>
                   <% end %>
-                <% end %>
-            </div>
-          <% end %>
+                  <% if(@workshop.teamgeneration==1) %>
+                    <% if !userInWorkshop  %>
+                      <%= link_to "S\'ajouter", add_to_project_path(@id, project.id), method: :put%>
+                    <% elsif !userInProject %>
+                        <li class="button_link"><%= link_to "Changer",switch_to_project_path(@id,@current_project_id, project.id), method: :put%></li>
+                    <% end %>
+                  <% end %>
+              </div>
+            <% end %>
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class='col-md-offset-2 col-md-8' id="pbar_outerdiv">
-      <div id="pbar_innertext"></div>
-    </div>
+      <div class='col-md-offset-2 col-md-8' id="pbar_outerdiv">
+        <div id="pbar_innertext"></div>
+      </div>
 
+    <% else %>
+      <div class="row">
+        <div class="col-md-12 no_project">
+          <%= link_to (content_tag(:i, nil, class: 'fa fa-plus-square-o')), controller: "create_workshop" %><br />
+          Aucun projet :(
+        </div>
+      </div>
+    <% end %> <!-- end if -->
   </div>
 </div>
