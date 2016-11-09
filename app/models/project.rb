@@ -16,6 +16,6 @@ class Project < ApplicationRecord
     belongs_to :workshop
     has_many :users, through: :works
     has_many :orals
-    has_many :users, through: :orals, :source => "attendees"
+    has_many :attendees, :source => "users", through: :oral
     validates :name, :description, :presence => true
 end
