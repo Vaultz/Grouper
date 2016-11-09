@@ -27,6 +27,8 @@ class User < ApplicationRecord
   has_many :works
   has_many :projects, through: :works
   has_many :workshops, through: :projects
+  has_many :orals
+  has_many :projects, through: :orals, :source => "ProjectsOrals"
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable

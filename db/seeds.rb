@@ -16,6 +16,12 @@ f_u[5] = {:firstname => 'Speedy', :lastname => 'Gonzalez', :email => 'SoyMexican
 f_u[6] = {:firstname => 'Fanklin', :lastname => 'la tortue', :email => 'saitlasserseslacets@gmail.com', :year =>2016, :password => 'napasdechaussures', :status => 1, :gender => 'm'}
 f_u[7] = {:firstname => 'Mr', :lastname => 'Robot', :email => 'h-a-t@gmail.com', :year =>2016, :password => 'hacker/justicier', :status => 0, :gender => 'm'}
 f_u[8] = {:firstname => 'Robin', :lastname => 'Wood', :email => 'MorningWood@gmail.com', :year =>2016, :password => 'envraijesuisjustesdf', :status => 0, :gender => 'm'}
+f_u[9] = {:firstname => 'Sébastien', :lastname => 'Berrou', :email => 'seb.berrou@gmail.com', :year =>2016, :password => 'grouper', :status => 0, :gender => 'm'}
+f_u[10] = {:firstname => 'Florian', :lastname => 'Rambur', :email => 'flo.rambour@gmail.com', :year =>2016, :password => 'grouper', :status => 0, :gender => 'm'}
+f_u[11] = {:firstname => 'Jordan', :lastname => 'Lefevre', :email => 'jlefevre@gmail.com', :year =>2016, :password => 'grouper', :status => 0, :gender => 'm'}
+f_u[12] = {:firstname => 'Paul', :lastname => 'Vialart', :email => 'paulvialart@gmail.com', :year =>2016, :password => 'grouper', :status => 1, :gender => 'm'}
+f_u[13] = {:firstname => 'Maxime', :lastname => 'Sainjon', :email => 'maxsaijon@gmail.com', :year =>2016, :password => 'grouper', :status => 0, :gender => 'm'}
+f_u[14] = {:firstname => 'PigBot', :lastname => 'Turing', :email => 'test@gmail.com', :year =>2016, :password => 'grouper', :status => 0, :gender => 'p'}
 f_u.each do |user|
   new_user = User.new(:firstname => user[:firstname], :lastname => user[:lastname], :email => user[:email], :year => user[:year], :password => user[:password], :password_confirmation => user[:password], :status => user[:status], :gender => user[:gender]  )
   new_user.save!
