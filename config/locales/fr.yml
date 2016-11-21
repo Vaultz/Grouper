@@ -178,6 +178,8 @@ fr:
       project:
         name: Nom
         description: Description
+      lien:
+        name: Nom
     errors:
       messages:
         taken: "n'est pas disponible"
@@ -206,3 +208,15 @@ fr:
        workshop_was_successfully_created: 'Le workshop a été crée avec succès.'
        workshop_was_successfully_updated: 'Le workshop a été modifié avec succès.'
        workshop_was_successfully_deleted: 'Le workshop a été supprimé avec succès.'
+    lien:
+     index:
+      title: Liste des liens
+      new: Créer un lien
+     edit:
+      title: Modifier un lien
+     new:
+      title: Créer un lien
+     flash_messages:
+       link_was_successfully_created: 'Le lien a été crée avec succès.'
+       link_was_successfully_updated: 'Le lien a été modifié avec succès.'
+       link_was_successfully_deleted: 'Le lien a été supprimé avec succès.'
