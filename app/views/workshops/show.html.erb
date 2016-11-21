@@ -90,7 +90,19 @@
                         <li class="button_link"><%= link_to "Changer",switch_to_project_path(@id,@current_project_id, project.id), method: :put%></li>
                     <% end %>
                   <% end %>
+                  <!--<div class="group">
+                    <p>Assisteront à la soutenance</p>
+                    <% project.attendees.each do |user| %>
+                    <ul>
+                      <li>
+                        <%= user.firstname %>
+                        <%= user.lastname %>
+                      </li>
+                    </ul>
+                    <% end%>
+                  </div>-->
               </div>
+
             <% end %>
           </div>
         </div>

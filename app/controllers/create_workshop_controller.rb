@@ -283,7 +283,8 @@ class CreateWorkshopController < ApplicationController
 
   def pick_attendees(projects, project)
     user = project.users.includes(:orals).select('users.*, COUNT(*) as been_attendees').order('been_attendees').first;
-    projects.each do |project|
+    other_projects = projects.reject { |x| x.id == project.id }
+    other_projects.each do |project|
       project.attendees << user
     end
     #users.inspect
