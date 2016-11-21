@@ -18,6 +18,6 @@ class ApplicationController < ActionController::Base
       else
         @promo = Time.now.to_s(:school_year)
       end
-      @workshops = Workshop.where('year = ?', @promo)
+      @workshops = Workshop.order(created_at: :desc).where('year = ?', @promo)
     end
 end
