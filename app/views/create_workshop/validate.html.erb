@@ -1,60 +1,78 @@
 <p id="notice"><%= notice %></p>
+<section class="container-fluid bg_full_width_workshop">
+</section>
 <!-- @workshop = Workshop Object -->
   <!-- @datas[index
           [project]:Project Object
           [users][User Object] -->
-<p>
-  <strong>Name:</strong>
-  <%= @workshop.name %>
-</p>
-
-<p>
-  <strong>Description:</strong>
-  <%= @workshop.description %>
-</p>
-
-<p>
-  <strong>Createdby:</strong>
-  <%= @workshop.user_id %>
-</p>
-
-<p>
-  <strong>Teacher:</strong>
-  <%= @workshop.teacher %>
-</p>
-
-<p>
-  <strong>Begins:</strong>
-  <%= @workshop.begins %>
-</p>
-
-<p>
-  <strong>Ends:</strong>
-  <%= @workshop.ends %>
-</p>
-
-<p>
-  <strong>Teamgeneration:</strong>
-  <%= @workshop.teamgeneration %>
-</p>
-
-<p>
-  <strong>Teamnumber:</strong>
-  <%= @workshop.teamnumber %>
-</p>
 
 
-<% @datas.each do |data| %>
-  <ul>
-    <li><%= data['project'].name %></li>
-    <li><%= data['project'].description %></li>
-    <ul>
-      <% data['users'].each do |user| %>
-          <li> <%= user.firstname + ' ' + user.lastname %> </li>
-      <% end %>
-    </ul>
-  </ul>
-<% end %>
 
-<%= link_to 'Back', previous_wizard_path %>
-<%= link_to 'Valider', next_wizard_path %>
+<div class="container-fluid full_width validate_workshop last_workshop_view">
+  <div class="content">
+    <div class="row">
+      <div class="col-md-12 title_workshop">
+        <div class="filter">
+          <h1>Validation du workshop</h1>
+        </div>
+      </div>
+    </div>
+
+    <div class="row wrapper_informations">
+      <div class="col-md-5 col-sm-12">
+        <div class="line_title">
+          <h3><i class="fa fa-info" aria-hidden="true"></i> Informations</h3>
+        </div>
+
+        <div class="informations">
+          <ul>
+            <li><span class="attribut">Titre :</span> <%= @workshop.name %></li>
+            <li><span class="attribut">Créé par :</span> <%= @workshop.user.firstname %></li>
+            <li><span class="attribut">Professeur(s) associé(s) :</span> <%= @workshop.teacher %></li>
+            <li><span class="attribut">Date de début :</span> <span class="beginDate"><%= @workshop.begins %></span></li>
+            <li><span class="attribut">Date de fin :</span> <span class="endDate"><%= @workshop.ends %></span></li>
+            <li><span class="attribut">Mode de génération :</span><%= @workshop.teamgeneration %></li>
+          </ul>
+        </div>
+
+        <div class="line_title">
+          <h3><i class="fa fa-comment" aria-hidden="true"></i> Description</h3>
+        </div>
+
+        <div class="description">
+          <p><%= @workshop.description %></p>
+        </div>
+      </div>
+
+      <div class="col-md-7 col-sm-12">
+        <div class="line_title">
+          <h3><i class="fa fa-users" aria-hidden="true"></i> Les projets</h3>
+        </div>
+        <div class="every_projects">
+          <% @datas.each do |data| %>
+            <div class="group">
+              <p><%= data['project'].name %></p>
+              <% data['users'].each do |user| %>
+              <ul>
+                <li><%= user.firstname %>
+                <%= user.lastname %>
+                <% if user.status == '1' %>
+                  <%= user.status %></li>
+                <% end %>
+              </ul>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12 margin30">
+        <%= link_to 'Valider', next_wizard_path, class: "button_link" %>
+        <%= link_to 'Retour', previous_wizard_path, class: "button_link" %>
+      </div>
+    </div>
+
+  </div>
+</div>
