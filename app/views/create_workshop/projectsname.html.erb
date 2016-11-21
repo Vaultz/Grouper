@@ -1,18 +1,37 @@
-<p id="notice"><%= notice %></p>
-<%= form_for @workshop, url: wizard_path, method: :put do |f| %>
-<ul>
-<%= f.fields_for :projects do |projects_form| %>
-      <li>
-        <%= projects_form.label :name %>
-        <%= projects_form.text_field :name %>
+<section class="container-fluid bg_full_width">
+  <div class="filter">
+  </div>
+</section>
 
-        <%= projects_form.label :description %>
-        <%= projects_form.text_field :description %>
-      </li>
-    <% end %>
-</ul>
-<div class="actions">
-  <%= submit_tag('Valider') %>
-  <%= link_to 'Back', previous_wizard_path %>
+<p id="notice"><%= notice %></p>
+
+<div class="container-fluid full_width inscription">
+  <div class="content">
+    <div class="design_form row">
+      <div class="col-md-offset-2 col-md-8">
+
+        <h1>Création des groupes</h1>
+
+        <%= form_for @workshop, url: wizard_path, method: :put do |f| %>
+        <ul>
+        <%= f.fields_for :projects do |projects_form| %>
+
+            <li class="col-md-6 col-sm-12 margin30">
+              <%= projects_form.text_field :name, placeholder: "Nom du groupe" %>
+
+              <%= projects_form.text_field :description, placeholder: "Description" %>
+            </li>
+
+        <% end %>
+        </ul>
+      </div>
+      <div class="col-md-12">
+        <div class="actions">
+          <%= submit_tag('Valider', class: "button_link") %>
+          <%= link_to 'Retour', previous_wizard_path, class: "button_link" %>
+        </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
 </div>
-<% end %>
