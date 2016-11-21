@@ -169,7 +169,10 @@ class CreateWorkshopController < ApplicationController
 
       projects.each_with_index do |project, index|
           projects[index].users << @@groups[index]
+          pick_attendees(projects, project)
       end
+
+
 
 
     end
@@ -275,6 +278,15 @@ class CreateWorkshopController < ApplicationController
       distribute_users(groups,users)
     end
     @@groups = groups
+  end
+
+
+  def pick_attendees(projects, project)
+    user = project.users.includes(:orals).select('users.*, COUNT(*) as been_attendees').order('been_attendees').first;
+    projects.each do |project|
+      project.attendees << user
+    end
+    #users.inspect
   end
 
 end

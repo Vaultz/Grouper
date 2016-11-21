@@ -11,11 +11,11 @@
 #
 
 class Project < ApplicationRecord
-
+    has_one :workshop
     has_many :works
     belongs_to :workshop
     has_many :users, through: :works
     has_many :orals
-    has_many :attendees, :source => "users", through: :oral
+    has_many :attendees, through: :orals, :source => :user
     validates :name, :description, :presence => true
 end
