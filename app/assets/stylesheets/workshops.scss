@@ -46,11 +46,17 @@
     }
 }
 
+.each_workshop {
+  text-align: center;
+}
+
+.each_workshop div {
+  display:inline-block;
+}
+
 .each_workshop a {
-  display: block;
   font-size: 14px;
   word-wrap: break-word;
-  text-align: center;
   padding-left: 10px;
 }
 
