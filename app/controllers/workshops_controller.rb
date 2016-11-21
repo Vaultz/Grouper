@@ -128,7 +128,7 @@ class WorkshopsController < ApplicationController
       if params[:id]
         @workshop = @workshops.friendly.find(params[:id])
       else
-        @workshop = @workshops.last
+        @workshop = @workshops.first
       end
     end
 
