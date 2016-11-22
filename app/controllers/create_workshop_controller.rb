@@ -111,15 +111,12 @@ class CreateWorkshopController < ApplicationController
     if @workshop.teamgeneration == 0 || @workshop.teamgeneration == 2
       #Let's create a variable for the groups
       @@groups = Array.new
-      #The time will be use to get only the users of the same year
-      time = Time.now
-      year = time.to_s(:school_year)
       #if we have to choose projects leader we query the database differently
       if @workshop.projectleaders == 1
         #Leaders had register with the status equal to 1
         #Let's order them according to the number of time they were project leader
         leaders = User.joins(:works).distinct.select('users.*, COUNT(*) as leader_count').where('works.project_leader = 1 AND status = 1 AND year = ?', year).order('leader_count DESC').group('users.id').to_a
-        users = User.where('year = ? AND status=0', year).to_a
+        users = User.where('year = ? AND status=0', @promo).to_a
         difference = @workshop.teamnumber - leaders.size
         if difference > 0
           leaders.concat(users.slice!(0,difference))
@@ -130,7 +127,7 @@ class CreateWorkshopController < ApplicationController
       else
 
         #everyone is a slave ... to whom ?
-        users = User.where('year = ? AND status=0 OR status=1', year)
+        users = User.where('year = ? AND status=0 OR status=1', @promo)
       end
 
       if @workshop.teamgeneration == 2
@@ -153,7 +150,7 @@ class CreateWorkshopController < ApplicationController
       if @workshop.projectleaders == 1
 
         @@groups = distribute_users(@@groups, leaders)
-
+        #abort @@groups.inspect
         projects.each_with_index do |project, index|
             projects[index].users << @@groups[index].shift
             project.works.last.update_attribute :project_leader, 1

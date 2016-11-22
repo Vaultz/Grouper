@@ -45,10 +45,12 @@ f_w.each do |workshop|
     workshop.projects.create!({ name: workshop.name + '_#'+ i.to_s, description: workshop.description + '_#'+ i.to_s, created_at: workshop[:created_at], updated_at: workshop[:updated_at] })
   end
   i = 0
+  nbPerProject = f_u.length/workshop[:teamnumber]
   workshop.projects.each do |project|
-    offset = i * 3
-    project.users = User.limit(3).offset(offset)
+    offset = i * nbPerProject
+    project.users = User.limit(nbPerProject).offset(offset)
     Work.last.update_attribute :project_leader, 1
+    project.attendees = User.limit(workshop[:teamnumber] - 1)
     i = i + 1
   end
 end
