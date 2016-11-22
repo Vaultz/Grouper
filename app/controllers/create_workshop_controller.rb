@@ -138,8 +138,6 @@ class CreateWorkshopController < ApplicationController
         #and it take care of every gender
         users = users.group_by{|x| x.gender}.values
       else
-        #for testing purposes
-        #users = users.group_by{|x| x.gender}.values
         users = users.group_by{|x| true}.values
       end
 
@@ -262,7 +260,7 @@ class CreateWorkshopController < ApplicationController
     nb = nb == 0 ? 1 : nb
     # n°1 we iterate for each group, taking the minimum
     # It will put one of the remaining and adding it to one group, then to an other
-    groups.sort_by(&:length)
+    groups.sort_by!(&:length)
 
     groups.each_with_index do |group, index|
       if users.any?
