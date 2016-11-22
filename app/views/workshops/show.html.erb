@@ -85,7 +85,7 @@
                   <% end %>
                   <% if(@workshop.teamgeneration==1) %>
                     <% if !userInWorkshop  %>
-                      <%= link_to "S\'ajouter", add_to_project_path(@id, project.id), method: :put%>
+                      <li class="button_link"><%= link_to "S\'ajouter", add_to_project_path(@id, project.id), method: :put%></li>
                     <% elsif !userInProject %>
                         <li class="button_link"><%= link_to "Changer",switch_to_project_path(@id,@current_project_id, project.id), method: :put%></li>
                     <% end %>
@@ -109,6 +109,7 @@
       </div>
 
       <div class='col-md-offset-2 col-md-8' id="pbar_outerdiv">
+        <div id="pbar_text"></div>
         <div id="pbar_innertext"></div>
       </div>
 

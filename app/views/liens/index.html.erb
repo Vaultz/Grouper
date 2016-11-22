@@ -1,65 +1,96 @@
-<p id="notice"><%= notice %></p>
+<section class="container-fluid bg_full_width">
+  <div class="filter">
+  </div>
+</section>
 
-<h1>Liens</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Nom</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+<div class="container-fluid full_width inscription">
+  <div class="content">
 
-  <tbody>
-    <% @liens.each do |lien| %>
-      <tr>
-        <% if /facebook/ =~ lien.url%>
-          <td><%= link_to lien.url do %>
-            <%= image_tag 'facebook.png', width: 60, height: 60, alt: lien.name %>
-          <% end %></td>
-        <% elsif /twitter/ =~ lien.url%>
-          <td><%= link_to lien.url do %>
-            <%= image_tag 'twitter.png', width: 60, height: 60, alt: lien.name %>
-          <% end %></td>
-        <% elsif /github/ =~ lien.url%>
-          <td><%= link_to lien.url do %>
-            <%= image_tag 'github.png', width: 60, height: 60, alt: lien.name %>
-          <% end %></td>
-        <% elsif /gitter/ =~ lien.url%>
-          <td><%= link_to lien.url do %>
-            <%= image_tag 'gitter.png', width: 60, height: 60, alt: lien.name %>
-          <% end %></td>
-        <% elsif /ppulse/ =~ lien.url%>
-            <td><%= link_to lien.url do %>
-              <%= image_tag 'propusle.png', width: 60, height: 60, alt: lien.name %>
-            <% end %></td>
-        <% elsif /slack/ =~ lien.url%>
-          <td><%= link_to lien.url do %>
-            <%= image_tag 'slack.png', width: 60, height: 60, alt: lien.name %>
-          <% end %></td>
-        <% elsif /docs.google/ =~ lien.url%>
-          <td><%= link_to lien.url do %>
-            <%= image_tag 'doc.png', width: 60, height: 60, alt: lien.name %>
-          <% end %></td>
-        <% elsif /drive.google/ =~ lien.url%>
-          <td><%= link_to lien.url do %>
-            <%= image_tag 'googledrive.png', width: 60, height: 60, alt: lien.name %>
-          <% end %></td>
-        <% elsif /framapad/ =~ lien.url%>
-          <td><%= link_to lien.url do %>
-            <%= image_tag 'framapad.png', width: 120, height: 60, alt: lien.name %>
-          <% end %></td>
-        <% else %>
-          <td><%= link_to lien.name,  lien.url%></td>
+    <div class="row">
+      <div class="col-md-12">
+        <h1>Liens utiles</h1>
+      </div>
+    </div>
+
+    <div class="design_form row">
+      <div class="col-md-offset-2 col-md-8">
+
+
+        <% @liens.each do |lien| %>
+          <%= link_to lien.url do %>
+            <%= lien.name %>
+            <%= link_to 'Modifier', edit_lien_path(lien) %>
+            <%= link_to 'Supprimer', lien, method: :delete, data: { confirm: 'Êtes-vous sûr ?' } %>
+          <% end %>
         <% end %>
-        <!-- <td><%= link_to 'Show', lien %></td> -->
-        <td><%= link_to 'Modifier', edit_lien_path(lien) %></td>
-        <td><%= link_to 'Supprimer', lien, method: :delete, data: { confirm: 'Êtes-vous sûr ?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
 
-<br>
 
-<%= link_to 'Nouveau lien', new_lien_path %>
+        <table>
+          <thead>
+            <tr>
+              <th>Nom</th>
+              <th colspan="3"></th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <% @liens.each do |lien| %>
+            <tr>
+              <% if /facebook/ =~ lien.url%>
+              <td><%= link_to lien.url do %>
+                <%= image_tag 'facebook.png', width: 60, height: 60, alt: lien.name %>
+                <% end %></td>
+                <% elsif /twitter/ =~ lien.url%>
+                <td><%= link_to lien.url do %>
+                  <%= image_tag 'twitter.png', width: 60, height: 60, alt: lien.name %>
+                  <% end %></td>
+                  <% elsif /github/ =~ lien.url%>
+                  <td><%= link_to lien.url do %>
+                    <%= image_tag 'github.png', width: 60, height: 60, alt: lien.name %>
+                    <% end %></td>
+                    <% elsif /gitter/ =~ lien.url%>
+                    <td><%= link_to lien.url do %>
+                      <%= image_tag 'gitter.png', width: 60, height: 60, alt: lien.name %>
+                      <% end %></td>
+                      <% elsif /ppulse/ =~ lien.url%>
+                      <td><%= link_to lien.url do %>
+                        <%= image_tag 'propusle.png', width: 60, height: 60, alt: lien.name %>
+                        <% end %></td>
+                        <% elsif /slack/ =~ lien.url%>
+                        <td><%= link_to lien.url do %>
+                          <%= image_tag 'slack.png', width: 60, height: 60, alt: lien.name %>
+                          <% end %></td>
+                          <% elsif /docs.google/ =~ lien.url%>
+                          <td><%= link_to lien.url do %>
+                            <%= image_tag 'doc.png', width: 60, height: 60, alt: lien.name %>
+                            <% end %></td>
+                            <% elsif /drive.google/ =~ lien.url%>
+                            <td><%= link_to lien.url do %>
+                              <%= image_tag 'googledrive.png', width: 60, height: 60, alt: lien.name %>
+                              <% end %></td>
+                              <% elsif /framapad/ =~ lien.url%>
+                              <td><%= link_to lien.url do %>
+                                <%= image_tag 'framapad.png', width: 120, height: 60, alt: lien.name %>
+                                <% end %></td>
+                                <% else %>
+                                <td><%= link_to lien.name,  lien.url%></td>
+                                <% end %>
+                                <!-- <td><%= link_to 'Show', lien %></td> -->
+                                <td><%= link_to 'Modifier', edit_lien_path(lien) %></td>
+                                <td><%= link_to 'Supprimer', lien, method: :delete, data: { confirm: 'Êtes-vous sûr ?' } %></td>
+                              </tr>
+                              <% end %>
+                            </tbody>
+                          </table>
+
+                          <br>
+
+                          <%= link_to 'Nouveau lien', new_lien_path %>
+      </div>
+    </div>
+
+
+
+                    </div>
+                  </div>

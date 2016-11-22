@@ -67,7 +67,7 @@ body {
   display: none !important;
 }
 
-@media (max-width: 550px) {
+@media (max-width: 750px) {
   .header ul li:not(.open_menu) {
     display: none !important;
   }
@@ -87,6 +87,18 @@ body {
   bottom: 0;
   width: 220px;
   background-color: #23232C;
+}
+
+.nav_mobile .each_workshop, .nav_mobile .my_profil {
+  border-bottom: 1px solid #343434;
+}
+
+.nav_mobile h4, .nav_mobile i {
+  color: #C2C2CA !important;
+}
+
+.nav_mobile .active {
+  background-color: #34343D;
 }
 
 .nav_mobile .fa-times-circle-o {

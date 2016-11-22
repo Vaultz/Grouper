@@ -29,7 +29,7 @@ $(document).ready(function() {
 
   $(window).resize(function () {
     var width = $(window).width();
-    if (width > 550) {
+    if (width > 750) {
       $('.nav_mobile').hide();
       $('.header ul li').not('.open_menu').show();
     } else {

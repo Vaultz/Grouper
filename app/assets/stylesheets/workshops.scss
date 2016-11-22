@@ -10,7 +10,7 @@
   height: 100vh;
   overflow-y: auto;
   width: 220px;
-  background-color: #23232C;
+  background-color: #E6E6E6;
   padding-bottom: 150px;
 }
 
@@ -21,7 +21,7 @@
 }
 
 .canvas a{
-  color: #C2C2CA !important;
+  color: #232323 !important;
   display: block;
   margin: 0 auto;
   text-align: center;
@@ -31,18 +31,18 @@
 
 .canvas h4, .canvas .fa-list, .nav_mobile h4, .nav_mobile .fa-list {
   margin-left: 5px;
-  color: #C2C2CA;
+  color: #232323;
   font-size: 18px !important;
 }
 
 .active {
-  background-color: #34343D;
+  background-color: #C4C4C4;
 }
 
 .each_workshop, .my_profil {
-    border-bottom: 1px solid #343434;
+    border-bottom: 1px solid #C4C4C4;
     &:hover {
-      background-color: #34343D;
+      background-color: #C4C4C4;
     }
 }
 
@@ -78,8 +78,7 @@
 }
 
 .last_workshop_view {
-  margin-left: 220px;
-  margin-right: 70px;
+  margin-left: 290px;
 }
 
 @media (max-width: 750px) {
@@ -96,7 +95,7 @@
   position: fixed;
   top: 50px;
   bottom: 0;
-  right: 0;
+  left: 220px;
   background-color: #23232C;
 }
 
@@ -166,6 +165,7 @@
 }
 
 .group ul li {
+  font-size: 14px;
   list-style-type: none;
   text-align: left;
 }
