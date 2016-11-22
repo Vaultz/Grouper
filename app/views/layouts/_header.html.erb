@@ -3,6 +3,19 @@
       <li><a href="/">Logo qui arrive</a></li>
     </ul>
 
+    <!--<div class="btn-group">
+      <button type="button" class="btn"><%= @promo %></button>
+      <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+        <span class="caret"></span>
+        <span class="sr-only">Toggle Dropdown</span>
+      </button>
+      <ul class="dropdown-menu">
+        <% @years.each do |year| %>
+          <li><%= link_to year, workshops_path(year)%></li>
+        <% end %>
+      </ul>
+    </div>-->
+
     <ul>
       <% if user_signed_in? %>
         <li><%= link_to current_user.firstname, edit_user_registration_path %></li>

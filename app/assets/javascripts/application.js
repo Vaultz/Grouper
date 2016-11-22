@@ -25,6 +25,7 @@ $(document).ready(function() {
     }, 3000);
   }
 
+
   $('.nav_mobile').hide();
 
   $(window).resize(function () {

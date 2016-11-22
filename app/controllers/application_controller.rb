@@ -19,5 +19,6 @@ class ApplicationController < ActionController::Base
         @promo = Time.now.to_s(:school_year)
       end
       @workshops = Workshop.order(created_at: :desc).where('year = ?', @promo)
+      @years = Workshop.distinct.pluck(:year)
     end
 end
