@@ -38,7 +38,6 @@ class Workshop < ApplicationRecord
 
   validates :name, :description, :teacher, :begins, :ends, :teamgeneration, :projectleaders,:teamnumber, presence: true
   validates :teamnumber, numericality: { only_integer: true, :greater_than_or_equal_to => 1, :less_than_or_equal_to => User.where('year = ? AND status=0 OR status=1',Time.now.to_s(:school_year) ).count}
-  # , :less_than_or_equal_to => User.where("status = 0 OR status = 1").count   // a vérifier
   validates_date :begins, :on_or_before => lambda { :ends }
   accepts_nested_attributes_for :projects
 
