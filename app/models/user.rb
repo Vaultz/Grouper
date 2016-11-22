@@ -30,9 +30,10 @@ class User < ApplicationRecord
 
   has_many :orals
   has_many :projects_orals, through: :orals, :source => "projects"
-
+  validates :lastname, :firstname, :phone_number, presence: true
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
+
 end
