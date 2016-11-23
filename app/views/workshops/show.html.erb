@@ -3,16 +3,15 @@
 </section>
 
 <div class="canvas">
-  <%= link_to 'Créer un Workshop', controller: "create_workshop" %>
+  <%= link_to 'Créer un Workshop', {controller: "create_workshop"}, class: "create_workshop" %>
   <h4><i class="fa fa-list" aria-hidden="true"></i> Workshops</h4>
 
   <% @workshops.each do |workshop| %>
     <div class="each_workshop <% if @workshop.name == workshop.name  %> active <% end %>">
-      <div>
+
       <%= link_to workshop.name, workshop_path(workshop.to_param) %>
-      </div>
       <% if workshop.projects.count == 0 %>
-        <div><i title="Processus de création non terminé !" class="fa fa-exclamation-circle" aria-hidden="true" style="color:#bf3939; font-size:1.5em;"></i></div>
+        <i title="Processus de création non terminé !" class="fa fa-exclamation-circle project_in_creation" aria-hidden="true" style="color:#bf3939; font-size:1.5em;"></i>
       <% end %>
     </div>
   <% end %>
@@ -90,7 +89,7 @@
                         <li class="button_link"><%= link_to "Changer",switch_to_project_path(@id,@current_project_id, project.id), method: :put%></li>
                     <% end %>
                   <% end %>
-                  <div class="group">
+                  <!-- <div class="group">
                     <p>Assisteront à la soutenance</p>
                     <% project.attendees.each do |user| %>
                     <ul>
@@ -100,10 +99,11 @@
                       </li>
                     </ul>
                     <% end%>
-                  </div>
+                  </div> -->
               </div>
 
             <% end %>
+            <img class="tete_logo" src="/assets/tete_logo.png" alt="Logo" />
           </div>
         </div>
       </div>

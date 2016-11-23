@@ -38,6 +38,7 @@ h3 {
 
 #pbar_text {
   position: absolute;
+  left: -1px;
   width: 100%;
   text-align: center;
   z-index: 5;
@@ -46,7 +47,7 @@ h3 {
 #pbar_innertext {
   line-height: 40px;
   max-width: 100%;
-  background-color: green;
+  background-color: #4BBB5D;
   z-index: 2;
   position: absolute;
   top: 0;
@@ -101,7 +102,7 @@ h3 {
 /** FORM **/
 
 .margin_top {
-  margin-top: 50px;
+  margin-top: 70px;
 }
 
 .position {
@@ -132,6 +133,20 @@ h3 {
   &:focus{
   	outline: none;
   }
+}
+
+.design_form ::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    color:    #777;
+}
+.design_form :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+   color:    #777;
+}
+.design_form ::-moz-placeholder { /* Mozilla Firefox 19+ */
+   color:    #777;
+   opacity:  1;
+}
+.design_form :-ms-input-placeholder { /* Internet Explorer 10-11 */
+   color:    #777;
 }
 
 .generation label {
