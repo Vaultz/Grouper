@@ -11,33 +11,47 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :name %>
-    <%= f.text_field :name %>
+  <div class="col-md-offset-2 col-md-4">
+
+    <div class="field">
+      <%= f.label :name %>
+      <%= f.text_field :name %>
+    </div>
+
+    <div class="field">
+      <%= f.label :description %>
+      <%= f.text_area :description %>
+    </div>
+
   </div>
 
-  <div class="field">
-    <%= f.label :description %>
-    <%= f.text_area :description %>
+  <div class="col-md-4">
+
+    <div class="field">
+      <%= f.label :teacher %>
+      <%= f.text_field :teacher %>
+    </div>
+
+    <div class="field">
+      <%= f.label :begins %>
+      <%= f.text_field :begins, class: "datepicker_begin" %>
+    </div>
+
+    <div class="field">
+      <%= f.label :ends %>
+      <%= f.text_field :ends, class: "datepicker_end" %>
+    </div>
+
   </div>
 
-  <div class="field">
-    <%= f.label :teacher %>
-    <%= f.text_field :teacher %>
-  </div>
 
-  <div class="field">
-    <%= f.label :begins %>
-    <%= f.date_select :begins %>
-  </div>
-
-  <div class="field">
-    <%= f.label :ends %>
-    <%= f.date_select :ends %>
-  </div>
-
-
-  <div class="actions">
-    <%= f.submit %>
+  <div class="row">
+    <div class="col-md-offset-3 col-md-6">
+      <div class="actions">
+        <%= f.submit "Modifier", class: "button_link" %>
+        <%= link_to I18n.t('views.show'), @workshop.to_param, class: "button_link" %>
+        <%= link_to I18n.t('views.back'), workshops_path, class: "button_link" %>
+      </div>
+    </div>
   </div>
 <% end %>

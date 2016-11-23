@@ -26,11 +26,11 @@
 
 <div class="col-md-4">
 
-    <div class="field generation">
+    <div class="generation_choice field generation">
       <!--
       Deleting the original field in order to remplace it with a radio_button_tag
       <%= f.number_field :teamgeneration %> -->
-      <div>Mode de génération des groupes</div><br />
+      Mode de génération des groupes<br />
       <%= f.radio_button :teamgeneration, 0 %>
       <%= label :teamgeneration, "Full Random" %><br />
 
@@ -41,15 +41,14 @@
       <%= label :teamgeneration, "Mixte" %><br />
 
       <%= f.radio_button :teamgeneration, 3, disabled: true %>
-      <%= label :teamgeneration, "Préférences" %>
-
+      <%= label :teamgeneration, "Préférences (soon...)" %>
     </div>
 
     <div class="field">
       <%= f.number_field :teamnumber, placeholder: "Nombre d'équipes" %>
     </div>
 
-    <div class="field generation">
+    <div class="generation_choice field generation">
       <%= f.label "Activer l'option chefs de projet ?" %>
       <%= f.check_box :projectleaders %>
     </div>

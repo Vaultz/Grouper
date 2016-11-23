@@ -53,7 +53,7 @@ class LiensController < ApplicationController
 
     respond_to do |format|
       if @lien.save
-        format.html { redirect_to @lien, notice: 'Lien was successfully created.' }
+        format.html { redirect_to @lien, notice: 'Le lien a été ajouté avec succès.' }
         format.json { render :show, status: :created, location: @lien }
       else
         format.html { render :new }
