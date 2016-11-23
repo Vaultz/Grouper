@@ -63,7 +63,7 @@ gem 'annotate'
 gem 'wicked'
 
 # gem to design input date
-gem 'pickadate-rails'
+gem 'pickadate-rails', '3.5.6.0'
 
 # gem to modify default langage of rails application
 gem 'rails-i18n'
