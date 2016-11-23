@@ -115,7 +115,7 @@ class CreateWorkshopController < ApplicationController
       if @workshop.projectleaders == 1
         #Leaders had register with the status equal to 1
         #Let's order them according to the number of time they were project leader
-        leaders = User.joins(:works).distinct.select('users.*, COUNT(*) as leader_count').where('works.project_leader = 1 AND status = 1 AND year = ?', year).order('leader_count DESC').group('users.id').to_a
+        leaders = User.joins(:works).select('users.*, COUNT(works.project_leader) as leader_count').where('status = 1 AND year = ?', @promo).order('leader_count DESC').group('users.id').to_a
         users = User.where('year = ? AND status=0', @promo).to_a
         difference = @workshop.teamnumber - leaders.size
         if difference > 0
@@ -277,7 +277,7 @@ class CreateWorkshopController < ApplicationController
 
 
   def pick_attendees(projects, project)
-    user = project.users.includes(:orals).select('users.*, COUNT(*) as been_attendees').order('been_attendees').first;
+    user = project.users.joins(:orals).select('users.*, COUNT(orals.user_id) as been_attendees').order('been_attendees').group('users.id').first;
     other_projects = projects.reject { |x| x.id == project.id }
     other_projects.each do |project|
       project.attendees << user

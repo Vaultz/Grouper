@@ -15,7 +15,8 @@
 //= require turbolinks
 //= require_tree .
 
-$(document).ready(function() {
+$(document).on("turbolinks:load", function() {
+
   if($('#notice').html() == '') {
     $('#notice').removeClass('alert alert-success');
   } else {
