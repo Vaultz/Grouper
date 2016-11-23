@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   resources :liens
   get 'promo/:year' => 'promo#index', as: 'promo' , :defaults => { :year => Time.now.to_s(:school_year) }
 
+
   # Module SOS
   get 'alerts/index'
   post 'alerts/create'
