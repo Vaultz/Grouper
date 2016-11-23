@@ -30,14 +30,24 @@ h3 {
 #pbar_outerdiv {
   margin-top: 35px;
   height: 40px;
+  line-height: 40px;
+  color: black;
   border: 1px solid grey;
   z-index: 1;
+}
+
+#pbar_text {
+  position: absolute;
+  left: -1px;
+  width: 100%;
+  text-align: center;
+  z-index: 5;
 }
 
 #pbar_innertext {
   line-height: 40px;
   max-width: 100%;
-  background-color: green;
+  background-color: #4BBB5D;
   z-index: 2;
   position: absolute;
   top: 0;
@@ -92,7 +102,7 @@ h3 {
 /** FORM **/
 
 .margin_top {
-  margin-top: 50px;
+  margin-top: 70px;
 }
 
 .position {
@@ -105,6 +115,10 @@ h3 {
 
 .input_inline {
   display: inline-block;
+}
+
+.design_form ul {
+  list-style-type: none;
 }
 
 .design_form input:not([type=submit]):not([type=checkbox]):not([type=radio]), .design_form select, .design_form textarea {
@@ -121,6 +135,20 @@ h3 {
   }
 }
 
+.design_form ::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    color:    #777;
+}
+.design_form :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+   color:    #777;
+}
+.design_form ::-moz-placeholder { /* Mozilla Firefox 19+ */
+   color:    #777;
+   opacity:  1;
+}
+.design_form :-ms-input-placeholder { /* Internet Explorer 10-11 */
+   color:    #777;
+}
+
 .generation label {
   display: inline-block;
 }
@@ -129,5 +157,8 @@ h3 {
   height: 80px;
 }
 
-
 /** /FORM **/
+
+.margin30 {
+  margin: 30px 0;
+}

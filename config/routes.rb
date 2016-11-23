@@ -1,28 +1,30 @@
 Rails.application.routes.draw do
 
   resources :liens
-  get 'promo/' => 'promo#index'
+  get 'promo/:year' => 'promo#index', as: 'promo' , :defaults => { :year => Time.now.to_s(:school_year) }
+
 
   # Module SOS
   get 'alerts/index'
   post 'alerts/create'
 
   #Workshops routes, cannot use ressoures because we want to know the promo year
-  get 'workshops/addto'
-  get 'workshops/switchto'
-  get ':year/workshop/:id' => 'workshops#show', as: 'workshop', :defaults => { :year => Time.now.to_s(:school_year) }
-  get ':year/workshops' => 'workshops#index', as: 'workshops', :defaults => { :year => Time.now.to_s(:school_year) }
-  get ':year/workshops/edit/:id'=> 'workshops#edit', as: 'edit_workshop', :defaults => { :year => Time.now.to_s(:school_year) }
-  delete ':year/workshops/:id'=> 'workshops#destroy',as: 'delete_workshop', :defaults => { :year => Time.now.to_s(:school_year) }
-  put ':year/workshops/:id'=> 'workshops#update',as: 'update_workshop', :defaults => { :year => Time.now.to_s(:school_year) }
-  patch ':year/workshops/:id'=> 'workshops#update',:defaults => { :year => Time.now.to_s(:school_year) }
+  put 'workshops/addto/:id_workshop/:id_project'=> 'workshops#addto', as: 'add_to_project'
+  put 'workshops/switchto/:id_workshop/:id_old_project/:id_project'=>'workshops#switchto', as: 'switch_to_project'
+  get 'workshops/:year/:id' => 'workshops#show', as: 'workshop', :defaults => { :year => Time.now.to_s(:school_year) }
+  get 'workshops/:year' => 'workshops#show', as: 'workshops', :defaults => { :year => Time.now.to_s(:school_year) }
+  get 'workshops' => 'workshops#show'
+  get 'workshops/edit/:year/:id'=> 'workshops#edit', as: 'edit_workshop', :defaults => { :year => Time.now.to_s(:school_year) }
+  delete 'workshops/:year/:id'=> 'workshops#destroy'
+  put 'workshops/:year/:id'=> 'workshops#update'
+  patch 'workshops/:year/:id'=> 'workshops#update', as: 'update_workshop'
 
 
 
   get 'home/index'
 
   authenticated :user do
-    root to: 'workshops#index', as: :authenticated_root
+    root to: 'workshops#show', as: :authenticated_root
   end
 
   devise_for :users, :controllers => {:registrations => "users/registrations"}

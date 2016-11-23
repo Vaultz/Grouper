@@ -15,7 +15,8 @@
 //= require turbolinks
 //= require_tree .
 
-$(document).ready(function() {
+$(document).on("turbolinks:load", function() {
+
   if($('#notice').html() == '') {
     $('#notice').removeClass('alert alert-success');
   } else {
@@ -25,11 +26,12 @@ $(document).ready(function() {
     }, 3000);
   }
 
+
   $('.nav_mobile').hide();
 
   $(window).resize(function () {
     var width = $(window).width();
-    if (width > 550) {
+    if (width > 750) {
       $('.nav_mobile').hide();
       $('.header ul li').not('.open_menu').show();
     } else {

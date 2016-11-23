@@ -1,7 +1,9 @@
 <p id="notice"><%= notice %></p>
 
+
+
 <p>
-  <strong>Name:</strong>
+  <strong>Nom:</strong>
   <%= @lien.name %>
 </p>
 
@@ -10,5 +12,5 @@
   <%= @lien.url %>
 </p>
 
-<%= link_to 'Edit', edit_lien_path(@lien) %> |
-<%= link_to 'Back', liens_path %>
+<%= link_to 'Modifier', edit_lien_path(@lien) %> |
+<%= link_to 'Retour', liens_path %>

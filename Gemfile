@@ -62,3 +62,5 @@ gem 'pickadate-rails'
 # gem to modify default langage of rails application
 gem 'rails-i18n'
 gem 'validates_timeliness', '~> 4.0'
+# use name instead of id in url
+gem 'friendly_id', '~> 5.1.0'

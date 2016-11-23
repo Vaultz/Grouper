@@ -7,17 +7,18 @@ class ApplicationController < ActionController::Base
   protected
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:firstname, :lastname, :phone_number, :year, :status])
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:firstname, :lastname, :phone_number, :year, :status, :gender])
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_workshops
       if params[:year]
-        promo = params[:year]
+        @promo = params[:year]
       else
-        promo = Time.now.to_s(:school_year)
+        @promo = Time.now.to_s(:school_year)
       end
-      @workshops = Workshop.where('year = ?', promo)
+      @workshops = Workshop.order(created_at: :desc).where('year = ?', @promo)
+      @years = Workshop.distinct.pluck(:year)
     end
 end

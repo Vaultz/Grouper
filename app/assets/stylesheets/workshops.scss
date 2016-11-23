@@ -5,12 +5,15 @@
 .canvas {
   position: fixed;
   left: 0;
-  top: 50px;
+  top: 70px;
   bottom: 0;
   height: 100vh;
   overflow-y: auto;
   width: 220px;
-  background-color: #23232C;
+  background-color: #F1F1F1;
+  background-image: image_url('shadow_line.png');
+  background-position: right;
+  background-repeat: repeat-y;
   padding-bottom: 150px;
 }
 
@@ -21,43 +24,71 @@
 }
 
 .canvas a{
-  color: #C2C2CA !important;
+  color: #232323 !important;
   display: block;
   margin: 0 auto;
   text-align: center;
   margin-left: -10px !important;
   padding: 17px;
+  z-index: 60;
+}
+
+.create_workshop {
+  position: relative;
+}
+
+.create_workshop:hover:before {
+  content: "";
+	position: absolute;
+	bottom: 0px;
+	left:50%;
+	margin-left: -15px;
+	width:30px;
+	height: 3px;
+	line-height: 3px;
+	font-size: 1px;
+	border-bottom: 3px solid #4BBB5D;
 }
 
 .canvas h4, .canvas .fa-list, .nav_mobile h4, .nav_mobile .fa-list {
   margin-left: 5px;
-  color: #C2C2CA;
+  color: #232323;
   font-size: 18px !important;
 }
 
 .active {
-  background-color: #34343D;
+  background-color: #D4D4D4;
 }
 
 .each_workshop, .my_profil {
-    border-bottom: 1px solid #343434;
+    border-bottom: 1px solid #DADADA;
     &:hover {
-      background-color: #34343D;
+      background-color: #D4D4D4;
     }
 }
 
+.each_workshop {
+  position: relative;
+  text-align: center;
+}
+
 .each_workshop a {
-  display: block;
   font-size: 14px;
   word-wrap: break-word;
-  text-align: center;
   padding-left: 10px;
+}
+
+.project_in_creation {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .title_workshop {
   padding: 0 !important;
   color: black;
-  height: 200px;
+  height: 150px;
   background: image_url('background_home.jpg') center center no-repeat;
   background-size: cover;
   border-bottom: 5px solid black;
@@ -88,10 +119,10 @@
   width: 70px;
   height: 100vh;
   position: fixed;
-  top: 50px;
+  top: 70px;
   bottom: 0;
   right: 0;
-  background-color: #23232C;
+  background-color: #232323;
 }
 
 .actions_workshop a {
@@ -99,15 +130,9 @@
   display: block;
   text-align: center;
   width: 100%;
-  border-bottom: 1px solid #343434;
+  border-bottom: 1px solid #616161;
   &:hover {
-    background-color: #34343D;
-  }
-  &:hover > .fa-pencil-square-o {
-    color: #257B00;
-  }
-  &:hover > .fa-trash-o {
-    color: #A40000;
+    background-color: #707070;
   }
 }
 
@@ -132,8 +157,12 @@
   font-family: Helvetica;
   position: relative;
   padding: 10px 15px 10px 15px;
-  background: rgba(0,0,0, 0.6);
+  border: 2px solid #DDDDDD;
+  border-top : 0;
+  background: white;
   text-align: left;
+  color: black;
+  font-size: 14px;
 }
 
 .every_projects {
@@ -141,25 +170,46 @@
   position: relative;
   font-family: Helvetica;
   padding-bottom: 50px;
-  background: rgba(0,0,0, 0.6);
+  background: white;
+  border: 2px solid #DDDDDD;
+  border-top: 0;
+  color: #565656;
 }
 
 .every_projects div {
   position: relative;
   left: 3px;
   display: inline-table;
-  background-color: rgba(0,0,0, 0.4);
+  background-color: white;
   width: 45%;
   margin: 10px 2%;
 }
 
+.group p:first-child {
+  font-size: 16px;
+  font-weight: 600;
+  color: black;
+}
+
 .group p {
   text-align: center;
-  background-color: black;
+  border-bottom: 1px solid black;
+  background-color: white;
   padding: 8px 0;
+  margin-bottom: 0;
+}
+
+.group ul {
+  padding: 7px 0;
+  margin-bottom: 0;
+}
+
+.group ul:hover {
+  background-color: #E1E1E1;
 }
 
 .group ul li {
+  font-size: 14px;
   list-style-type: none;
   text-align: left;
 }
@@ -196,7 +246,7 @@
 .line_title {
   width: 100%;
   height: 50px;
-  background: rgba(0,0,0, 1);
+  background: #232323;
 }
 
 .line_title h3 {
@@ -218,4 +268,16 @@
   color: rgba(0,0,0, .3);
   display: inline-block;
   cursor: pointer;
+}
+
+.validate_workshop {
+  margin-left: 0 !important;
+  margin-right: 0px !important;
+}
+
+.tete_logo {
+  width: 50px;
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
 }

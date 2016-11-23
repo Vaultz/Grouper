@@ -4,23 +4,28 @@ class WorkshopsController < ApplicationController
   # GET /workshops
   # GET /workshops.json
   def index
-    @workshop_last = @workshops.last # Useful to display the last workshop
-    if @workshops.count != 0 # If there is no workshop, don't create these variables
-      @id_last = @workshop_last.id
-      @project = @workshop_last.projects
-      @count = count_groups(@project)
-    end
+    # @workshop = @workshops.last # Useful to display the last workshop
+    # if @workshops.count != 0 # If there is no workshop, don't create these variables
+    #   @id = @workshop.id
+    #   @project = @workshop.projects
+    #   @count = count_groups(@project)
+    # end
+    # render :show
 
   end
 
   # GET /workshops/1
   # GET /workshops/1.json
   def show
-    if Workshop.count != 0 # If there is no workshop, don't create these variables
+    if @workshops.count != 0 # If there is no workshop, don't create these variables
       @id = @workshop.id
-      @project = @workshop.projects
+      @projects = @workshop.projects
+      if current_user.projects.find_by(workshop_id: @id)
+        @current_project_id = current_user.projects.find_by(workshop_id: @id).id
+      else
+        @current_project_id = nil
+      end
 
-      @count = count_groups(@project)
     end
   end
 
@@ -58,21 +63,28 @@ class WorkshopsController < ApplicationController
 
   def addto
 
-    @params_user=User.find(current_user)
-    @params_projet=Project.find(params[:id_group])
 
-    @params_projet.works.create(user: @params_user)
+
+    current_user.projects << Project.find(params[:id_project])
+    # @params_user=User.find(current_user)
+    # @params_projet=Project.find(params[:id_group])
+    #
+    # @params_projet.works.create(user: @params_user)
 
     redirect_to workshop_path(params[:id_workshop])
+
   end
 
   def switchto
 
-    @params_user=User.find(current_user)
-    @params_projet=Project.find(params[:id_group])
-    @work = Work.find(params[:id_group_current])
-    @work.destroy
-    @params_projet.works.create(user: @params_user)
+
+    current_user.projects.delete(Project.find(params[:id_old_project]))
+    current_user.projects << Project.find(params[:id_project])
+    # @params_user=User.find(current_user)
+    # @params_projet=Project.find(params[:id_group])
+    # @work = Work.find(params[:id_group_current])
+    # @work.destroy
+    # @params_projet.works.create(user: @params_user)
     # work.project_id = params[:id_group]
     # work.save
 
@@ -80,27 +92,13 @@ class WorkshopsController < ApplicationController
 
   end
 
-  def count_groups(project_params)
-    @total=0
-    project_params.each do |project|
-      @work = Work.where('user_id = ? AND project_id= ?', current_user, project.id )
-      if @work.blank?
-        @total=@total +1
-      end
-      if @work.present?
-        @work.each do |work|
-          @current_project = work.id
-        end
-      end
-    end
-  end #end do
 
   # PATCH/PUT /workshops/1
   # PATCH/PUT /workshops/1.json
   def update
     respond_to do |format|
       if @workshop.update(workshop_params)
-        format.html { redirect_to @workshop, notice: I18n.t('views.workshop.flash_messages.workshop_was_successfully_updated') }
+        format.html { redirect_to @workshop.to_param, notice: I18n.t('views.workshop.flash_messages.workshop_was_successfully_updated') }
         format.json { render :show, status: :ok, location: @workshop }
       else
         format.html { render :edit }
@@ -127,7 +125,11 @@ class WorkshopsController < ApplicationController
 
     # Use callbacks to share common setup or constraints between actions.
     def set_workshop
-      @workshop = Workshop.find(params[:id])
+      if params[:id]
+        @workshop = @workshops.friendly.find(params[:id])
+      else
+        @workshop = @workshops.first
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

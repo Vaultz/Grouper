@@ -102,49 +102,123 @@ class CreateWorkshopController < ApplicationController
     end
 
 
-    if @workshop.teamgeneration == 0
+
+    #######################
+    ### TEAM GENERATION ###
+    #######################
+
+    # Full random mode
+    if @workshop.teamgeneration == 0 || @workshop.teamgeneration == 2
       #Let's create a variable for the groups
       @@groups = Array.new
-      #The time will be use to get only the users of the same year
-      time = Time.now
-      year = time.to_s(:school_year)
       #if we have to choose projects leader we query the database differently
       if @workshop.projectleaders == 1
         #Leaders had register with the status equal to 1
-        leaders = User.where('year = ? AND status=1', year).shuffle
-        users = User.where('year = ? AND status=0', year).shuffle
+        #Let's order them according to the number of time they were project leader
+        leaders = User.joins(:works).distinct.select('users.*, COUNT(works.project_leader) as leader_count').where('status = 1 AND year = ?', @promo).order('leader_count DESC').group('users.id').to_a
+        users = User.where('year = ? AND status=0', @promo).to_a
+        difference = @workshop.teamnumber - leaders.size
+        if difference > 0
+          leaders.concat(users.slice!(0,difference))
+        elsif difference < 0
+          #if leaders have to be put aside it will be the ones who have been project leader the most
+          users.concat(leaders.slice!(0,(difference.abs)))
+        end
       else
+
         #everyone is a slave ... to whom ?
-        users = User.where('year = ? AND status=0 OR status=1', year).shuffle
+        users = User.where('year = ? AND status=0 OR status=1', @promo)
       end
+
+      if @workshop.teamgeneration == 2
+        #grouping them after the suffle do the trick
+        #and it take care of every gender
+        users = users.group_by{|x| x.gender}.values
+      else
+        users = users.group_by{|x| true}.values
+      end
+
       #Let's look at the nomber of projects we have to generate
       @workshop.teamnumber.times do |i|
         #projects are instanciate
-
         #We take advantage of the loop to generate the right nomber of groups
         @@groups[i] = Array.new
       end
+      projects = @workshop.projects.limit(@workshop.teamnumber).shuffle
       #This is where the magic append
       #we call the method with the leaders
       if @workshop.projectleaders == 1
+
         @@groups = distribute_users(@@groups, leaders)
+        #abort @@groups.inspect
+        projects.each_with_index do |project, index|
+            projects[index].users << @@groups[index].shift
+            project.works.last.update_attribute :project_leader, 1
+            @@groups[index] = []
+        end
+      end
+      #then we call it with the users
+      users.each_with_index do |usergroup, index|
+        distribute_users(@@groups, usergroup.shuffle)
       end
 
-      #then we call it with the users
-      @@groups = distribute_users(@@groups, users)
+      projects.each_with_index do |project, index|
+          projects[index].users << @@groups[index]
+          pick_attendees(projects, project)
+      end
+
+
+
+
+    end
+
+    # MANUAL MODE
+    if @workshop.teamgeneration == 1
+      redirect_to finish_wizard_path
+      return
+    end
+
+    # MIXED MODE
+    # Similar to the full random mode, but females are splitted before males
+=begin
+    if @workshop.teamgeneration == 2
+      @@groups = Array.new
+      time = Time.new
+      year = time.to_s(:school_year)
+
+      if @workshop.projectleaders == 1
+        leaders = User.where('year = ? AND status = 1', year).shuffle
+        females = User.where('year = ? AND status = 0 AND gender = "f"', year).shuffle
+        males = User.where('year = ? AND status = 0 AND gender = "m"', year).shuffle
+      else
+        females = User.where('year = ? AND gender = "f"', year).shuffle
+        males = User.where('year = ? AND gender = "m"', year).shuffle
+      end
+
+      @workshop.teamnumber.times do |i|
+        @@groups[i] = Array.new
+      end
       projects = @workshop.projects.limit(@workshop.teamnumber).shuffle
+
+      if @workshop.projectleaders == 1
+        @@groups = distribute_users(@@groups, leaders, false)
+        projects.each_with_index do |project, index|
+            projects[index].users << @@groups[index].shift
+            project.works.last.project_leader = 1
+            @@groups[index] = nil
+        end
+
+      end
+
+      @@groups = distribute_users(@@groups, females)
+      @@groups = distribute_users(@@groups, males)
+
       projects.each_with_index do |project, index|
           projects[index].users << @@groups[index]
       end
 
     end
-
-    if @workshop.teamgeneration == 1
-
-      redirect_to finish_wizard_path
-      return
-
-    end
+=end
 
     redirect_to next_wizard_path
     #When validating the last form the step won't be 'validate' but something else, so we put else
@@ -174,7 +248,7 @@ class CreateWorkshopController < ApplicationController
   end
 
   # We use a recursive method, because we have to distribuate: projects leaders and users in 2 times
-  def distribute_users(groups,users)
+  def distribute_users(groups, users)
     # n°1 we look how many at the minimum it will have in a group
     # n°2 The number will be 0 or 1
     nb = (users.size/@workshop.teamnumber).round
@@ -183,22 +257,32 @@ class CreateWorkshopController < ApplicationController
     nb = nb == 0 ? 1 : nb
     # n°1 we iterate for each group, taking the minimum
     # It will put one of the remaining and adding it to one group, then to an other
-    groups.each_with_index do |group, index|
-      nb.times do |i|
-        if users.any?
-          #shift remove from users array and we append it to the group
-          groups[index] << users.shift
-        end
-      end
+    groups.sort_by!(&:length)
 
+    groups.each_with_index do |group, index|
+      if users.any?
+          #shift remove from users array and we append it to the group
+          groups[index].concat(users.slice!(0,nb))
+      else
+        break
+      end
     end
     #we reverse groups to fill those which have less users in priority in the next call of distribute_users
-    groups = groups.reverse
     if users.any?
       #if there is still users without group we call the method again
       distribute_users(groups,users)
     end
     @@groups = groups
+  end
+
+
+  def pick_attendees(projects, project)
+    user = project.users.joins(:orals).select('users.*, COUNT(orals.user_id) as been_attendees').order('been_attendees').group('users.id').first;
+    other_projects = projects.reject { |x| x.id == project.id }
+    other_projects.each do |project|
+      project.attendees << user
+    end
+    #users.inspect
   end
 
 end
