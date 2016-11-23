@@ -31,6 +31,26 @@ class LiensController < ApplicationController
     year = time.to_s(:school_year)
     @lien.year = year
 
+    if /facebook/ =~ lien_params[:url]
+      @lien.logo='facebook.png'
+    elsif /twitter/ =~ lien_params[:url]
+      @lien.logo='twitter.png'
+    elsif /github/ =~ lien_params[:url]
+      @lien.logo='github.png'
+    elsif /gitter/ =~ lien_params[:url]
+      @lien.logo='gitter.png'
+    elsif /ppulse/ =~ lien_params[:url]
+      @lien.logo='ppulse.png'
+    elsif /slack/ =~ lien_params[:url]
+      @lien.logo='slack.png'
+    elsif /docs.google/ =~ lien_params[:url]
+      @lien.logo='doc.png'
+    elsif /drive.google/ =~ lien_params[:url]
+      @lien.logo='googledrive.png'
+    elsif /framapad/ =~ lien_params[:url]
+      @lien.logo='framapad.png'
+    end
+
     respond_to do |format|
       if @lien.save
         format.html { redirect_to @lien, notice: 'Lien was successfully created.' }
