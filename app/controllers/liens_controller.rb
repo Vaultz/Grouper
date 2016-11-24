@@ -53,8 +53,8 @@ class LiensController < ApplicationController
 
     respond_to do |format|
       if @lien.save
-        format.html { redirect_to @lien, notice: 'Le lien a été ajouté avec succès.' }
-        format.json { render :show, status: :created, location: @lien }
+        format.html { redirect_to liens_path, notice: 'Le lien a été ajouté avec succès.' }
+        format.json { render :index, status: :created, location: @lien }
       else
         format.html { render :new }
         format.json { render json: @lien.errors, status: :unprocessable_entity }
@@ -68,7 +68,7 @@ class LiensController < ApplicationController
     respond_to do |format|
       if @lien.update(lien_params)
         format.html { redirect_to @lien, notice: 'Le lien a été mis à jour.' }
-        format.json { render :show, status: :ok, location: @lien }
+        format.json { render :index, status: :ok, location: @lien }
       else
         format.html { render :edit }
         format.json { render json: @lien.errors, status: :unprocessable_entity }
