@@ -47,6 +47,13 @@
         <%= link_to 'Se déconnecter', destroy_user_session_path, :method => :delete %>
       </div>
 
+      <h4><i class="fa fa-hashtag" aria-hidden="true"></i> Divers</h4>
+      <div class="my_profil">
+        <%= link_to 'Promotion', promo_path %>
+      </div>
+      <div class="my_profil">
+        <%= link_to 'Liens utiles', liens_path %>
+      </div>
       <h4><i class="fa fa-list" aria-hidden="true"></i> Workshops</h4>
       <% @workshops.each do |workshop| %>
         <div class="each_workshop <% if @workshops.name == workshop.name  %> active <% end %>">
