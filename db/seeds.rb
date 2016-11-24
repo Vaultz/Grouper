@@ -54,3 +54,13 @@ f_w.each do |workshop|
     i = i + 1
   end
 end
+
+f_l = Array.new
+f_l[0] = {:name => 'facebook', :url => 'https://www.facebook.com', :year => 2016, :logo => 'facebook.png'}
+f_l[1] = {:name => 'github', :url => 'https://www.github.com', :year => 2016, :logo => 'github.png'}
+f_l[2] = {:name => 'slack', :url => 'https://www.slack.com', :year => 2016, :logo => 'slack.png'}
+
+f_l.each do |link|
+  link = Lien.create({:name => link[:name], :url => link[:url], :year => link[:year], :logo => link[:logo]})
+  link.save(:validate => false)
+end
