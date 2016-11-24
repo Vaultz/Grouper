@@ -1,18 +1,31 @@
-<h1> Promo <%= @promo %></h1>
+<section class="container-fluid bg_full_width_workshop">
+</section>
 
-<table>
-  <tr>
-    <td>Nom</td>
-    <td>Prenom</td>
-    <td>Email</td>
-    <td>Telephone</td>
-  </tr>
-  <% @user_promo.each do |promo| %>
-    <tr>
-      <td><%= promo.lastname %></td>
-      <td><%= promo.firstname %></td>
-      <td><%= promo.email %></td>
-      <td><%= promo.phone_number %></td>
-    </tr>
-  <% end %>
-</table>
+<div class="container-fluid full_width inscription">
+  <div class="content">
+
+    <div class="row wrapper_informations">
+
+      <div class="col-md-7 col-sm-12">
+        <div class="line_title">
+          <h3><i class="fa fa-info" aria-hidden="true"></i> Promotion <%= @promo %></h3>
+        </div>
+        <div class="informations list_link">
+          <% @user_promo.each do |promo| %>
+            <div class="group">
+              <p><%= promo.firstname %> <%= promo.lastname %></p>
+              <ul>
+                <li><%= promo.email %></li>
+                <li><%= promo.phone_number %></li>
+
+              </ul>
+            </div>
+          <% end %>
+        </div>
+      </div>
+      <div class="col-md-5 img_link">
+        <img src="/assets/tete_logo.png" alt="Tête du cochon" />
+      </div>
+    </div>
+  </div>
+</div>

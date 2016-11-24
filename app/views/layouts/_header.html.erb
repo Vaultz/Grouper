@@ -19,6 +19,7 @@
 
     <ul>
       <% if user_signed_in? %>
+        <li><%= link_to "Promotion", promo_path %></li><span>|</span>
         <li><%= link_to "Liens utiles", liens_path %></li><span>|</span>
         <li><%= link_to "Mon profil", edit_user_registration_path %></li><span>|</span>
         <li><%= link_to 'Se déconnecter', destroy_user_session_path, :method => :delete %></li>

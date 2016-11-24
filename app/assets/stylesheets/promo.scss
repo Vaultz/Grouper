@@ -1,3 +1,28 @@
 // Place all the styles related to the promo controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.list_link .group {
+  position: relative;
+  left: 3px;
+  display: inline-table;
+  background-color: white;
+  width: 45%;
+  margin: 10px 2%;
+}
+
+.list_link .group ul:hover {
+  background: none;
+}
+
+.list_link .group ul li {
+  padding: 2px 0;
+}
+
+@media (max-width: 750px) {
+  .list_link .group  {
+    width: 94%;
+    margin: 10px 3%;
+    left: 0 !important;
+  }
+}

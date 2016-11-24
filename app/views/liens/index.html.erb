@@ -16,9 +16,10 @@
 
         <div class="informations list_link">
           <ul>
-            <li><%= link_to 'Nouveau lien', new_lien_path, class: "button_link" %></li>
+            <li class="pBottom10"><%= link_to 'Nouveau lien', new_lien_path, class: "button_link" %></li>
             <% @liens.each do |lien| %>
-              <li>
+            <div>
+              <li class="pBottom10">
                 <% if lien.logo != nil %>
                   <%= image_tag lien.logo, width: 40, height: 40, alt: lien.name %>
                 <% end %>
@@ -28,6 +29,8 @@
                   <%= link_to 'Supprimer', lien, method: :delete, data: { confirm: 'Êtes-vous sûr ?' }, class: "button_link" %>
                 </div>
               </li>
+            </div>
+
             <% end %>
           </ul>
         </div>
