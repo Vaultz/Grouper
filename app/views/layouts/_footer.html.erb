@@ -13,16 +13,16 @@ $(document).ready(function() {
     var diffDays = Math.round((eDate - cDate)/1000/60/60/24);
 
     if (diffDays < 0) {
-      $('#pbar_text').append("Projet terminé !");
+      $('#pbar_text').html("Projet terminé !");
       $('#pbar_innertext').css('width', '100%');
     } else if (bDate > cDate) {
-      $('#pbar_text').append("Projet non commencé");
+      $('#pbar_text').html("Projet non commencé");
     } else if (diffDays == 0) {
-      $('#pbar_text').append("Dernier jour !!");
+      $('#pbar_text').html("Dernier jour !!");
     } else if (diffDays == 1) {
-      $('#pbar_text').append(diffDays + " jour restant");
+      $('#pbar_text').html(diffDays + " jour restant");
     } else {
-      $('#pbar_text').append(diffDays + " jours restants");
+      $('#pbar_text').html(diffDays + " jours restants");
     }
   }
 

@@ -2,17 +2,46 @@
 <section class="container-fluid bg_full_width_workshop">
 </section>
 
+<% i = 0 %>
+<% @projects.each do |project| %>
+  <div class="modal fade" id="project_<%= i %>" role="dialog">
+    <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h2 class="modal-title">Informations</h2>
+      </div>
+      <div class="modal-body">
+        <h4>Description du projet </h4>
+          <p><%= project.description %></p>
+        <h4>Assisteront à la soutenance </h4>
+        <ul>
+        <% project.attendees.each do |user| %>
+            <li><%= user.firstname %> <%= user.lastname %></li>
+        <% end%>
+        </ul>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+      </div>
+    </div>
+  </div>
+</div>
+  <% i += 1 %>
+<% end %>
+
 <div class="canvas">
-  <%= link_to 'Créer un Workshop', controller: "create_workshop" %>
+  <%= link_to 'Créer un Workshop', {controller: "create_workshop"}, class: "create_workshop" %>
   <h4><i class="fa fa-list" aria-hidden="true"></i> Workshops</h4>
 
   <% @workshops.each do |workshop| %>
     <div class="each_workshop <% if @workshop.name == workshop.name  %> active <% end %>">
-      <div>
+
       <%= link_to workshop.name, workshop_path(workshop.to_param) %>
-      </div>
       <% if workshop.projects.count == 0 %>
-        <div><i title="Processus de création non terminé !" class="fa fa-exclamation-circle" aria-hidden="true" style="color:#bf3939; font-size:1.5em;"></i></div>
+        <i title="Processus de création non terminé !" class="fa fa-exclamation-circle project_in_creation" aria-hidden="true" style="color:#bf3939; font-size:1.5em;"></i>
       <% end %>
     </div>
   <% end %>
@@ -20,10 +49,6 @@
 <div class="container-fluid full_width last_workshop_view">
   <div class="content">
     <% if Workshop.count != 0 %>
-      <div class="actions_workshop">
-        <%= link_to (content_tag(:i, nil, class: 'fa fa-pencil-square-o')), edit_workshop_path(@workshop.to_param) %>
-        <%= link_to (content_tag(:i, nil, class: 'fa fa-trash-o')),  workshop_path(@workshop.to_param), method: :delete, data: { confirm: I18n.t('views.are_you_sure') } %>
-      </div>
 
       <div class="row">
         <div class="col-md-12 title_workshop">
@@ -34,6 +59,10 @@
       </div>
 
       <div class="row wrapper_informations">
+        <div class="actions_workshop">
+          <%= link_to (content_tag(:i, nil, class: 'fa fa-pencil-square-o')), edit_workshop_path(@workshop.to_param) %>
+          <%= link_to (content_tag(:i, nil, class: 'fa fa-trash-o')),  workshop_path(@workshop.to_param), method: :delete, data: { confirm: I18n.t('views.are_you_sure') } %>
+        </div>
 
         <div class="col-md-5 col-sm-12">
           <div class="line_title">
@@ -66,12 +95,14 @@
             <!-- if user doesn't have selected a group display button 'S ajouter' for join a group -->
             <% userInWorkshop = @workshop.users.include? current_user %>
             <!-- if user have select a group display button 'Switch' for switch group -->
+            <% i = 0 %>
             <% @projects.each do |project| %>
 
             <% userInProject = project.users.include? current_user %>
 
               <div class="group">
-                  <p><%= project.name %></p>
+                  <p><%= project.name %><span class="pull-right">
+                  <i data-toggle="modal" data-target="#project_<%= i %>" class="see_infos fa fa-info-circle" aria-hidden="true"></i></span></p>
                   <% project.users.order('works.project_leader DESC').each do |user| %>
                     <ul>
                       <li>
@@ -90,20 +121,10 @@
                         <li class="button_link"><%= link_to "Changer",switch_to_project_path(@id,@current_project_id, project.id), method: :put%></li>
                     <% end %>
                   <% end %>
-                  <div class="group">
-                    <p>Assisteront à la soutenance</p>
-                    <% project.attendees.each do |user| %>
-                    <ul>
-                      <li>
-                        <%= user.firstname %>
-                        <%= user.lastname %>
-                      </li>
-                    </ul>
-                    <% end%>
-                  </div>
               </div>
-
+              <% i += 1 %>
             <% end %>
+            <img class="tete_logo" src="/assets/tete_logo.png" alt="Logo" />
           </div>
         </div>
       </div>
@@ -123,3 +144,7 @@
     <% end %> <!-- end if -->
   </div>
 </div>
+
+<script type="text/javascript">
+
+</script>

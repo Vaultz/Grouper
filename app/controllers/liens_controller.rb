@@ -31,10 +31,30 @@ class LiensController < ApplicationController
     year = time.to_s(:school_year)
     @lien.year = year
 
+    if /facebook/ =~ lien_params[:url]
+      @lien.logo='facebook.png'
+    elsif /twitter/ =~ lien_params[:url]
+      @lien.logo='twitter.png'
+    elsif /github/ =~ lien_params[:url]
+      @lien.logo='github.png'
+    elsif /gitter/ =~ lien_params[:url]
+      @lien.logo='gitter.png'
+    elsif /ppulse/ =~ lien_params[:url]
+      @lien.logo='ppulse.png'
+    elsif /slack/ =~ lien_params[:url]
+      @lien.logo='slack.png'
+    elsif /docs.google/ =~ lien_params[:url]
+      @lien.logo='doc.png'
+    elsif /drive.google/ =~ lien_params[:url]
+      @lien.logo='googledrive.png'
+    elsif /framapad/ =~ lien_params[:url]
+      @lien.logo='framapad.png'
+    end
+
     respond_to do |format|
       if @lien.save
-        format.html { redirect_to @lien, notice: 'Lien was successfully created.' }
-        format.json { render :show, status: :created, location: @lien }
+        format.html { redirect_to liens_path, notice: 'Le lien a été ajouté avec succès.' }
+        format.json { render :index, status: :created, location: @lien }
       else
         format.html { render :new }
         format.json { render json: @lien.errors, status: :unprocessable_entity }
@@ -47,8 +67,8 @@ class LiensController < ApplicationController
   def update
     respond_to do |format|
       if @lien.update(lien_params)
-        format.html { redirect_to @lien, notice: 'Lien was successfully updated.' }
-        format.json { render :show, status: :ok, location: @lien }
+        format.html { redirect_to @lien, notice: 'Le lien a été mis à jour.' }
+        format.json { render :index, status: :ok, location: @lien }
       else
         format.html { render :edit }
         format.json { render json: @lien.errors, status: :unprocessable_entity }
@@ -61,7 +81,7 @@ class LiensController < ApplicationController
   def destroy
     @lien.destroy
     respond_to do |format|
-      format.html { redirect_to liens_url, notice: 'Lien was successfully destroyed.' }
+      format.html { redirect_to liens_url, notice: 'Le lien a été supprimé avec succès.' }
       format.json { head :no_content }
     end
   end

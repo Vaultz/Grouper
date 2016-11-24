@@ -1,7 +1,5 @@
   <nav class='header'>
-    <ul>
-      <li><a href="/">Logo qui arrive</a></li>
-    </ul>
+    <a href="/"><img class="logo" src="/assets/logo.png" alt="Logo"></a>
 
     <!--<ul class="dropdown">
       <li>
@@ -21,11 +19,12 @@
 
     <ul>
       <% if user_signed_in? %>
-        <li><%= link_to current_user.firstname, edit_user_registration_path %></li>
+        <li><%= link_to "Liens utiles", liens_path %></li><span>|</span>
+        <li><%= link_to "Mon profil", edit_user_registration_path %></li><span>|</span>
         <li><%= link_to 'Se déconnecter', destroy_user_session_path, :method => :delete %></li>
         <li class="open_menu"><i class="fa fa-bars fa-2x" aria-hidden="true"></i></li>
       <% else %>
-        <li><%= link_to 'S\'inscrire', new_user_registration_path %></li>
+        <li><%= link_to 'S\'inscrire', new_user_registration_path %></li><span>|</span>
         <li><%= link_to 'Se connecter', new_user_session_path %></li>
         <li class="open_menu"><i class="fa fa-bars fa-2x" aria-hidden="true"></i></li>
       <% end %>
@@ -35,7 +34,6 @@
   <nav class='nav_mobile'>
     <div class="logo_mobile">
       <i class="fa fa-times-circle-o fa-2x" aria-hidden="true"></i>
-      Logo qui arrive !!
     </div>
 
     <% if user_signed_in? %>
@@ -49,13 +47,11 @@
       </div>
 
       <h4><i class="fa fa-list" aria-hidden="true"></i> Workshops</h4>
-
       <% @workshops.each do |workshop| %>
-        <div class="each_workshop <% if params[:controller] == 'workshops' && params[:action] == 'show' && params[:id].to_i == workshop.id  %> active <% end %>">
-          <%= link_to workshop.name, workshop %>
+        <div class="each_workshop <% if @workshops.name == workshop.name  %> active <% end %>">
+          <%= link_to workshop.name, workshop_path(workshop.to_param) %>
         </div>
       <% end %>
-
     <% else %>
 
       <h4><i class="fa fa-user" aria-hidden="true"></i> Rejoins-nous</h4>

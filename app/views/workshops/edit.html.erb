@@ -1,6 +1,19 @@
-<h1><%= t 'views.workshop.edit.title' %></h1>
+<section class="container-fluid bg_full_width">
+  <div class="filter">
+  </div>
+</section>
 
-<%= render 'form', workshop: @workshop %>
+<div class="container-fluid full_width inscription">
+  <div class="content">
 
-<%= link_to I18n.t('views.show'), @workshop.to_param %> |
-<%= link_to I18n.t('views.back'), workshops_path %>
+    <div class="design_form row">
+      <div class="col-md-offset-3 col-md-6">
+        <h1><%= t 'views.workshop.edit.title' %></h1>
+      </div>
+
+      <%= render 'form', workshop: @workshop %>
+
+    </div>
+
+  </div>
+</div>
