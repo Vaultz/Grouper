@@ -78,9 +78,8 @@ body {
 .logo {
   margin-top: 10px;
   margin-left: 10px;
-  width: 260px;
+  width: 220px;
 }
-
 
 /** NAV MOBILE **/
 
@@ -99,6 +98,11 @@ body {
 
   .open_menu {
     display: block !important;
+  }
+
+  .logo {
+    margin-top: 12px;
+    width: 200px !important;
   }
 }
 
