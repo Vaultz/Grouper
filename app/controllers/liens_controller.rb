@@ -67,7 +67,7 @@ class LiensController < ApplicationController
   def update
     respond_to do |format|
       if @lien.update(lien_params)
-        format.html { redirect_to @lien, notice: 'Lien was successfully updated.' }
+        format.html { redirect_to @lien, notice: 'Le lien a été mis à jour.' }
         format.json { render :show, status: :ok, location: @lien }
       else
         format.html { render :edit }
@@ -81,7 +81,7 @@ class LiensController < ApplicationController
   def destroy
     @lien.destroy
     respond_to do |format|
-      format.html { redirect_to liens_url, notice: 'Lien was successfully destroyed.' }
+      format.html { redirect_to liens_url, notice: 'Le lien a été supprimé avec succès.' }
       format.json { head :no_content }
     end
   end
