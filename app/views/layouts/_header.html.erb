@@ -47,13 +47,11 @@
       </div>
 
       <h4><i class="fa fa-list" aria-hidden="true"></i> Workshops</h4>
-
       <% @workshops.each do |workshop| %>
-        <div class="each_workshop <% if @workshop.name == workshop.name  %> active <% end %>">
+        <div class="each_workshop <% if @workshops.name == workshop.name  %> active <% end %>">
           <%= link_to workshop.name, workshop_path(workshop.to_param) %>
         </div>
       <% end %>
-
     <% else %>
 
       <h4><i class="fa fa-user" aria-hidden="true"></i> Rejoins-nous</h4>
